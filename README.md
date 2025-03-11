@@ -8,9 +8,8 @@
 
 ### 3 Que librerias o marcos de trabajo usaremos?
 - Java(lenguaje principal del proyecto).
-- Gradle(como gestor de dependencias)
-- libGDX(libreria ampliamente usada en el desarrollo de videojuegos en java).
-- Otros marcos de trabajo(principalmente que se puedan integrar con libGDX que sera la libreria principal del proyecto).
+- FXGL(libreria ampliamente usada en el desarrollo de videojuegos en java).
+- Otros marcos de trabajo(principalmente que se puedan integrar con FXGL que sera la libreria principal del proyecto).
 
 
 ### 4 En que estado de desarrollo se encuentra el proyecto?
