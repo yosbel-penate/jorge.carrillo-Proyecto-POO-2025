@@ -1,0 +1,152 @@
+@startuml
+
+'Clase Principal que se encarga de levantar el juego
+class GameApp{
+    -players : ArrayList<PLayersFactory>
+    -enemies : ArrayList<EnemyFactory>
+    -items : ArrayList<itemsFactory>
+    -TypeScreen : ScreensController
+    -turn : TurnController
+    -heightScreen : int
+    -widthScreen  : int
+
+    '
+
+    #initSettings()
+    #initInput()
+    #initGameVars()
+    #initPhysics()
+    #onUpDate()
+    #initGame()
+    #setScreen(ScreenController TyperScreen)
+    #setCharacters(ArrayList players, ArrayList enemies)
+}
+
+
+'Clase encargada de crear jugadores como entidades dentro del juego
+class playersFactory{
+    playersEntitiesBuilder()
+}
+
+'Clase encargada de crear enemigos como entidades dentro del juego
+class enemyFactory{
+    enemiesEntitiesBuilder()
+}
+
+'Clase encargada de crear mapas como entidades dentro del juego
+class MapFactory{
+    -mapsRoot : ArrayList<String>
+    mapsFactory()
+}
+
+'Clase encargada de crear items como entidades dentro del juego
+class itemsFactory{
+    itemsEntitesBuider()
+}
+
+class ScreensController{
+    selectTypesScreen()
+
+}
+
+class TurnController{
+    -enemiesInMap : ArrayList<enemyFactory>
+    -playersInMap : ArrayList<playerFactory>
+    -stepCounterEnemy : int
+    -stepCounterPlayer : int
+    -enemyTurn : boolean
+    -playersTurn : boolean
+    nextTurn()
+
+}
+
+class ScreenBattle {
+   screensBattleRoot : ArrayList<String>
+
+}
+
+class MapScreen{
+    -maps : ArrayList<MapsFactory>
+    -mapMatrix : ArrayList<int>
+    selectMap()
+}
+
+
+
+'Clase encargada de crear las animaciones de enemigos y jugadores
+class AnimationComponents {
+    -animationChannels : Animation
+    -speedX         : int
+    -speedY         : int
+    -positionX      : int
+    -positionY      : int
+
+
+    AnimationComponents()
+    skillAnimation()
+    moveUp()
+    moveLeft()
+    moveDown()
+    moveRight()
+    attack()
+    idle()
+    skill()
+    dead()
+    onAdded()
+    onUpdate()
+
+}
+
+
+'Clase encargada de crear los atributos de cada jugador o enemigo
+class charactersComponents{
+    -life : int
+    -name :Srting
+    -textureSprite : Texture
+    -items : itemFactory
+    -stepCounter : int
+    onAdded()
+}
+
+class GUIScreenController{
+    -buttons : button
+    -labels : label
+    -background : Image
+    nextScreen()
+}
+
+class GUIScreens{
+    uiScreenRoot : ArrayList<String>
+
+}
+
+'Clase encargada de crear los atributos de los items
+class ItemComponets{
+    name : String
+    textureSprite : Texture
+    effects()
+}
+
+'Reglas de Agregacion Y Composicion
+
+
+enemyFactory o-- AnimationComponents
+enemyFactory o-- charactersComponents
+playersFactory o-- charactersComponents
+playersFactory o-- AnimationComponents
+
+ScreensController ..|> "0..1" ScreenBattle
+ScreensController ..|> "0..1" MapScreen
+ScreensController ..|>  "0..1" GUIScreenController
+
+MapScreen *-- MapFactory
+itemsFactory *-- ItemComponets
+GUIScreenController *-- GUIScreens
+
+GameApp "1" *-- "1" TurnController
+GameApp "1"  *-- "1..*" ScreensController
+GameApp "1"  *-- "1..*" enemyFactory
+GameApp "1"  *-- "1..*" playersFactory
+GameApp --> "0..*" itemsFactory
+
+@enduml
