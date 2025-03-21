@@ -2,16 +2,9 @@
 
 'Clase Principal que se encarga de levantar el juego
 class GameApp{
-    -players : ArrayList<PLayersFactory>
-    -enemies : ArrayList<EnemyFactory>
-    -items : ArrayList<itemsFactory>
-    -TypeScreen : ScreensController
-    -turn : TurnController
     -heightScreen : int
     -widthScreen  : int
-
-    '
-
+    -boarGame : board
     #initSettings()
     #initInput()
     #initGameVars()
@@ -25,12 +18,32 @@ class GameApp{
 
 'Clase encargada de crear jugadores como entidades dentro del juego
 class playersFactory{
-    playersEntitiesBuilder()
+    DraLara : Entity
+    JaxKanne : Enitiy
+    ZaraQuinn : Enitiy
+    Marcus : Enitiy
+    Drake : Enitiy
+    
+    createZaraQuinn()
+    crateJax()
+    createQuinn()
+    createMarcus()
+    createDrake()
 }
 
 'Clase encargada de crear enemigos como entidades dentro del juego
 class enemyFactory{
-    enemiesEntitiesBuilder()
+    IACore : Enitiy
+    Xenomorf : Enitiy
+    Drone : Enitiy
+    Titan : Enitiy
+    Stalker : Enitiy
+    
+    createDrone()
+    createTitan()
+    createXenomorf()
+    createStalker()
+    createIACore()
 }
 
 'Clase encargada de crear mapas como entidades dentro del juego
@@ -41,48 +54,346 @@ class MapFactory{
 
 'Clase encargada de crear items como entidades dentro del juego
 class itemsFactory{
-    itemsEntitesBuider()
+    medicalKit : Entity
+    adrenalin : Entity
+    createMedicalKit()
+    createAdrenalin()
 }
 
-class ScreensController{
-    selectTypesScreen()
-
+class medicalKit{
+    type : item
+    setTextureSprite()
+    effect()
 }
+
+class adrenalin {
+    type : item
+    setTextureSprite()
+    effect()
+}
+
+'Clase encargada de crear los atributos de los items
+class ElementsComponents{
+    name : String
+    textureSprite : Texture
+    type : String
+    range : int
+    effects()
+}
+
 
 class TurnController{
-    -enemiesInMap : ArrayList<enemyFactory>
-    -playersInMap : ArrayList<playerFactory>
-    -stepCounterEnemy : int
-    -stepCounterPlayer : int
-    -enemyTurn : boolean
-    -playersTurn : boolean
-    nextTurn()
-
+   countStepPLayers : int
+   countStepEnemies : int
+   nextTurn()
 }
 
-class ScreenBattle {
-   screensBattleRoot : ArrayList<String>
-
+'Mapas de juego
+class mapComplements{
+    nameMap : String
+    spawnsPlayers : ArrayList<array>
+    spawnsEnemies : ArrayList<array>
+    spawnsPower :  ArrayList<array>
+    spawnsWeanpons :  ArrayList<array>
+    spawnsItems :  ArrayList<array>
+    background : Texture
+    walls : Entity
+    doors : Enity
+    loadWalls()
+    loadDoors()
 }
 
-class MapScreen{
-    -maps : ArrayList<MapsFactory>
-    -mapMatrix : ArrayList<int>
-    selectMap()
+class mapLevel_01 {
+    nameMap : "Main Hall"
+    spawnsPLayers : setPlayersSpawns()
+    spawnsEnemies : setEnemiesSpawns()
+    spawnsPowers : setPowersSpawns()
+    spawnsItems : setItemsSpawns()
+    spawnsWeanpons : setWeanponsSpawns()
+    background : "Main Hall"
+}
+
+class mapLevel_02 {
+    nameMap : "Alien Prison"
+    spawnsPLayers : setPlayersSpawns()
+    spawnsEnemies : setEnemiesSpawns()
+    spawnsPowers : setPowersSpawns()
+    spawnsItems : setItemsSpawns()
+    spawnsWeanpons : setWeanponsSpawns()
+    background : "Alien Prison"
+}
+
+
+class mapLevel_03 {
+    nameMap : "The Lab"
+    spawnsPLayers : setPlayersSpawns()
+    spawnsEnemies : setEnemiesSpawns()
+    spawnsPowers : setPowersSpawns()
+    spawnsItems : setItemsSpawns()
+    spawnsWeanpons : setWeanponsSpawns()
+    background : "The Lab"
+}
+
+
+class mapLevel_04 {
+    nameMap : "The Zoo"
+    spawnsPLayers : setPlayersSpawns()
+    spawnsEnemies : setEnemiesSpawns()
+    spawnsPowers : setPowersSpawns()
+    spawnsItems : setItemsSpawns()
+    spawnsWeanpons : setWeanponsSpawns()
+    background : "The Zoo"
+}
+
+class MapFactory {
+    level_01 : Entity
+    level_02 : Entity
+    level_03 : Entity
+    level_04 : Entity
+    
+    createLevel1(level_01)
+    creteLevel2(level_02)
+    createLevel3(level_03)
+    createLevel4(level_04)
+}
+
+
+'Enemies
+
+class Xenomorf{
+    name : Xenomorf
+    life : 30
+    stepCounter : 1
+    attack : 10
+    animationMov : animationIdle
+    setPositionX(int positionX)
+    setPositionY(int positionY)
+    setSpeedY(int speedY)
+    setSpeedX(int speedX)
+    animationSkill(Animation animationSkill)
+    moveUP(AnimationChannel animationUP)
+    moveLeft(AnimationChannel animationLeft)
+    moveRight(AnimationChannel animationRight)
+    moveDown(AnimationChannel animationDown)
+    attack(ANimationChannel animationAttack)
+    setAnimationsChannels()
+}
+
+class Stalker{
+    name : Stalker
+    life : 80
+    stepCounter : 3
+    attack : 25
+    animationMov : animationIdle
+    setPositionX(int positionX)
+    setPositionY(int positionY)
+    setSpeedY(int speedY)
+    setSpeedX(int speedX)
+    animationSkill(Animation animationSkill)
+    moveUP(AnimationChannel animationUP)
+    moveLeft(AnimationChannel animationLeft)
+    moveRight(AnimationChannel animationRight)
+    moveDown(AnimationChannel animationDown)
+    attack(ANimationChannel animationAttack)
+    setAnimationsChannels()
+}
+
+
+class Titan{
+    name : Titan
+    life : 300
+    stepCounter : 1
+    attack : 50
+    animationMov : animationIdle
+    setPositionX(int positionX)
+    setPositionY(int positionY)
+    setSpeedY(int speedY)
+    setSpeedX(int speedX)
+    animationSkill(Animation animationSkill)
+    moveUP(AnimationChannel animationUP)
+    moveLeft(AnimationChannel animationLeft)
+    moveRight(AnimationChannel animationRight)
+    moveDown(AnimationChannel animationDown)
+    attack(ANimationChannel animationAttack)
+    setAnimationsChannels()
+}
+
+
+class Drone{
+    name : Drone
+    life : 50
+    stepCounter : 10
+    attack : 5
+    animationMov : animationIdle
+    setPositionX(int positionX)
+    setPositionY(int positionY)
+    setSpeedY(int speedY)
+    setSpeedX(int speedX)
+    animationSkill(Animation animationSkill)
+    moveUP(AnimationChannel animationUP)
+    moveLeft(AnimationChannel animationLeft)
+    moveRight(AnimationChannel animationRight)
+    moveDown(AnimationChannel animationDown)
+    attack(ANimationChannel animationAttack)
+    setAnimationsChannels()
+}
+
+class IACore{
+    name : IACOre
+    life : 200
+    stepCounter : 5
+    attack : 15
+    animationMov : animationIdle
+    setPositionX(int positionX)
+    setPositionY(int positionY)
+    setSpeedY(int speedY)
+    setSpeedX(int speedX)
+    animationSkill(Animation animationSkill)
+    moveUP(AnimationChannel animationUP)
+    moveLeft(AnimationChannel animationLeft)
+    moveRight(AnimationChannel animationRight)
+    moveDown(AnimationChannel animationDown)
+    attack(ANimationChannel animationAttack)
+    setAnimationsChannels()
 }
 
 
 
-'Clase encargada de crear las animaciones de enemigos y jugadores
-class AnimationComponents {
+
+'players
+class ElenaDrakeCapitan{
+    name :Elena Drake
+    life : 150
+    skillName : TacticOrder
+    stepCounter : 4
+    rol : Strategist
+    attack : 5
+    animationMov : animationIdle
+    setPositionX(int positionX)
+    setPositionY(int positionY)
+    setSpeedY(int speedY)
+    setSpeedX(int speedX)
+    animationSkill(Animation animationSkill)
+    moveUP(AnimationChannel animationUP)
+    moveLeft(AnimationChannel animationLeft)
+    moveRight(AnimationChannel animationRight)
+    moveDown(AnimationChannel animationDown)
+    attack(ANimationChannel animationAttack)
+    setAnimationsChannels()
+}
+
+class EngineerMarcus{
+    name : Engiener Marcus
+    life : 120
+    skillName : Emergens FIx
+    stepCounter : 3
+    rol : Builder
+    attack : 2
+    animationMov : animationIdle
+    setPositionX(int positionX)
+    setPositionY(int positionY)
+    setSpeedY(int speedY)
+    setSpeedX(int speedX)
+    animationSkill(Animation animationSkill)
+    moveUP(AnimationChannel animationUP)
+    moveLeft(AnimationChannel animationLeft)
+    moveRight(AnimationChannel animationRight)
+    moveDown(AnimationChannel animationDown)
+    attack(ANimationChannel animationAttack)
+    setAnimationsChannels()
+}
+
+class DraLara{
+    name : Dra. Lara
+    life : 120
+    skillName : Quick analysis
+    stepCounter : 3
+    rol : Support
+    attack : 2
+    animationMov : animationIdle
+    setPositionX(int positionX)
+    setPositionY(int positionY)
+    setSpeedY(int speedY)
+    setSpeedX(int speedX)
+    animationSkill(Animation animationSkill)
+    moveUP(AnimationChannel animationUP)
+    moveLeft(AnimationChannel animationLeft)
+    moveRight(AnimationChannel animationRight)
+    moveDown(AnimationChannel animationDown)
+    attack(ANimationChannel animationAttack)
+    setAnimationsChannels()
+}
+ 
+class JaxKane{
+    name : Jax Kane
+    life : 180
+    skillName : Devastating attack
+    stepCounter : 2
+    rol : Assault
+    attack : 10
+    animationMov : animationIdle
+    setPositionX(int positionX)
+    setPositionY(int positionY)
+    setSpeedY(int speedY)
+    setSpeedX(int speedX)
+    animationSkill(Animation animationSkill)
+    moveUP(AnimationChannel animationUP)
+    moveLeft(AnimationChannel animationLeft)
+    moveRight(AnimationChannel animationRight)
+    moveDown(AnimationChannel animationDown)
+    attack(ANimationChannel animationAttack)
+    setAnimationsChannels()
+}
+
+class ZaraQuinn{
+    name : Zara Quinn
+    life : 110
+    skillName : Precise shooting
+    stepCounter : 6
+    rol : Explorer
+    attack : 5
+    animationMov : animationIdle
+    setPositionX(int positionX)
+    setPositionY(int positionY)
+    setSpeedY(int speedY)
+    setSpeedX(int speedX)
+    animationSkill(Animation animationSkill)
+    moveUP(AnimationChannel animationUP)
+    moveLeft(AnimationChannel animationLeft)
+    moveRight(AnimationChannel animationRight)
+    moveDown(AnimationChannel animationDown)
+    attack(ANimationChannel animationAttack)
+    setAnimationsChannels()
+}
+ 
+ 
+
+    
+'Clase encargada de crear los atributos de cada jugador o enemigo
+class charactersComponents{
+    -life : int
+    -attack : int
+    -name :Srting
+    -items : itemFactory
+    -stepCounter : int
+    -rol : String
+    -skillName : String
     -animationChannels : Animation
+    -animationSkill : AnimationChannel
+    -animationUP : AnimationChannel
+    -animationLeft :AnimationChannel
+    -animationRight :AnimationChannel
+    -animationDown :AnimationChannel
+    -animationIdle :ANimationChannel
+    -animationMov : AnimationChanel
+    -animationDead : AnimationChannel
+    -animationAttack : AnimationChannel
     -speedX         : int
     -speedY         : int
     -positionX      : int
     -positionY      : int
-
-
-    AnimationComponents()
+    
+    
     skillAnimation()
     moveUp()
     moveLeft()
@@ -90,63 +401,144 @@ class AnimationComponents {
     moveRight()
     attack()
     idle()
-    skill()
+    skillAnimation()
     dead()
+    setAnimationsChannels()
     onAdded()
     onUpdate()
 
 }
 
 
-'Clase encargada de crear los atributos de cada jugador o enemigo
-class charactersComponents{
-    -life : int
-    -name :Srting
-    -textureSprite : Texture
-    -items : itemFactory
-    -stepCounter : int
-    onAdded()
+'Aramas del juego
+class weaponFactory{
+    plasmaRifle : Entity
+    flamethrower : Entity
+    createPlasmaRifle()
+    createFlamethrower()
 }
 
-class GUIScreenController{
-    -buttons : button
-    -labels : label
-    -background : Image
-    nextScreen()
+class powersFactory{
+    energyShield : Enity
+    remoteHacking : Entity
+    createEnergyShield()
+    createRemoteHacking()
 }
 
-class GUIScreens{
-    uiScreenRoot : ArrayList<String>
 
+class flamethrower {
+    type : Weanpon
+    range : 2
+    attack : 50
+    setTextureSprite()
 }
 
-'Clase encargada de crear los atributos de los items
-class ItemComponets{
-    name : String
-    textureSprite : Texture
-    effects()
+class plasmaRifle{
+    type : weanpon
+    range : 5
+    attack : 5
+    setTextureSprite()
 }
+
+'Poderes
+
+class remoteHacking{
+    name : Remote Hacking
+    range : 5
+    type : Power
+    effect()
+    setTexureSprite()
+}
+
+class energyShield {
+    name  : Energy Shield
+    range : 1
+    type : Power
+    effect()
+    setTextureSprite()
+}
+
+'Game Board
+class GameBoard{
+    enemiesInMapList : ArrayList<enemyFactory>
+    playersInMapList : ArrayList<playersFactory>
+    itemsInMap : ArrayList<itemsFactory>
+    powersInMap : ArrayList<powersFactory>
+    weanponsInMap : ArrayList<weanponsFactory>
+    boardMatrix : ArrayList<int>
+    mapInBoard : String
+    setEnemies(enemyFactory enemy)
+    setPlayers(palyerFactory player)
+    setItem(ItemFactory item)
+    setPower(PowerFactory power)
+    setWeapons(WeaponFactory weapon)
+    setBoardMap(MapsFactory mapp)
+    updateBoard()
+}
+
+
 
 'Reglas de Agregacion Y Composicion
 
+JaxKane --|> charactersComponents
+ZaraQuinn --|> charactersComponents
+DraLara --|> charactersComponents
+EngineerMarcus --|> charactersComponents
+ElenaDrakeCapitan --|> charactersComponents
 
-enemyFactory o-- AnimationComponents
-enemyFactory o-- charactersComponents
-playersFactory o-- charactersComponents
-playersFactory o-- AnimationComponents
 
-ScreensController ..|> "0..1" ScreenBattle
-ScreensController ..|> "0..1" MapScreen
-ScreensController ..|>  "0..1" GUIScreenController
+IACore--|> charactersComponents
+Xenomorf--|> charactersComponents
+Drone --|> charactersComponents
+Titan --|> charactersComponents
+Stalker --|> charactersComponents
 
-MapScreen *-- MapFactory
-itemsFactory *-- ItemComponets
-GUIScreenController *-- GUIScreens
+enemyFactory o-- "1" IACore
+enemyFactory o-- "1" Xenomorf
+enemyFactory o-- "1" Drone
+enemyFactory o-- "1" Titan
+enemyFactory o-- "1" Stalker
 
-GameApp "1" *-- "1" TurnController
-GameApp "1"  *-- "1..*" ScreensController
-GameApp "1"  *-- "1..*" enemyFactory
-GameApp "1"  *-- "1..*" playersFactory
-GameApp --> "0..*" itemsFactory
+playersFactory o-- "1" JaxKane
+playersFactory o-- "1" EngineerMarcus
+playersFactory o-- "1" DraLara
+playersFactory o-- "1" ElenaDrakeCapitan
+playersFactory o-- "1" ZaraQuinn
+
+itemsFactory o-- "1..*" medicalKit
+itemsFactory o-- "1..*" adrenalin
+
+GameApp *-- "1" GameBoard
+
+'GameBoard
+GameBoard *-- playersFactory : "tiene un"
+GameBoard *-- enemyFactory : "tiene un"
+GameBoard *-- itemsFactory : "tiene un"
+GameBoard *-- weaponFactory : "tiene un"
+GameBoard *-- powersFactory : "tiene un"
+GameBoard *-- MapFactory
+TurnController *-- "1" GameBoard
+
+medicalKit --|> ElementsComponents
+adrenalin  --|> ElementsComponents
+flamethrower --|> ElementsComponents
+plasmaRifle --|> ElementsComponents
+energyShield --|> ElementsComponents
+remoteHacking --|> ElementsComponents
+
+powersFactory o-- "1..*" energyShield
+powersFactory o-- "1..*" remoteHacking
+weaponFactory o-- "1..*" flamethrower
+weaponFactory o-- "1..*" plasmaRifle
+
+MapFactory o-- mapLevel_01
+MapFactory o-- mapLevel_02
+MapFactory o-- mapLevel_03
+MapFactory o-- mapLevel_04
+
+mapLevel_01 --|> mapComplements
+mapLevel_02 --|> mapComplements
+mapLevel_03 --|> mapComplements
+mapLevel_04 --|> mapComplements
 
 @enduml
