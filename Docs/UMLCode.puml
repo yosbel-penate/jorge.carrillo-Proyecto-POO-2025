@@ -16,71 +16,27 @@ class GameApp{
 }
 
 
-'Clase encargada de crear jugadores como entidades dentro del juego
-class playersFactory{
-    DraLara : Entity
-    JaxKanne : Enitiy
-    ZaraQuinn : Enitiy
-    Marcus : Enitiy
-    Drake : Enitiy
-    
-    createZaraQuinn()
-    crateJax()
-    createQuinn()
-    createMarcus()
-    createDrake()
-}
-
-'Clase encargada de crear enemigos como entidades dentro del juego
-class enemyFactory{
-    IACore : Enitiy
-    Xenomorf : Enitiy
-    Drone : Enitiy
-    Titan : Enitiy
-    Stalker : Enitiy
-    
-    createDrone()
-    createTitan()
-    createXenomorf()
-    createStalker()
-    createIACore()
-}
-
-'Clase encargada de crear mapas como entidades dentro del juego
-class MapFactory{
-    -mapsRoot : ArrayList<String>
-    mapsFactory()
-}
-
 'Clase encargada de crear items como entidades dentro del juego
-class itemsFactory{
-    medicalKit : Entity
-    adrenalin : Entity
-    createMedicalKit()
-    createAdrenalin()
+class Items{
+    nameItems: String
+    type: String
+    effect()
+    textureSprite : texture
 }
 
 class medicalKit{
+    nameItem : "Medical KIt"
     type : item
     setTextureSprite()
     effect()
 }
 
 class adrenalin {
+    nameItem : "Adrenalin"
     type : item
     setTextureSprite()
     effect()
 }
-
-'Clase encargada de crear los atributos de los items
-class ElementsComponents{
-    name : String
-    textureSprite : Texture
-    type : String
-    range : int
-    effects()
-}
-
 
 class TurnController{
    countStepPLayers : int
@@ -89,19 +45,6 @@ class TurnController{
 }
 
 'Mapas de juego
-class mapComplements{
-    nameMap : String
-    spawnsPlayers : ArrayList<array>
-    spawnsEnemies : ArrayList<array>
-    spawnsPower :  ArrayList<array>
-    spawnsWeanpons :  ArrayList<array>
-    spawnsItems :  ArrayList<array>
-    background : Texture
-    walls : Entity
-    doors : Enity
-    loadWalls()
-    loadDoors()
-}
 
 class mapLevel_01 {
     nameMap : "Main Hall"
@@ -145,16 +88,18 @@ class mapLevel_04 {
     background : "The Zoo"
 }
 
-class MapFactory {
-    level_01 : Entity
-    level_02 : Entity
-    level_03 : Entity
-    level_04 : Entity
-    
-    createLevel1(level_01)
-    creteLevel2(level_02)
-    createLevel3(level_03)
-    createLevel4(level_04)
+class Maps {
+    nameMap : String
+    backgroundTexture : Texture
+    spawnsPlayers : ArrayList<array>
+    spawnsEnemies : ArrayList<array>
+    spawnsPower :  ArrayList<array>
+    spawnsWeanpons :  ArrayList<array>
+    spawnsItems :  ArrayList<array>
+    walls : Texture
+    doors : Texture
+    loadWalls()
+    loadDoors()
 }
 
 
@@ -370,7 +315,7 @@ class ZaraQuinn{
 
     
 'Clase encargada de crear los atributos de cada jugador o enemigo
-class charactersComponents{
+class Players{
     -life : int
     -attack : int
     -name :Srting
@@ -393,8 +338,6 @@ class charactersComponents{
     -positionX      : int
     -positionY      : int
     
-    
-    skillAnimation()
     moveUp()
     moveLeft()
     moveDown()
@@ -404,29 +347,64 @@ class charactersComponents{
     skillAnimation()
     dead()
     setAnimationsChannels()
-    onAdded()
     onUpdate()
 
 }
 
-
-'Aramas del juego
-class weaponFactory{
-    plasmaRifle : Entity
-    flamethrower : Entity
-    createPlasmaRifle()
-    createFlamethrower()
+class Enemies{
+    -life : int
+    -attack : int
+    -name :Srting
+    -stepCounter : int
+    -animationChannels : Animation
+    -animationSkill : AnimationChannel
+    -animationUP : AnimationChannel
+    -animationLeft :AnimationChannel
+    -animationRight :AnimationChannel
+    -animationDown :AnimationChannel
+    -animationIdle :ANimationChannel
+    -animationMov : AnimationChanel
+    -animationDead : AnimationChannel
+    -animationAttack : AnimationChannel
+    -speedX         : int
+    -speedY         : int
+    -positionX      : int
+    -positionY      : int
+    
+    
+    moveUp()
+    moveLeft()
+    moveDown()
+    moveRight()
+    attack()
+    idle()
+    dead()
+    setAnimationsChannels()
+    onUpdate()
 }
 
-class powersFactory{
-    energyShield : Enity
-    remoteHacking : Entity
-    createEnergyShield()
-    createRemoteHacking()
+
+
+'Aramas del juego
+class Weanpons {
+    nameWeanpon : String
+    type: String
+    effect()
+    range : int
+    textureSprite : texture
+}
+
+class Powers{
+    namePower : String
+    type : String
+    textureSprite : texture
+    range : int
+    effect()
 }
 
 
 class flamethrower {
+    nameWeanpon "Flamethrower"
     type : Weanpon
     range : 2
     attack : 50
@@ -434,6 +412,7 @@ class flamethrower {
 }
 
 class plasmaRifle{
+    nameWeanpon : "Plasma Rifle"
     type : weanpon
     range : 5
     attack : 5
@@ -443,36 +422,36 @@ class plasmaRifle{
 'Poderes
 
 class remoteHacking{
-    name : Remote Hacking
+    name : "Remote Hacking"
     range : 5
     type : Power
     effect()
-    setTexureSprite()
+    setTexureSprite(Texture)
 }
 
 class energyShield {
-    name  : Energy Shield
+    name  : "Energy Shield"
     range : 1
     type : Power
     effect()
-    setTextureSprite()
+    setTextureSprite(Texture)
 }
 
 'Game Board
 class GameBoard{
-    enemiesInMapList : ArrayList<enemyFactory>
-    playersInMapList : ArrayList<playersFactory>
-    itemsInMap : ArrayList<itemsFactory>
-    powersInMap : ArrayList<powersFactory>
-    weanponsInMap : ArrayList<weanponsFactory>
+    enemiesInMapList : ArrayList<Enemies>
+    playersInMapList : ArrayList<Players>
+    itemsInMap : ArrayList<Items>
+    powersInMap : ArrayList<Powers>
+    weanponsInMap : ArrayList<Weanpons>
     boardMatrix : ArrayList<int>
     mapInBoard : String
-    setEnemies(enemyFactory enemy)
-    setPlayers(palyerFactory player)
-    setItem(ItemFactory item)
-    setPower(PowerFactory power)
-    setWeapons(WeaponFactory weapon)
-    setBoardMap(MapsFactory mapp)
+    setEnemies(Enemies enemy)
+    setPlayers(Players player)
+    setItem(Items item)
+    setPower(Powers power)
+    setWeapons(Weapons weapon)
+    setBoardMap(Maps mapp)
     updateBoard()
 }
 
@@ -480,65 +459,42 @@ class GameBoard{
 
 'Reglas de Agregacion Y Composicion
 
-JaxKane --|> charactersComponents
-ZaraQuinn --|> charactersComponents
-DraLara --|> charactersComponents
-EngineerMarcus --|> charactersComponents
-ElenaDrakeCapitan --|> charactersComponents
+Enemies o-- "1..*" IACore
+Enemies o-- "1..*" Xenomorf
+Enemies  o-- "1..*" Drone
+Enemies  o-- "1..*" Titan
+Enemies  o-- "1..*" Stalker
 
-
-IACore--|> charactersComponents
-Xenomorf--|> charactersComponents
-Drone --|> charactersComponents
-Titan --|> charactersComponents
-Stalker --|> charactersComponents
-
-enemyFactory o-- "1" IACore
-enemyFactory o-- "1" Xenomorf
-enemyFactory o-- "1" Drone
-enemyFactory o-- "1" Titan
-enemyFactory o-- "1" Stalker
-
-playersFactory o-- "1" JaxKane
-playersFactory o-- "1" EngineerMarcus
-playersFactory o-- "1" DraLara
-playersFactory o-- "1" ElenaDrakeCapitan
-playersFactory o-- "1" ZaraQuinn
-
-itemsFactory o-- "1..*" medicalKit
-itemsFactory o-- "1..*" adrenalin
+Players o-- "1" JaxKane
+Players o-- "1" EngineerMarcus
+Players o-- "1" DraLara
+Players o-- "1" ElenaDrakeCapitan
+Players o-- "1" ZaraQuinn
 
 GameApp *-- "1" GameBoard
 
 'GameBoard
-GameBoard *-- playersFactory : "tiene un"
-GameBoard *-- enemyFactory : "tiene un"
-GameBoard *-- itemsFactory : "tiene un"
-GameBoard *-- weaponFactory : "tiene un"
-GameBoard *-- powersFactory : "tiene un"
-GameBoard *-- MapFactory
+GameBoard *-- Players : "tiene varios"
+GameBoard *-- Enemies : "tiene varios"
+GameBoard *-- Items : "tiene varios"
+GameBoard *-- Weanpons : "tiene varios"
+GameBoard *-- Powers: "tiene varios"
+GameBoard *-- Maps : "tiene varios"
 TurnController *-- "1" GameBoard
 
-medicalKit --|> ElementsComponents
-adrenalin  --|> ElementsComponents
-flamethrower --|> ElementsComponents
-plasmaRifle --|> ElementsComponents
-energyShield --|> ElementsComponents
-remoteHacking --|> ElementsComponents
+Powers o-- "1..*" energyShield
+Powers o-- "1..*" remoteHacking
+Weanpons o-- "1..*" flamethrower
+Weanpons o-- "1..*" plasmaRifle
 
-powersFactory o-- "1..*" energyShield
-powersFactory o-- "1..*" remoteHacking
-weaponFactory o-- "1..*" flamethrower
-weaponFactory o-- "1..*" plasmaRifle
+Items o-- medicalKit : "tiene un"
+Items o-- adrenalin : "tiene un"
 
-MapFactory o-- mapLevel_01
-MapFactory o-- mapLevel_02
-MapFactory o-- mapLevel_03
-MapFactory o-- mapLevel_04
+Maps o-- mapLevel_01 : "tiene un"
+Maps o-- mapLevel_02 : "tiene un"
+Maps o-- mapLevel_03 : "tiene un"
+Maps o-- mapLevel_04 : "tiene un"
 
-mapLevel_01 --|> mapComplements
-mapLevel_02 --|> mapComplements
-mapLevel_03 --|> mapComplements
-mapLevel_04 --|> mapComplements
+
 
 @enduml
