@@ -22,20 +22,15 @@ class Items{
     type: String
     effect()
     textureSprite : texture
+    enhancement effect()
 }
 
 class medicalKit{
-    nameItem : "Medical KIt"
-    type : item
-    setTextureSprite()
-    effect()
+    increaseInLife : int
 }
 
 class adrenalin {
-    nameItem : "Adrenalin"
-    type : item
-    setTextureSprite()
-    effect()
+    increaseInSpeed : int
 }
 
 class TurnController{
@@ -47,48 +42,27 @@ class TurnController{
 'Mapas de juego
 
 class mapLevel_01 {
-    nameMap : "Main Hall"
-    spawnsPLayers : setPlayersSpawns()
-    spawnsEnemies : setEnemiesSpawns()
-    spawnsPowers : setPowersSpawns()
-    spawnsItems : setItemsSpawns()
-    spawnsWeanpons : setWeanponsSpawns()
-    background : "Main Hall"
+    zooWalls : Sprite
+    zooDolls : Sprite
+    alienSpecimen  : Sprite
 }
 
 class mapLevel_02 {
-    nameMap : "Alien Prison"
-    spawnsPLayers : setPlayersSpawns()
-    spawnsEnemies : setEnemiesSpawns()
-    spawnsPowers : setPowersSpawns()
-    spawnsItems : setItemsSpawns()
-    spawnsWeanpons : setWeanponsSpawns()
-    background : "Alien Prison"
+    labWalls : Sprite
+    labDoors : Sprite
+    experiments : Sprite
 }
-
 
 class mapLevel_03 {
-    nameMap : "The Lab"
-    spawnsPLayers : setPlayersSpawns()
-    spawnsEnemies : setEnemiesSpawns()
-    spawnsPowers : setPowersSpawns()
-    spawnsItems : setItemsSpawns()
-    spawnsWeanpons : setWeanponsSpawns()
-    background : "The Lab"
-}
-
-
-class mapLevel_04 {
-    nameMap : "The Zoo"
-    spawnsPLayers : setPlayersSpawns()
-    spawnsEnemies : setEnemiesSpawns()
-    spawnsPowers : setPowersSpawns()
-    spawnsItems : setItemsSpawns()
-    spawnsWeanpons : setWeanponsSpawns()
-    background : "The Zoo"
+    wallsWall : Sprite
+    wallDoors : Sprite
+    aliens : Sprite
 }
 
 class Maps {
+    environmentalHazardsPositionX : ArrayList<int>
+    environmentalHazardsPositionY : ArrayList<int>
+    environmentalHazardsList : ArrayList<environmentalHazards>
     nameMap : String
     backgroundTexture : Texture
     spawnsPlayers : ArrayList<array>
@@ -106,225 +80,57 @@ class Maps {
 'Enemies
 
 class Xenomorf{
-    name : Xenomorf
-    life : 30
-    stepCounter : 1
-    attack : 10
-    animationMov : animationIdle
-    setPositionX(int positionX)
-    setPositionY(int positionY)
-    setSpeedY(int speedY)
-    setSpeedX(int speedX)
-    animationSkill(Animation animationSkill)
-    moveUP(AnimationChannel animationUP)
-    moveLeft(AnimationChannel animationLeft)
-    moveRight(AnimationChannel animationRight)
-    moveDown(AnimationChannel animationDown)
-    attack(ANimationChannel animationAttack)
-    setAnimationsChannels()
+    xenomorfAduction()
 }
 
 class Stalker{
-    name : Stalker
-    life : 80
-    stepCounter : 3
-    attack : 25
-    animationMov : animationIdle
-    setPositionX(int positionX)
-    setPositionY(int positionY)
-    setSpeedY(int speedY)
-    setSpeedX(int speedX)
-    animationSkill(Animation animationSkill)
-    moveUP(AnimationChannel animationUP)
-    moveLeft(AnimationChannel animationLeft)
-    moveRight(AnimationChannel animationRight)
-    moveDown(AnimationChannel animationDown)
-    attack(ANimationChannel animationAttack)
-    setAnimationsChannels()
+    stalkerView()
 }
-
 
 class Titan{
-    name : Titan
-    life : 300
-    stepCounter : 1
-    attack : 50
-    animationMov : animationIdle
-    setPositionX(int positionX)
-    setPositionY(int positionY)
-    setSpeedY(int speedY)
-    setSpeedX(int speedX)
-    animationSkill(Animation animationSkill)
-    moveUP(AnimationChannel animationUP)
-    moveLeft(AnimationChannel animationLeft)
-    moveRight(AnimationChannel animationRight)
-    moveDown(AnimationChannel animationDown)
-    attack(ANimationChannel animationAttack)
-    setAnimationsChannels()
+    devastationTitan()
 }
 
-
 class Drone{
-    name : Drone
-    life : 50
-    stepCounter : 10
-    attack : 5
-    animationMov : animationIdle
-    setPositionX(int positionX)
-    setPositionY(int positionY)
-    setSpeedY(int speedY)
-    setSpeedX(int speedX)
-    animationSkill(Animation animationSkill)
-    moveUP(AnimationChannel animationUP)
-    moveLeft(AnimationChannel animationLeft)
-    moveRight(AnimationChannel animationRight)
-    moveDown(AnimationChannel animationDown)
-    attack(ANimationChannel animationAttack)
-    setAnimationsChannels()
+    droneWatch()    
 }
 
 class IACore{
-    name : IACOre
-    life : 200
-    stepCounter : 5
-    attack : 15
-    animationMov : animationIdle
-    setPositionX(int positionX)
-    setPositionY(int positionY)
-    setSpeedY(int speedY)
-    setSpeedX(int speedX)
-    animationSkill(Animation animationSkill)
-    moveUP(AnimationChannel animationUP)
-    moveLeft(AnimationChannel animationLeft)
-    moveRight(AnimationChannel animationRight)
-    moveDown(AnimationChannel animationDown)
-    attack(ANimationChannel animationAttack)
-    setAnimationsChannels()
+    hackingIaCore()
 }
-
-
-
 
 'players
 class ElenaDrakeCapitan{
-    name :Elena Drake
-    life : 150
-    skillName : TacticOrder
-    stepCounter : 4
-    rol : Strategist
-    attack : 5
-    animationMov : animationIdle
-    setPositionX(int positionX)
-    setPositionY(int positionY)
-    setSpeedY(int speedY)
-    setSpeedX(int speedX)
-    animationSkill(Animation animationSkill)
-    moveUP(AnimationChannel animationUP)
-    moveLeft(AnimationChannel animationLeft)
-    moveRight(AnimationChannel animationRight)
-    moveDown(AnimationChannel animationDown)
-    attack(ANimationChannel animationAttack)
-    setAnimationsChannels()
+    skillTacticOrder()
 }
 
 class EngineerMarcus{
-    name : Engiener Marcus
-    life : 120
-    skillName : Emergens FIx
-    stepCounter : 3
-    rol : Builder
-    attack : 2
-    animationMov : animationIdle
-    setPositionX(int positionX)
-    setPositionY(int positionY)
-    setSpeedY(int speedY)
-    setSpeedX(int speedX)
-    animationSkill(Animation animationSkill)
-    moveUP(AnimationChannel animationUP)
-    moveLeft(AnimationChannel animationLeft)
-    moveRight(AnimationChannel animationRight)
-    moveDown(AnimationChannel animationDown)
-    attack(ANimationChannel animationAttack)
-    setAnimationsChannels()
+    skillEmergensFix()
 }
 
 class DraLara{
-    name : Dra. Lara
-    life : 120
-    skillName : Quick analysis
-    stepCounter : 3
-    rol : Support
-    attack : 2
-    animationMov : animationIdle
-    setPositionX(int positionX)
-    setPositionY(int positionY)
-    setSpeedY(int speedY)
-    setSpeedX(int speedX)
-    animationSkill(Animation animationSkill)
-    moveUP(AnimationChannel animationUP)
-    moveLeft(AnimationChannel animationLeft)
-    moveRight(AnimationChannel animationRight)
-    moveDown(AnimationChannel animationDown)
-    attack(ANimationChannel animationAttack)
-    setAnimationsChannels()
+    skillQuickAnalysis()
 }
  
 class JaxKane{
-    name : Jax Kane
-    life : 180
-    skillName : Devastating attack
-    stepCounter : 2
-    rol : Assault
-    attack : 10
-    animationMov : animationIdle
-    setPositionX(int positionX)
-    setPositionY(int positionY)
-    setSpeedY(int speedY)
-    setSpeedX(int speedX)
-    animationSkill(Animation animationSkill)
-    moveUP(AnimationChannel animationUP)
-    moveLeft(AnimationChannel animationLeft)
-    moveRight(AnimationChannel animationRight)
-    moveDown(AnimationChannel animationDown)
-    attack(ANimationChannel animationAttack)
-    setAnimationsChannels()
+    skillDevastatingAttack()
 }
 
 class ZaraQuinn{
-    name : Zara Quinn
-    life : 110
-    skillName : Precise shooting
-    stepCounter : 6
-    rol : Explorer
-    attack : 5
-    animationMov : animationIdle
-    setPositionX(int positionX)
-    setPositionY(int positionY)
-    setSpeedY(int speedY)
-    setSpeedX(int speedX)
-    animationSkill(Animation animationSkill)
-    moveUP(AnimationChannel animationUP)
-    moveLeft(AnimationChannel animationLeft)
-    moveRight(AnimationChannel animationRight)
-    moveDown(AnimationChannel animationDown)
-    attack(ANimationChannel animationAttack)
-    setAnimationsChannels()
+    skillRemoveEnemies()
 }
  
  
 
     
 'Clase encargada de crear los atributos de cada jugador o enemigo
-class Players{
+class Characters{
     -life : int
     -attack : int
     -name :Srting
     -items : itemFactory
     -stepCounter : int
-    -rol : String
-    -skillName : String
     -animationChannels : Animation
-    -animationSkill : AnimationChannel
     -animationUP : AnimationChannel
     -animationLeft :AnimationChannel
     -animationRight :AnimationChannel
@@ -338,49 +144,28 @@ class Players{
     -positionX      : int
     -positionY      : int
     
+    setPositionX()
+    setPositionY()
     moveUp()
     moveLeft()
     moveDown()
     moveRight()
     attack()
     idle()
-    skillAnimation()
     dead()
     setAnimationsChannels()
     onUpdate()
-
 }
 
-class Enemies{
-    -life : int
-    -attack : int
-    -name :Srting
-    -stepCounter : int
-    -animationChannels : Animation
-    -animationSkill : AnimationChannel
-    -animationUP : AnimationChannel
-    -animationLeft :AnimationChannel
-    -animationRight :AnimationChannel
-    -animationDown :AnimationChannel
-    -animationIdle :ANimationChannel
-    -animationMov : AnimationChanel
-    -animationDead : AnimationChannel
-    -animationAttack : AnimationChannel
-    -speedX         : int
-    -speedY         : int
-    -positionX      : int
-    -positionY      : int
-    
-    
-    moveUp()
-    moveLeft()
-    moveDown()
-    moveRight()
-    attack()
-    idle()
-    dead()
-    setAnimationsChannels()
-    onUpdate()
+class Players{
+    rol : String
+    skill : String
+    skillAnimation : Animation
+    skillAnimation(Animation skill Animation)
+}
+
+class Enemies {
+    typeEnemy : String
 }
 
 
@@ -404,37 +189,21 @@ class Powers{
 
 
 class flamethrower {
-    nameWeanpon "Flamethrower"
-    type : Weanpon
-    range : 2
-    attack : 50
-    setTextureSprite()
+    fireTorrent()
 }
 
 class plasmaRifle{
-    nameWeanpon : "Plasma Rifle"
-    type : weanpon
-    range : 5
-    attack : 5
-    setTextureSprite()
+    plasmaTorrent()
 }
 
 'Poderes
 
 class remoteHacking{
-    name : "Remote Hacking"
-    range : 5
-    type : Power
-    effect()
-    setTexureSprite(Texture)
+    breakSistemEnemies()
 }
 
 class energyShield {
-    name  : "Energy Shield"
-    range : 1
-    type : Power
-    effect()
-    setTextureSprite(Texture)
+    protectPlayers()
 }
 
 'Game Board
@@ -459,42 +228,59 @@ class GameBoard{
 
 'Reglas de Agregacion Y Composicion
 
-Enemies o-- "1..*" IACore
-Enemies o-- "1..*" Xenomorf
-Enemies  o-- "1..*" Drone
-Enemies  o-- "1..*" Titan
-Enemies  o-- "1..*" Stalker
+Enemies --|> "1..*" IACore : "es un"
+Enemies --|> "1..*" Xenomorf : "es un"
+Enemies  --|>  "1..*" Drone : "es un"
+Enemies  --|> "1..*" Titan : "es un"
+Enemies  --|> "1..*" Stalker : "es un"
 
-Players o-- "1" JaxKane
-Players o-- "1" EngineerMarcus
-Players o-- "1" DraLara
-Players o-- "1" ElenaDrakeCapitan
-Players o-- "1" ZaraQuinn
+Characters --|> Players : "es un" 
+Characters --|> Enemies : "es un"
 
-GameApp *-- "1" GameBoard
+Players --|> "1" JaxKane : "es un"
+Players --|>  "1" EngineerMarcus : "es un"
+Players --|> "1" DraLara : "es un"
+Players --|> "1" ElenaDrakeCapitan : "es un"
+Players --|>  "1" ZaraQuinn : "es un"
+
+GameApp *-- "1" GameBoard : "contiene un"
 
 'GameBoard
-GameBoard *-- Players : "tiene varios"
-GameBoard *-- Enemies : "tiene varios"
+GameBoard *-- Characters : "tiene varios"
 GameBoard *-- Items : "tiene varios"
 GameBoard *-- Weanpons : "tiene varios"
 GameBoard *-- Powers: "tiene varios"
 GameBoard *-- Maps : "tiene varios"
-TurnController *-- "1" GameBoard
+TurnController *-- "1" GameBoard 
+Maps *-- environmentalHazards : "tiene varios"
 
-Powers o-- "1..*" energyShield
-Powers o-- "1..*" remoteHacking
-Weanpons o-- "1..*" flamethrower
-Weanpons o-- "1..*" plasmaRifle
+class environmentalHazards {
+    name : String
+    AnimationDanger : Animation
+    damage : int
+}
 
-Items o-- medicalKit : "tiene un"
-Items o-- adrenalin : "tiene un"
+class radioactiveTank {
+    poisonEfecct()
+}
 
-Maps o-- mapLevel_01 : "tiene un"
-Maps o-- mapLevel_02 : "tiene un"
-Maps o-- mapLevel_03 : "tiene un"
-Maps o-- mapLevel_04 : "tiene un"
+class ventilationDuct {
+    teleportRandomPLace()
+}
 
+Powers --|> "1..*" energyShield : "es un"
+Powers --|> "1..*" remoteHacking : "es un"
+Weanpons --|> "1..*" flamethrower : "es un"
+Weanpons --|> "1..*" plasmaRifle : "es un"
 
+Items --|> medicalKit : "es un"
+Items --|> adrenalin : "es un"
+
+environmentalHazards --|> radioactiveTank : "es un"
+environmentalHazards --|> ventilationDuct : "es un"
+
+Maps --|> mapLevel_01 : "es un"
+Maps --|> mapLevel_02 : "es un"
+Maps --|> mapLevel_03 : "es un"
 
 @enduml
