@@ -76,44 +76,44 @@ class Maps {
 
 'Enemies
 
-class Xenomorf{
+class src.main.java.Characters.Enemies.Xenomorf{
     xenomorfAduction()
 }
 
-class Stalker{
+class src.main.java.Characters.Enemies.Stalker{
     stalkerView()
 }
 
-class Titan{
+class src.main.java.Characters.Enemies.Titan{
     devastationTitan()
 }
 
-class Drone{
+class src.main.java.Characters.Enemies.Drone{
     droneWatch()
 }
 
-class IACore{
+class src.main.java.Characters.Enemies.IACore{
     hackingIaCore()
 }
 
 
-class ElenaDrakeCapitan{
+class src.main.java.Characters.Players.ElenaDrakeCapitan{
     skillTacticOrder()
 }
 
-class EngineerMarcus{
+class src.main.java.Characters.Players.EngineerMarcus{
     skillEmergensFix()
 }
 
-class DraLara{
+class src.main.java.Characters.Players.DraLara{
     skillQuickAnalysis()
 }
 
-class JaxKane{
+class src.main.java.Characters.Players.JaxKane{
     skillDevastatingAttack()
 }
 
-class ZaraQuinn{
+class src.main.java.Characters.Players.ZaraQuinn{
     skillRemoveEnemies()
 }
 
@@ -229,20 +229,20 @@ class GameBoard{
 
 'Reglas de Agregacion Y Composicion
 
-Enemies <|--  IACore
-Enemies <|--  Xenomorf
-Enemies  <|--   Drone
-Enemies  <|--  Titan
-Enemies  <|--  Stalker
+Enemies <|--  src.main.java.Characters.Enemies.IACore
+Enemies <|--  src.main.java.Characters.Enemies.Xenomorf
+Enemies  <|--   src.main.java.Characters.Enemies.Drone
+Enemies  <|--  src.main.java.Characters.Enemies.Titan
+Enemies  <|--  src.main.java.Characters.Enemies.Stalker
 
 Characters <|-- Players
 Characters <|-- Enemies
 
-Players <|--  JaxKane
-Players <|--   EngineerMarcus
-Players <|--  DraLara
-Players <|--  ElenaDrakeCapitan
-Players <|--   ZaraQuinn
+Players <|--  src.main.java.Characters.Players.JaxKane
+Players <|--   src.main.java.Characters.Players.EngineerMarcus
+Players <|--  src.main.java.Characters.Players.DraLara
+Players <|--  src.main.java.Characters.Players.ElenaDrakeCapitan
+Players <|--   src.main.java.Characters.Players.ZaraQuinn
 
 GameApp *--  GameBoard : "1"
 
