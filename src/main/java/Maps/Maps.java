@@ -3,6 +3,7 @@ import src.main.java.Maps.EnvairomentHazards.envairomentHazard;
 import src.main.java.Utils.Texture;
 
 import java.util.ArrayList;
+//A partir de esta clase se van a crear los mapas de juego
 public class Maps {
     protected ArrayList<Integer> environmentalHazardsPositionX;
     protected ArrayList<Integer> environmentalHazardsPositionY;
