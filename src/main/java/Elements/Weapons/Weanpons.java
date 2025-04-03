@@ -10,9 +10,6 @@ public Weapons(int range) {
 
 }
 
-public class Weanpons {
-}
-
 // Clase Flamethrower 
 class Flamethrower extends Weapons { 
   public Flamethrower(int range) { 
