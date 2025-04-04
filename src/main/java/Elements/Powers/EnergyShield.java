@@ -1,4 +1,4 @@
-package src.main.java.Elements.Powers
+package src.main.java.Elements.Powers;
 
 // Clase EnergyShield que hereda de la clase Powers
 class EnergyShield extends Powers { 
