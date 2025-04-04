@@ -1,4 +1,4 @@
-package src.main.java.Elements.Powers
+package src.main.java.Elements.Powers;
 
 // Clase RemoteHacking que hereda de la clase Powers
 class RemoteHacking extends Powers { 
