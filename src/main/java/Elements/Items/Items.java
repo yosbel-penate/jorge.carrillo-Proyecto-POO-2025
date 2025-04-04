@@ -11,22 +11,3 @@ public Items(int statsElement) {
 public abstract void enhancementEffect();
 
 }
-
-
-// Clase TurnController 
-class TurnController { 
-  private int countStepPlayers; 
-  private int countStepEnemies;
-
-public TurnController() {
-    this.countStepPlayers = 0;
-    this.countStepEnemies = 0;
-}
-
-public void nextTurn() {
-    countStepPlayers++;
-    countStepEnemies++;
-    System.out.println("Nuevo turno iniciado: Turno de jugadores " + countStepPlayers + " - Turno de enemigos " + countStepEnemies);
-}
-
-   }
