@@ -1,4 +1,4 @@
-package src.main.java.Elements.Items
+package src.main.java.Elements.Items;
 
 
 // Clase Adrenalin que hereda de Items 
