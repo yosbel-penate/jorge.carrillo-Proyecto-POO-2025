@@ -1,6 +1,5 @@
 package src.main.java.Elements.Items;
 
-
 // Clase Adrenalin que hereda de Items 
 class Adrenalin extends Items { 
   private int increaseInSpeed;
