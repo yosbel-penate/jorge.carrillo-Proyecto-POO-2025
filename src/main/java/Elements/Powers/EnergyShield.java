@@ -1,6 +1,6 @@
 package src.main.java.Elements.Powers;
 
-// Clase EnergyShield que hereda de la clase Powers
+// Clase EnergyShield que hereda de clase Powers
 class EnergyShield extends Powers { 
   
   public EnergyShield(int range) { 
