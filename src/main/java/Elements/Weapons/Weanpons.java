@@ -1,6 +1,6 @@
 package src.main.java.Elements.Weapons;
 
-// Clase base Weanpons 
+// Clase base Weanpons
 class Weapons { 
   protected int range;
 
