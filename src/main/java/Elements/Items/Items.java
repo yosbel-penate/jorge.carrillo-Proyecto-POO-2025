@@ -8,6 +8,6 @@ public Items(int statsElement) {
     this.statsElement = statsElement;
 }
 
-public abstract void enhancementEffect();
+public void enhancementEffect();
 
 }
