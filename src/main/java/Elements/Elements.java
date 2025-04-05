@@ -1,7 +1,7 @@
 package src.main.java.Elements;
 
 // Clase Elements 
-abstract class Elements { 
+public class Elements { 
 protected String nameElement; 
 protected String typeElement; 
 protected String textureElement; // Simulando Texture como String 
@@ -18,6 +18,6 @@ public Elements(String nameElement, String typeElement, String textureElement, S
     this.dimensionY = dimensionY;
 }
 
-public abstract void effect();
+public void effect();
 
 }
