@@ -1,12 +1,12 @@
 package src.main.java.Elements.Weapons;
 
-// Clase Flamethrower 
+// Clase Flamethrower
 class Flamethrower extends Weapons { 
   public Flamethrower(int range) { 
     super(range); 
   }
 
-public void fireTorrent() {
+public void FireTorrent() {
     System.out.println("Lanzallamas emitiendo torrente de fuego.");
 }
 
