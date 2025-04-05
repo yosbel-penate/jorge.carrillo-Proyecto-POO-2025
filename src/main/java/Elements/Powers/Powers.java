@@ -1,6 +1,6 @@
 package src.main.java.Elements.Powers;
 
-// Clase base Powers 
+// Clase base Powers
 class Powers { 
   protected int range;
 
