@@ -1,4 +1,12 @@
 package src.main.java.Elements.Weapons;
 
-public class Weanpons {
+// Clase base Weanpons
+class Weapons { 
+  protected int range;
+
+public Weapons(int range) {
+    this.range = range;
 }
+
+}
+
