@@ -1,6 +1,6 @@
 package src.main.java.Elements.Items;
 
-// Clase base Items abstract 
+// Clase base Items
 class Items { 
   protected int statsElement;
 
