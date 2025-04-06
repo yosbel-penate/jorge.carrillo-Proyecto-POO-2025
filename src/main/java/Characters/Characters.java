@@ -3,7 +3,7 @@ package src.main.java.Characters;
 import src.main.java.Elements.Elements;
 import src.main.java.Elements.Items.Items;
 import src.main.java.Elements.Powers.Powers;
-import src.main.java.Elements.Weapons.Weanpons;
+import src.main.java.Elements.Weapons.Weapons;
 import src.main.java.Utils.Animation;
 import src.main.java.Utils.AnimationChannel;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Characters {
 
     private ArrayList<Items> itemsCharacter = new ArrayList<>();
-    private ArrayList<Weanpons> weaponCharacter = new ArrayList<>();
+    private ArrayList<Weapons> weaponCharacter = new ArrayList<>();
     private ArrayList<Powers> powersCharacter = new ArrayList<>();
     private Elements elements;
     private int life;

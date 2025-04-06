@@ -1,14 +1,8 @@
 package src.main.java.Elements.Powers;
 
 // Clase EnergyShield que hereda de clase Powers
-class EnergyShield extends Powers { 
-  
-  public EnergyShield(int range) { 
-    super(range); 
-  }
+public class EnergyShield extends Powers {
 
-public void protectPlayers() {
-    System.out.println("Escudo de energía protegiendo jugadores.");
-}
+    public void protectPlayers(){};
 
 }

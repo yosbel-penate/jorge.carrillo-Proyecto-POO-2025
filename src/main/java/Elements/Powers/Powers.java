@@ -1,12 +1,9 @@
 package src.main.java.Elements.Powers;
 
+import src.main.java.Elements.Elements;
+
 // Clase base Powers
-class Powers { 
-  protected int range;
-
-public Powers(int range) {
-    this.range = range;
-}
-
+public class Powers extends Elements {
+        protected int range;
 }
 
