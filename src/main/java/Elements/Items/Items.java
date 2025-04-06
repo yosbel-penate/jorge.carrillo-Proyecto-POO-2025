@@ -1,4 +1,13 @@
 package src.main.java.Elements.Items;
 
-public class Items {
+// Clase base Items
+class Items { 
+  protected int statsElement;
+
+public Items(int statsElement) {
+    this.statsElement = statsElement;
+}
+
+public void enhancementEffect();
+
 }
