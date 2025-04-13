@@ -9,9 +9,33 @@ public MedicalKit(int statsElement, int increaseInLife) {
     this.increaseInLife = increaseInLife;
 }
 
-public void enhancementEffect() {
-    System.out.println("El botiquín aumenta la vida en " + increaseInLife + " puntos.");
+public void enhancementEffect(DraLara) {
+    System.out.println("Usando botiquín...");
+        objetivo.increaseLife(increaseInLife);
 }
+
+public void enhancementEffect(ElenaDrakeCapitan) {
+    System.out.println("Usando botiquín...");
+        objetivo.increaseLife(increaseInLife);
 
 }
 
+public void enhancementEffect(EngineerMarcus) {
+    System.out.println("Usando botiquín...");
+        objetivo.increaseLife(increaseInLife);
+  
+}
+
+public void enhancementEffect(JaxKane) {
+    System.out.println("Usando botiquín...");
+        objetivo.increaseLife(increaseInLife);
+
+}
+
+public void enhancementEffect(ZaraQuinn) {
+    System.out.println("Usando botiquín...");
+        objetivo.increaseLife(increaseInLife);
+
+}
+  
+}
