@@ -8,6 +8,22 @@ public Items(int statsElement) {
     this.statsElement = statsElement;
 }
 
-public void enhancementEffect();
+public void enhancementEffect(DraLara);
+
+}
+
+public void enhancementEffect(ElenaDrakeCapitan);
+
+}
+
+public void enhancementEffect(EngineerMarcus);
+
+}
+
+public void enhancementEffect(JaxKane);
+
+}
+
+public void enhancementEffect(ZaraQuinn);
 
 }
