@@ -8,7 +8,7 @@ class RemoteHacking extends Powers {
   }
 
 public void breakSystemEnemies() {
-    System.out.println("Hackeo remoto desactivando sistemas enemigos.");
+    System.out.println("Hackeo remoto desactivando sistemas enemigos a " + range + " metros.");
 }
 
 }
