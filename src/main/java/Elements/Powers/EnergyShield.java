@@ -7,8 +7,23 @@ class EnergyShield extends Powers {
     super(range); 
   }
 
-public void protectPlayers() {
-    System.out.println("Escudo de energía protegiendo jugadores.");
+public void protectPlayers(DraLara) {
+    System.out.println("Escudo de energía protegiendo jugador en un radio de " + range + " metros.");
 }
 
+public void protectPlayers(ElenaDrakeCapitan) {
+    System.out.println("Escudo de energía protegiendo jugador en un radio de " + range + " metros.");
+  
+}
+
+public void protectPlayers(EngineerMarcus) {
+    System.out.println("Escudo de energía protegiendo jugador en un radio de " + range + " metros.");
+}
+
+public void protectPlayers(JaxKane) {
+    System.out.println("Escudo de energía protegiendo jugador en un radio de " + range + " metros.");
+}
+
+public void protectPlayers(ZaraQuinn) {
+    System.out.println("Escudo de energía protegiendo jugador en un radio de " + range + " metros.");
 }
