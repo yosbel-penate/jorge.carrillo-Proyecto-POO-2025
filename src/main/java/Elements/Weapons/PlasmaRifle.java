@@ -7,7 +7,7 @@ class PlasmaRifle extends Weapons {
   }
 
 public void PlasmaTorrent() {
-    System.out.println("Rifle de plasma disparando torrente de plasma.");
+    System.out.println("Rifle de plasma disparando torrente de plasma a " + range + " metros.");
 }
 
 }
