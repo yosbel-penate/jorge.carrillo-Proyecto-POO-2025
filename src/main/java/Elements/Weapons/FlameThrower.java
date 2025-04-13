@@ -7,7 +7,7 @@ class Flamethrower extends Weapons {
   }
 
 public void FireTorrent() {
-    System.out.println("Lanzallamas emitiendo torrente de fuego.");
+    System.out.println("Lanzallamas emitiendo torrente de fuego a " + range + " metros.");
 }
 
 }
