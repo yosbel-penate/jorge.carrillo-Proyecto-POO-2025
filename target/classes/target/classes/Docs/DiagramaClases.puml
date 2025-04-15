@@ -1,0 +1,290 @@
+@startuml
+
+'Clase Principal que se encarga de levantar el juego
+class GameApp{
+    -heightScreen : int
+    -widthScreen  : int
+    -boarGame : board
+    #initSettings()
+    #initInput()
+    #initGameVars()
+    #initPhysics()
+    #onUpDate()
+    #initGame()
+    #setScreen(ScreenController TyperScreen)
+    #setCharacters(ArrayList players, ArrayList enemies)
+}
+
+
+'Clase encargada de crear items como entidades dentro del juego
+class Items{
+    statsElement : int
+    enhancement effect()
+}
+
+class medicalKit{
+    increaseInLife : int
+}
+
+class adrenalin {
+    increaseInSpeed : int
+}
+
+class TurnController{
+   countStepPLayers : int
+   countStepEnemies : int
+   nextTurn()
+}
+
+'Mapas de juego
+
+class mapLevel_01 {
+    zooWalls : Sprite
+    zooDolls : Sprite
+    alienSpecimen  : Sprite
+}
+
+class mapLevel_02 {
+    labWalls : Sprite
+    labDoors : Sprite
+    experiments : Sprite
+}
+
+class mapLevel_03 {
+    wallsWall : Sprite
+    wallDoors : Sprite
+    aliens : Sprite
+}
+
+class Maps {
+    environmentalHazardsPositionX : ArrayList<int>
+    environmentalHazardsPositionY : ArrayList<int>
+    environmentalHazardsList : ArrayList<environmentalHazards>
+    nameMap : String
+    backgroundTexture : Texture
+    spawnsPlayers : ArrayList<array>
+    spawnsEnemies : ArrayList<array>
+    spawnsPower :  ArrayList<array>
+    spawnsWeanpons :  ArrayList<array>
+    spawnsItems :  ArrayList<array>
+    walls : Texture
+    doors : Texture
+    loadWalls()
+    loadDoors()
+}
+
+
+'Enemies
+
+class src.main.java.Characters.Enemies.Xenomorf{
+    xenomorfAduction()
+}
+
+class src.main.java.Characters.Enemies.Stalker{
+    stalkerView()
+}
+
+class src.main.java.Characters.Enemies.Titan{
+    devastationTitan()
+}
+
+class src.main.java.Characters.Enemies.Drone{
+    droneWatch()
+}
+
+class src.main.java.Characters.Enemies.IACore{
+    hackingIaCore()
+}
+
+
+class src.main.java.Characters.Players.ElenaDrakeCapitan{
+    skillTacticOrder()
+}
+
+class src.main.java.Characters.Players.EngineerMarcus{
+    skillEmergensFix()
+}
+
+class src.main.java.Characters.Players.DraLara{
+    skillQuickAnalysis()
+}
+
+class src.main.java.Characters.Players.JaxKane{
+    skillDevastatingAttack()
+}
+
+class src.main.java.Characters.Players.ZaraQuinn{
+    skillRemoveEnemies()
+}
+
+
+
+
+'Clase encargada de crear los atributos de cada jugador o enemigo
+class Characters{
+    -itemsCharacter : ArrayList<item>
+    -weanponCharacter : Weanpons
+    -powersCharacter : ArrayList<powers>
+    -life : int
+    -attack : int
+    -name :Srting
+    -items : itemFactory
+    -stepCounter : int
+    -animationChannels : Animation
+    -animationUP : AnimationChannel
+    -animationLeft :AnimationChannel
+    -animationRight :AnimationChannel
+    -animationDown :AnimationChannel
+    -animationIdle :ANimationChannel
+    -animationMov : AnimationChanel
+    -animationDead : AnimationChannel
+    -animationAttack : AnimationChannel
+    -speedX         : int
+    -speedY         : int
+    -positionX      : int
+    -positionY      : int
+
+    setPositionX()
+    setPositionY()
+    moveUp()
+    moveLeft()
+    moveDown()
+    moveRight()
+    attack()
+    idle()
+    dead()
+    setAnimationsChannels()
+    onUpdate()
+}
+
+class Players{
+    rol : String
+    skill : String
+    skillAnimation : Animation
+    skillAnimation(Animation skill Animation)
+}
+
+class Enemies {
+    typeEnemy : String
+}
+
+
+'Aramas del juego
+class Weanpons {
+   range : int
+}
+
+class Powers{
+    range : int
+}
+
+class Elements {
+    nameElement : String
+    typeElement : String
+    textureElement : Texture
+    animatedTexture : Animation
+    dimensionX : int
+    dimencionY : int
+    effect()
+}
+
+
+class flamethrower {
+    fireTorrent()
+}
+
+class plasmaRifle{
+    plasmaTorrent()
+}
+
+'Poderes
+
+class remoteHacking{
+    breakSistemEnemies()
+}
+
+class energyShield {
+    protectPlayers()
+}
+
+
+class GameBoard{
+    enemiesInMapList : ArrayList<Enemies>
+    playersInMapList : ArrayList<Players>
+    itemsInMap : ArrayList<Items>
+    powersInMap : ArrayList<Powers>
+    weanponsInMap : ArrayList<Weanpons>
+    boardMatrix : ArrayList<int>
+    mapInBoard : String
+    setEnemies(Enemies enemy)
+    setPlayers(Players player)
+    setItem(Items item)
+    setPower(Powers power)
+    setWeapons(Weapons weapon)
+    setBoardMap(Maps mapp)
+    updateBoard()
+}
+
+
+
+'Reglas de Agregacion Y Composicion
+
+Enemies <|--  src.main.java.Characters.Enemies.IACore
+Enemies <|--  src.main.java.Characters.Enemies.Xenomorf
+Enemies  <|--   src.main.java.Characters.Enemies.Drone
+Enemies  <|--  src.main.java.Characters.Enemies.Titan
+Enemies  <|--  src.main.java.Characters.Enemies.Stalker
+
+Characters <|-- Players
+Characters <|-- Enemies
+
+Players <|--  src.main.java.Characters.Players.JaxKane
+Players <|--   src.main.java.Characters.Players.EngineerMarcus
+Players <|--  src.main.java.Characters.Players.DraLara
+Players <|--  src.main.java.Characters.Players.ElenaDrakeCapitan
+Players <|--   src.main.java.Characters.Players.ZaraQuinn
+
+GameApp *--  GameBoard : "1"
+
+'GameBoard
+GameBoard *-- Characters : "1.*"
+GameBoard *-- Maps : "1.*"
+TurnController *-- "1" GameBoard
+Maps *-- environmentalHazards : "1.*"
+
+class environmentalHazards {
+    name : String
+    AnimationDanger : Animation
+    damage : int
+}
+
+class radioactiveTank {
+    poisonEfecct()
+}
+
+class ventilationDuct {
+    teleportRandomPLace()
+}
+
+Powers <|--  energyShield
+Powers <|--  remoteHacking
+Weanpons <|--  flamethrower
+Weanpons <|--  plasmaRifle
+
+Items <|-- medicalKit
+Items <|-- adrenalin
+
+Elements <|-- Items
+Elements <|-- Weanpons
+Elements <|-- Powers
+
+GameBoard *-- Elements : "0.*"
+Characters *-- Elements : "0.*"
+environmentalHazards <|-- radioactiveTank
+environmentalHazards <|-- ventilationDuct
+
+Maps <|-- mapLevel_01
+Maps <|-- mapLevel_02
+Maps <|-- mapLevel_03
+
+@enduml
