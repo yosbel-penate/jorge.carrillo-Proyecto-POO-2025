@@ -1,6 +1,7 @@
 package App.EntityFactory;
 
 import App.Components.AnimationComponents;
+import Domain.Entity.Characters.Players.Cyborg;
 import Domain.Entity.Types;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -27,11 +28,17 @@ public class EnemyFactory implements EntityFactory {
                 .type(Types.EntityType.ENEMY)
                 .with(new AnimationComponents(
                         "cyborg",
-                        8,
-                        400,
-                        50,
+                        Cyborg.cantidadFrames,
+                        Cyborg.cantidadFramesAtackBasic,
+                        Cyborg.anchoSpriteSheetAtackBasic,
+                        Cyborg.altoSpriteSheetAtackBasic,
+                        Cyborg.anchoSpriteSheet,
+                        Cyborg.altoSpriteSheet,
                         0,
-                        7
+                        Cyborg.cantidadFrames - 1,
+                        6,
+                        300,
+                        50
                 ))
                 .with(physics)
                 .with(new CollidableComponent(true))

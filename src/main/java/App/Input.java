@@ -1,7 +1,7 @@
 package App;
 
 import App.Components.AnimationComponents;
-import View.UI.UI;
+import View.UI.CombatModeUI;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.UserAction;
 import javafx.scene.input.KeyCode;
@@ -9,7 +9,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getInput;
 
 public class Input {
 
-    public void movInput(Entity character , UI ui) {
+    public void movInput(Entity character , CombatModeUI combatModeUI) {
 
         getInput().addAction(new UserAction("Mover Arriba") {
             @Override
@@ -21,7 +21,7 @@ public class Input {
             protected void onActionEnd()
             {
                 character.getComponent(AnimationComponents.class).stopMoving();
-                ui.reduceStepPoint();
+                combatModeUI.reduceStepPoint();
             }
         }, KeyCode.UP);
 
@@ -35,7 +35,7 @@ public class Input {
             protected void onActionEnd()
             {
                 character.getComponent(AnimationComponents.class).stopMoving();
-                ui.reduceStepPoint();
+                combatModeUI.reduceStepPoint();
             }
         }, KeyCode.DOWN);
 
@@ -50,7 +50,7 @@ public class Input {
             protected void onActionEnd()
             {
                 character.getComponent(AnimationComponents.class).stopMoving();
-                ui.reduceStepPoint();
+                combatModeUI.reduceStepPoint();
             }
         }, KeyCode.LEFT);
 
@@ -64,7 +64,7 @@ public class Input {
             protected void onActionEnd()
             {
                 character.getComponent(AnimationComponents.class).stopMoving();
-                ui.reduceStepPoint();
+                combatModeUI.reduceStepPoint();
             }
         }, KeyCode.RIGHT);
     }

@@ -21,7 +21,8 @@ public class AnimationComponents extends Component
                              animAbajo,
                              animArriba,
                              animAtackBasic,
-                             animAtackEspecial;
+                             animAtackEspecial,
+                             animMuerte;
 
     //===================Contructores====================
     //Contructor para Imagenes Dinamicas(Varios Frames)
@@ -74,7 +75,10 @@ public class AnimationComponents extends Component
                                int anchoImagen,
                                int altoImagen,
                                int frameInicio,
-                               int frameFinal) {
+                               int frameFinal,
+                               int cantidadFramesMuerte,
+                               int anchoMuerte,
+                               int altoMuerte) {
         animAtackBasic = new AnimationChannel(FXGL.image(nameCharacter + "atack_basic.png"),
                 cantidadFramesAtack,
                 anchoImagenAtack / cantidadFramesAtack,
@@ -114,6 +118,13 @@ public class AnimationComponents extends Component
                 Duration.seconds(0.5),
                 frameInicio,
                 frameFinal);
+        animMuerte = new AnimationChannel(FXGL.image(nameCharacter + "deat.png"),
+                cantidadFramesMuerte,
+                anchoMuerte / cantidadFramesMuerte,
+                altoMuerte,
+                Duration.seconds(0.5),
+                0,
+                cantidadFramesMuerte - 1);
 
         texture = new AnimatedTexture(animIdle);
     }

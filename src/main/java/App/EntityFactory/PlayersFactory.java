@@ -33,7 +33,11 @@ public class PlayersFactory implements EntityFactory {
                         Cyborg.anchoSpriteSheet,
                         Cyborg.altoSpriteSheet,
                         0,
-                        Cyborg.cantidadFrames - 1
+                        Cyborg.cantidadFrames - 1,
+                        6,
+                        300,
+                        50
+
                 ))
                 .with(physicsComponent)
                 .with(new CollidableComponent(true))

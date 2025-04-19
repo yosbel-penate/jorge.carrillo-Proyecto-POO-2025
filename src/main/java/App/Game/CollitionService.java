@@ -16,7 +16,6 @@ public class CollitionService
 {
     boolean combatMode;
 
-    MusicService musicService = new MusicService();
     public void enableCollitionEntities(Entity firstEntity,
                                         Entity secondEntity,
                                         CombatModeUI combatModeUI,
@@ -28,9 +27,9 @@ public class CollitionService
             protected void onCollisionBegin(Entity firtstEntity, Entity secondEntity) {
                 combatMode = true;
 
-                combatModeUI.combatModeSettings(combatMode,firtstEntity,ui);
-                musicService.stopMusic();
-                musicService.battleMusic();
+                combatModeUI.combatModeSettings(combatMode,firtstEntity);
+                MusicService.stopMusic();
+                MusicService.battleMusic();
             }
             @Override
             protected void onCollision(Entity cyborg, Entity enemy) {

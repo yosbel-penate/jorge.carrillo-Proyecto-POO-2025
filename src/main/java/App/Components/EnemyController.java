@@ -1,5 +1,6 @@
 package App.Components;
 
+import View.UI.CombatModeUI;
 import View.UI.UI;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
@@ -14,12 +15,12 @@ public class EnemyController extends Component {
     private int tileSize;
     private boolean isMoving = false;
     private int actionPoints = 5; // Pasos por turno
-    private UI ui;
+    private CombatModeUI ui;
 
     private PhysicsComponent physics;
     private AnimationComponents anim;
 
-    public EnemyController(Entity player, UI ui, int tileSize) {
+    public EnemyController(Entity player, CombatModeUI ui, int tileSize) {
         this.player = player;
         this.tileSize = tileSize;
         this.ui = ui;
@@ -83,7 +84,6 @@ public class EnemyController extends Component {
                     anim.moveDown();
                 }else {
                     anim.moveUp();
-
                 }
             }
 

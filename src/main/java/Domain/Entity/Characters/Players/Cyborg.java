@@ -1,9 +1,11 @@
 package Domain.Entity.Characters.Players;
 
-public class Cyborg
+import Domain.Entity.Characters.Characters;
+
+public class Cyborg extends Characters
 {
     public static final int life = 8;
-    public static final int steeps = 10;
+    public static final int steeps = 1;
     public static final int atack = 2;
     public static final String nameCharacter = "cyborg";
     public static final int cantidadFrames = 8;
