@@ -2,9 +2,14 @@ package Domain.Entity.Characters.Players;
 
 public class Cyborg
 {
-
-    public final int CHARACTER_SIZE_Y = 50;
-    public final int CHARACTER_FRAMES = 8;
-    public final int CHARACTER_SIZE_X = 400 / CHARACTER_FRAMES;
-
+    public static final int life = 8;
+    public static final int steeps = 10;
+    public static final int atack = 2;
+    public static final String nameCharacter = "cyborg";
+    public static final int cantidadFrames = 8;
+    public static final int anchoSpriteSheet = 400;
+    public static final int altoSpriteSheet = 50;
+    public static final int altoSpriteSheetAtackBasic = 50;
+    public static final int anchoSpriteSheetAtackBasic = 900;
+    public static final int cantidadFramesAtackBasic = 9;
 }

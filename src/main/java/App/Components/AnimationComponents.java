@@ -2,8 +2,6 @@ package App.Components;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
-import com.almasb.fxgl.physics.BoundingShape;
-import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
@@ -23,6 +21,7 @@ public class AnimationComponents extends Component
                              animAtackBasic,
                              animAtackEspecial;
 
+    //===================Contructores====================
     //Contructor para Imagenes Dinamicas(Varios Frames)
     public AnimationComponents(String nameCharacter,
                                int cantidadFrames,
@@ -76,8 +75,8 @@ public class AnimationComponents extends Component
                                int frameFinal) {
         animAtackBasic = new AnimationChannel(FXGL.image(nameCharacter + "atack_basic.png"),
                 cantidadFramesAtack,
-                anchoImagen / cantidadFrames,
-                altoImagen,
+                anchoImagenAtack / cantidadFramesAtack,
+                altoImagenAtack,
                 Duration.seconds(0.5),
                 0,
                 cantidadFramesAtack - 1);
@@ -136,23 +135,17 @@ public class AnimationComponents extends Component
     }
 
     @Override
-    public void onAdded() {
+    public void onAdded()
+    {
         entity.getTransformComponent().setScaleOrigin(new Point2D(25, 25));
         entity.getViewComponent().addChild(texture);
-        updateCollisionBox();
         texture.loopAnimationChannel(animIdle);
-    }
-
-    public void updateCollisionBox() {
-        entity.getBoundingBoxComponent().clearHitBoxes();
-        entity.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.box(
-                                                                          TILE_SIZE - 1,
-                                                                          TILE_SIZE - 1)));
     }
 
     @Override
     public void onUpdate(double tpf) {}
 
+    //Metodo General Para Movimiento con animacion
     private void moveEntity(double velocityX, double velocityY, AnimationChannel channel, double scaleX) {
         // Cambiar la animación sólo si es necesario.
         if (texture.getAnimationChannel() != channel) {
@@ -183,7 +176,7 @@ public class AnimationComponents extends Component
         }, Duration.seconds(duration));
     }
 
-
+    //Metodos especificos para movimiento con animacion
     public void moveUp() {
         double velocity = ((double) TILE_SIZE) / 0.5;
         moveEntity(0, -velocity, animArriba, 1);
@@ -204,13 +197,13 @@ public class AnimationComponents extends Component
         moveEntity(velocity, 0, animWalk, 1);
     }
 
-
     public void stopMoving() {
         if (texture.getAnimationChannel() != animIdle) {
             texture.loopAnimationChannel(animIdle);
         }
     }
 
+    //Otras animaciones
     public void attack() {
         // Reproducir la animación de ataque una vez
         texture.playAnimationChannel(animAtackBasic);

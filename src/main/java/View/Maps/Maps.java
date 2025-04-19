@@ -1,23 +1,17 @@
 package View.Maps;
 import Domain.Utils.Texture;
 import View.Maps.EnvairomentHazards.envairomentHazard;
+import com.almasb.fxgl.entity.level.Level;
 
 import java.util.ArrayList;
+
+import static com.almasb.fxgl.dsl.FXGL.setLevelFromMap;
+
 //A partir de esta clase se van a crear los mapas de juego
 public class Maps {
-    protected ArrayList<Integer> environmentalHazardsPositionX;
-    protected ArrayList<Integer> environmentalHazardsPositionY;
-    protected ArrayList<envairomentHazard> environmentalHazardsList;
-    protected String nameMap;
-    protected Texture backgroundTexture;
-    protected ArrayList<Object[]> spawnsPlayers; // Usé Object[] para representar "array"
-    protected ArrayList<Object[]> spawnsEnemies;
-    protected ArrayList<Object[]> spawnsPower;
-    protected ArrayList<Object[]> spawnsWeapons;
-    protected ArrayList<Object[]> spawnsItems;
-    protected Texture walls;
-    protected Texture doors;
+    public static void setLevel1()
+    {
+        Level level = setLevelFromMap("level_01.tmx");
+    }
 
-    public void loadWalls(){};
-    public void loadDoors(){};
 }

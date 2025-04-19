@@ -1,6 +1,4 @@
-package App;
-
-import View.UI.UI;
+package App.Game;
 
 public class TurnController {
 

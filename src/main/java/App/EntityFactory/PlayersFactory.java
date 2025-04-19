@@ -8,8 +8,6 @@ import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.entity.components.CollidableComponent;
-import com.almasb.fxgl.physics.BoundingShape;
-import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import Domain.Entity.Characters.Players.Cyborg;
@@ -17,7 +15,6 @@ import Domain.Entity.Characters.Players.Cyborg;
 import static Domain.Settings.SettingsGame.TILE_SIZE;
 
 public class PlayersFactory implements EntityFactory {
-    Cyborg cyborg = new Cyborg();
 
     @Spawns("Cyborg")
     public Entity newCyborg(SpawnData data) {
@@ -29,14 +26,14 @@ public class PlayersFactory implements EntityFactory {
                 .type(Types.EntityType.CYBORG)
                 .with(new AnimationComponents(
                         "cyborg",
-                        8,
-                        9,
-                        900,
-                        50,
-                        400,
-                        50,
+                        Cyborg.cantidadFrames,
+                        Cyborg.cantidadFramesAtackBasic,
+                        Cyborg.anchoSpriteSheetAtackBasic,
+                        Cyborg.altoSpriteSheetAtackBasic,
+                        Cyborg.anchoSpriteSheet,
+                        Cyborg.altoSpriteSheet,
                         0,
-                        7
+                        Cyborg.cantidadFrames - 1
                 ))
                 .with(physicsComponent)
                 .with(new CollidableComponent(true))

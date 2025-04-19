@@ -10,25 +10,30 @@ import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
+import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
+
 
 import static Domain.Settings.SettingsGame.TILE_SIZE;
 
 public class EnemyFactory implements EntityFactory {
     @Spawns("boss")
     public Entity newBoss(SpawnData data){
-        PhysicsComponent physicsComponent = new PhysicsComponent();
-        physicsComponent.setBodyType(BodyType.STATIC);
+
+        PhysicsComponent physics = new PhysicsComponent();
+        physics.setBodyType(BodyType.KINEMATIC);
 
         return FXGL.entityBuilder(data)
-                .at(TILE_SIZE * 6, TILE_SIZE * 6)
+                .at(TILE_SIZE * 10, TILE_SIZE * 6)
                 .type(Types.EntityType.ENEMY)
                 .with(new AnimationComponents(
                         "cyborg",
+                        8,
                         400,
                         50,
-                        8
+                        0,
+                        7
                 ))
-                .with(physicsComponent)
+                .with(physics)
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }

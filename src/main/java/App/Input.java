@@ -1,6 +1,7 @@
 package App;
 
 import App.Components.AnimationComponents;
+import View.UI.UI;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.UserAction;
 import javafx.scene.input.KeyCode;
@@ -8,7 +9,8 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getInput;
 
 public class Input {
 
-    public void movInput(Entity character) {
+    public void movInput(Entity character , UI ui) {
+
         getInput().addAction(new UserAction("Mover Arriba") {
             @Override
             protected void onActionBegin() {
@@ -16,8 +18,10 @@ public class Input {
             }
 
             @Override
-            protected void onActionEnd() {
+            protected void onActionEnd()
+            {
                 character.getComponent(AnimationComponents.class).stopMoving();
+                ui.reduceStepPoint();
             }
         }, KeyCode.UP);
 
@@ -28,20 +32,25 @@ public class Input {
             }
 
             @Override
-            protected void onActionEnd() {
+            protected void onActionEnd()
+            {
                 character.getComponent(AnimationComponents.class).stopMoving();
+                ui.reduceStepPoint();
             }
         }, KeyCode.DOWN);
 
         getInput().addAction(new UserAction("Mover Izquierda") {
             @Override
-            protected void onActionBegin() {
+            protected void onActionBegin()
+            {
                 character.getComponent(AnimationComponents.class).moveLeft();
             }
 
             @Override
-            protected void onActionEnd() {
+            protected void onActionEnd()
+            {
                 character.getComponent(AnimationComponents.class).stopMoving();
+                ui.reduceStepPoint();
             }
         }, KeyCode.LEFT);
 
@@ -52,8 +61,10 @@ public class Input {
             }
 
             @Override
-            protected void onActionEnd() {
+            protected void onActionEnd()
+            {
                 character.getComponent(AnimationComponents.class).stopMoving();
+                ui.reduceStepPoint();
             }
         }, KeyCode.RIGHT);
     }

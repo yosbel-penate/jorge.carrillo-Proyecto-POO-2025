@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="50" tileheight="50" infinite="0" nextlayerid="5" nextobjectid="13">
  <tileset firstgid="1" name="tileSetx50" tilewidth="50" tileheight="50" tilecount="100" columns="10">
-  <image source="../../../../../../Recursos Juego/tileSetx50.png" width="500" height="500"/>
+  <image source="tileSetx50.png" width="500" height="500"/>
  </tileset>
  <tileset firstgid="101" name="tileset2x50" tilewidth="50" tileheight="50" tilecount="84" columns="14">
-  <image source="../../../../../../Recursos Juego/tileset2x50.png" width="700" height="300"/>
+  <image source="tileset2x50.png" width="700" height="300"/>
  </tileset>
  <layer id="1" name="Capa de patrones 1" width="40" height="30">
   <data encoding="csv">
