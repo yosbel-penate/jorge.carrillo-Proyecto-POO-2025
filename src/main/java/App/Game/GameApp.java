@@ -1,10 +1,14 @@
 package App;
+
+import App.Components.EnemyController;
 import App.EntityFactory.EnemyFactory;
 import App.EntityFactory.ObjectFactory;
 import App.EntityFactory.PlayersFactory;
 import Domain.Entity.Types;
 import Domain.Settings.SettingsGame;
+import View.Maps.Maps;
 import View.UI.CombatModeUI;
+import View.UI.MusicService;
 import View.UI.UI;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
@@ -19,44 +23,58 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class GameApp extends GameApplication {
     CombatModeUI combatModeUI = new CombatModeUI();
-    boolean combatMode;
-
-    private Entity cyborg;
-    private Entity boss;
-    //private int playerHealth = 5;
-
     Input input = new Input();
     UI ui = new UI();
     Board board = new Board();
 
+    boolean combatMode;
+    private Entity cyborg;
+    private Entity boss;
+
     @Override
-    protected void initSettings(GameSettings settings) {
+    protected void initSettings(GameSettings settings)
+    {
+
         settings.setDeveloperMenuEnabled(true);
         settings.setWidth(1600);
         settings.setHeight(900);
         settings.setTitle(SettingsGame.gameTitle);
+
     }
 
     @Override
-    protected void initGame() {
+    protected void initGame()
+    {
+        
         Board.boardTable(NUM_TILES_Y,NUM_TILES_X, TILE_SIZE);
+
+        //Entities Factory
         getGameWorld().addEntityFactory(new PlayersFactory());
         getGameWorld().addEntityFactory(new EnemyFactory());
         getGameWorld().addEntityFactory(new ObjectFactory());
-        FXGL.getAudioPlayer().loopMusic(FXGL.getAssetLoader().loadMusic("loading.wav"));
 
-        Level level = setLevelFromMap("level_01.tmx");
+        //Music
+        MusicService.playLevel1Music();
 
+        //Level Loader
+        Maps.setLevel1();
+
+        //Entities
         boss = FXGL.spawn("boss");
         cyborg = FXGL.spawn("Cyborg");
-        input.movInput(cyborg);
+
+        //Components
+        boss.addComponent(new EnemyController(cyborg, TILE_SIZE));
+
     }
 
     protected void initUI()
     {
+
         ui.showUI();
         ui.setHealthEnemi(6);
         combatModeUI.showCombatUI();
+
     }
 
     @Override
@@ -78,9 +96,10 @@ public class GameApp extends GameApplication {
         });
     }
 
-    protected void initInput(){}
-
-
+    protected void initInput()
+    {
+        input.movInput(cyborg,ui);
+    }
 
     @Override
     protected void onUpdate(double tpf) {
