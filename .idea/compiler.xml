@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="jorge.carrillo-Proyecto-POO-2025" />
+        <module name="Drop" />
       </profile>
     </annotationProcessing>
   </component>
