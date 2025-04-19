@@ -1,5 +1,6 @@
 package View.UI;
 
+import App.Game.LogicCombat;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,8 +33,9 @@ public class UI {
     private HBox barraPasosBOX;
     private HBox enemyStepsBox;
 
-    //Instancia de LogicOfCombat
-    LogicOfCombat combatStats = new LogicOfCombat();
+    //=============Instancia de LogicCombat=============
+    LogicCombat combatStats = new LogicCombat();
+
 
     public void showUI()
     {

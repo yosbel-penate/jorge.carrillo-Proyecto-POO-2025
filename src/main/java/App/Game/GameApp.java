@@ -1,6 +1,7 @@
 package App.Game;
 
 import App.Board;
+import App.Components.EnemyController;
 import App.EntityFactory.EnemyFactory;
 import App.EntityFactory.ObjectFactory;
 import App.EntityFactory.PlayersFactory;
@@ -22,6 +23,8 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class GameApp extends GameApplication
 {
 
+    CollitionService collitionService = new CollitionService();
+    MusicService musicService = new MusicService();
     CombatModeUI combatModeUI = new CombatModeUI();
     Input input = new Input();
     UI ui = new UI();
@@ -50,7 +53,7 @@ public class GameApp extends GameApplication
         getGameWorld().addEntityFactory(new ObjectFactory());
 
         //Music
-        FXGL.getAudioPlayer().loopMusic(FXGL.getAssetLoader().loadMusic("loading.wav"));
+        musicService.playLevel1Music();
 
         //Level Loader
         Maps.setLevel1();
@@ -58,6 +61,9 @@ public class GameApp extends GameApplication
         //Entities
         boss = FXGL.spawn("boss");
         cyborg = FXGL.spawn("Cyborg");
+
+        //Components
+        boss.addComponent(new EnemyController(cyborg,ui, TILE_SIZE));
 
         input.movInput(cyborg,ui);
     }
@@ -72,22 +78,8 @@ public class GameApp extends GameApplication
     @Override
     protected void initPhysics()
     {
-        FXGL.getPhysicsWorld().setGravity(0, 0);
-        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.CYBORG,Types.EntityType.ENEMY)
-        {
-            @Override
-            protected void onCollisionBegin(Entity cyborg,Entity boss){
-                combatMode = true;
-                combatModeUI.combatModeSettings(combatMode,cyborg,ui);
-                FXGL.getAudioPlayer().stopAllMusic();
-                FXGL.getAudioPlayer().loopMusic(FXGL.getAssetLoader().loadMusic("battle.wav"));
-            }
-            protected void onCollitionEnd(Entity cyborg,Entity boss){
-                combatMode = false;
-                combatModeUI.combatModeSettings(combatMode,cyborg,ui);
-            }
-        });
-
+        FXGL.getPhysicsWorld().setGravity(0,0);
+        collitionService.enableCollitionEntities(cyborg,boss,combatModeUI,ui);
     }
 
     protected void initInput() {}
