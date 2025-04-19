@@ -22,6 +22,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class GameApp extends GameApplication
 {
 
+    CollitionService collitionService = new CollitionService();
     MusicService musicService = new MusicService();
     CombatModeUI combatModeUI = new CombatModeUI();
     Input input = new Input();
@@ -73,22 +74,8 @@ public class GameApp extends GameApplication
     @Override
     protected void initPhysics()
     {
-        FXGL.getPhysicsWorld().setGravity(0, 0);
-        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.CYBORG,Types.EntityType.ENEMY)
-        {
-            @Override
-            protected void onCollisionBegin(Entity cyborg,Entity boss){
-                combatMode = true;
-                combatModeUI.combatModeSettings(combatMode,cyborg,ui);
-                musicService.stopMusic();
-                musicService.battleMusic();
-            }
-            protected void onCollitionEnd(Entity cyborg,Entity boss){
-                combatMode = false;
-                combatModeUI.combatModeSettings(combatMode,cyborg,ui);
-            }
-        });
-
+        FXGL.getPhysicsWorld().setGravity(0,0);
+        collitionService.enableCollitionEntities(cyborg,boss,combatModeUI,ui);
     }
 
     protected void initInput() {}

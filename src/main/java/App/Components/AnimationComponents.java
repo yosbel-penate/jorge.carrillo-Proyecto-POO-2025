@@ -1,5 +1,6 @@
 package App.Components;
 
+import App.Game.CollitionService;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.physics.PhysicsComponent;
@@ -13,6 +14,7 @@ public class AnimationComponents extends Component
 {
 
 
+    CollitionService collitionService = new CollitionService();
     private AnimatedTexture  texture;
     private AnimationChannel animIdle,
                              animWalk,
@@ -139,6 +141,7 @@ public class AnimationComponents extends Component
     {
         entity.getTransformComponent().setScaleOrigin(new Point2D(25, 25));
         entity.getViewComponent().addChild(texture);
+        collitionService.updateCollisionBox(this.entity);
         texture.loopAnimationChannel(animIdle);
     }
 
