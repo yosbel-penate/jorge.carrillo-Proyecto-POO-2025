@@ -1,6 +1,7 @@
 package App.Game;
 
 import App.Board;
+import App.Components.EnemyController;
 import App.EntityFactory.EnemyFactory;
 import App.EntityFactory.ObjectFactory;
 import App.EntityFactory.PlayersFactory;
@@ -60,6 +61,9 @@ public class GameApp extends GameApplication
         //Entities
         boss = FXGL.spawn("boss");
         cyborg = FXGL.spawn("Cyborg");
+
+        //Components
+        boss.addComponent(new EnemyController(cyborg,ui, TILE_SIZE));
 
         input.movInput(cyborg,ui);
     }
