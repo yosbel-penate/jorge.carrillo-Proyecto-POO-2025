@@ -22,6 +22,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class GameApp extends GameApplication
 {
 
+    MusicService musicService = new MusicService();
     CombatModeUI combatModeUI = new CombatModeUI();
     Input input = new Input();
     UI ui = new UI();
@@ -50,7 +51,7 @@ public class GameApp extends GameApplication
         getGameWorld().addEntityFactory(new ObjectFactory());
 
         //Music
-        FXGL.getAudioPlayer().loopMusic(FXGL.getAssetLoader().loadMusic("loading.wav"));
+        musicService.playLevel1Music();
 
         //Level Loader
         Maps.setLevel1();
@@ -79,8 +80,8 @@ public class GameApp extends GameApplication
             protected void onCollisionBegin(Entity cyborg,Entity boss){
                 combatMode = true;
                 combatModeUI.combatModeSettings(combatMode,cyborg,ui);
-                FXGL.getAudioPlayer().stopAllMusic();
-                FXGL.getAudioPlayer().loopMusic(FXGL.getAssetLoader().loadMusic("battle.wav"));
+                musicService.stopMusic();
+                musicService.battleMusic();
             }
             protected void onCollitionEnd(Entity cyborg,Entity boss){
                 combatMode = false;
