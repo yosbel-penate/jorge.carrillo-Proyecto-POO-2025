@@ -68,7 +68,7 @@ public class EnemyController extends Component {
         if (!isMoving && actionPoints > 0) {
             isMoving     = true;
             actionPoints--;
-            ui.reduceEnemyStepPoint();
+            //ui.reduceEnemyStepPoint();
 
             if (dx != 0)
             {

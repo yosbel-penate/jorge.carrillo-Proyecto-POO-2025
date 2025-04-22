@@ -4,7 +4,9 @@ public class Types {
     public enum EntityType {
         ENEMY,
         CYBORG,
-        OBJETO,
+        ITEM_ATACCK,
+        ITEM_LIFE,
         PLAYER
     }
+
 }

@@ -1,6 +1,7 @@
 package App.Components;
 
 import App.Game.CollitionService;
+import App.Game.MusicService;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.physics.PhysicsComponent;
@@ -13,7 +14,8 @@ import static Domain.Settings.SettingsGame.TILE_SIZE;
 public class AnimationComponents extends Component
 {
 
-
+    int hitBox;
+    double animVelocity = 0.7;
     CollitionService collitionService = new CollitionService();
     private AnimatedTexture  texture;
     private AnimationChannel animIdle,
@@ -25,45 +27,22 @@ public class AnimationComponents extends Component
                              animMuerte;
 
     //===================Contructores====================
-    //Contructor para Imagenes Dinamicas(Varios Frames)
-    public AnimationComponents(String nameCharacter,
+    //Contructor para Imagenes Dinamicas(items)
+    public AnimationComponents(String nameItem,
                                int cantidadFrames,
                                int anchoImagen,
                                int altoImagen,
                                int frameInicio,
-                               int frameFinal) {
-        animIdle = new AnimationChannel(FXGL.image(nameCharacter + "idle.png"),
+                               int frameFinal,
+                               int hitBox) {
+        this.hitBox = hitBox;
+        animIdle = new AnimationChannel(FXGL.image(nameItem + "item.png"),
                 cantidadFrames,
                 anchoImagen / cantidadFrames,
                 altoImagen,
-                Duration.seconds(0.5),
+                Duration.seconds(animVelocity),
                 0,
-                7);
-
-        animWalk = new AnimationChannel(FXGL.image(nameCharacter + "caminando.png"),
-                cantidadFrames,
-                anchoImagen / cantidadFrames,
-                altoImagen,
-                Duration.seconds(0.5),
-                frameInicio,
-                frameFinal);
-
-        animAbajo = new AnimationChannel(FXGL.image(nameCharacter + "adelante.png"),
-                cantidadFrames,
-                anchoImagen / cantidadFrames,
-                altoImagen,
-                Duration.seconds(0.5),
-                frameInicio,
-                frameFinal);
-
-        animArriba = new AnimationChannel(FXGL.image(nameCharacter + "atras.png"),
-                cantidadFrames,
-                anchoImagen / cantidadFrames,
-                altoImagen,
-                Duration.seconds(0.5),
-                frameInicio,
-                frameFinal);
-
+                cantidadFrames - 1);
         texture = new AnimatedTexture(animIdle);
     }
     //Contructor para Imagenes Dinamicas con animaciones de ataque
@@ -78,12 +57,14 @@ public class AnimationComponents extends Component
                                int frameFinal,
                                int cantidadFramesMuerte,
                                int anchoMuerte,
-                               int altoMuerte) {
+                               int altoMuerte,
+                               int hitBox) {
+        this.hitBox = hitBox;
         animAtackBasic = new AnimationChannel(FXGL.image(nameCharacter + "atack_basic.png"),
                 cantidadFramesAtack,
                 anchoImagenAtack / cantidadFramesAtack,
                 altoImagenAtack,
-                Duration.seconds(0.5),
+                Duration.seconds(animVelocity),
                 0,
                 cantidadFramesAtack - 1);
 
@@ -91,15 +72,15 @@ public class AnimationComponents extends Component
                 cantidadFrames,
                 anchoImagen / cantidadFrames,
                 altoImagen,
-                Duration.seconds(0.5),
+                Duration.seconds(animVelocity),
                 0,
-                7);
+                cantidadFrames - 1);
 
         animWalk = new AnimationChannel(FXGL.image(nameCharacter + "caminando.png"),
                 cantidadFrames,
                 anchoImagen / cantidadFrames,
                 altoImagen,
-                Duration.seconds(0.5),
+                Duration.seconds(animVelocity),
                 frameInicio,
                 frameFinal);
 
@@ -107,7 +88,7 @@ public class AnimationComponents extends Component
                 cantidadFrames,
                 anchoImagen / cantidadFrames,
                 altoImagen,
-                Duration.seconds(0.5),
+                Duration.seconds(animVelocity),
                 frameInicio,
                 frameFinal);
 
@@ -115,14 +96,14 @@ public class AnimationComponents extends Component
                 cantidadFrames,
                 anchoImagen / cantidadFrames,
                 altoImagen,
-                Duration.seconds(0.5),
+                Duration.seconds(animVelocity),
                 frameInicio,
                 frameFinal);
         animMuerte = new AnimationChannel(FXGL.image(nameCharacter + "deat.png"),
                 cantidadFramesMuerte,
                 anchoMuerte / cantidadFramesMuerte,
                 altoMuerte,
-                Duration.seconds(0.5),
+                Duration.seconds(animVelocity),
                 0,
                 cantidadFramesMuerte - 1);
 
@@ -139,7 +120,7 @@ public class AnimationComponents extends Component
                 cantidadFrames,
                 anchoImagen / cantidadFrames,
                 altoImagen,
-                Duration.seconds(0.5),
+                Duration.seconds(animVelocity),
                 0,
                 7);
 
@@ -152,65 +133,65 @@ public class AnimationComponents extends Component
     {
         entity.getTransformComponent().setScaleOrigin(new Point2D(25, 25));
         entity.getViewComponent().addChild(texture);
-        collitionService.updateCollisionBox(this.entity);
+        selectTypeOfHitBox(hitBox);
         texture.loopAnimationChannel(animIdle);
+    }
+
+    public void selectTypeOfHitBox(int hitBox){
+        if (hitBox == 11){
+            collitionService.updateCollisionBox1x1(this.entity);
+        } else if (hitBox == 12) {
+            collitionService.updateCollisionBox1x2(this.entity);
+        }else {
+            collitionService.updateCollisionBox2x2(this.entity);
+        }
     }
 
     @Override
     public void onUpdate(double tpf) {}
 
-    //Metodo General Para Movimiento con animacion
-    private void moveEntity(double velocityX, double velocityY, AnimationChannel channel, double scaleX) {
-        // Cambiar la animación sólo si es necesario.
-        if (texture.getAnimationChannel() != channel) {
-            texture.loopAnimationChannel(channel);
-        }
+    // Modifica el método moveEntity
+    private void moveEntity(double directionX, double directionY, AnimationChannel channel, double scaleX) {
+        double duration = animVelocity; // 0.5 segundos por tile
 
-        // Aplicar la orientación (voltear o no el sprite).
+        // Ajustar velocidad basada en duración y tpf
+        double speedX = (TILE_SIZE / duration) * directionX;
+        double speedY = (TILE_SIZE / duration) * directionY;
+
+        PhysicsComponent physics = entity.getComponent(PhysicsComponent.class);
+        physics.setLinearVelocity(speedX, speedY);
+
+        // Configurar animación para que coincida con la duración del movimiento
+        texture.loopAnimationChannel(channel);
         entity.setScaleX(scaleX);
 
-        // Obtener el componente de física para asignar velocidad.
-        PhysicsComponent physics = entity.getComponent(PhysicsComponent.class);
-        double duration = 0.5;
-        physics.setLinearVelocity(velocityX, velocityY);
-
-        // Programar la parada y la alineación a la rejilla.
         FXGL.runOnce(() -> {
             physics.setLinearVelocity(0, 0);
-            // Alinear en X si se mueve horizontalmente
-            if (velocityX != 0) {
-                double newX = Math.round(entity.getX() / TILE_SIZE) * TILE_SIZE;
-                entity.setX(newX);
-            }
-            // Alinear en Y si se mueve verticalmente
-            if (velocityY != 0) {
-                double newY = Math.round(entity.getY() / TILE_SIZE) * TILE_SIZE;
-                entity.setY(newY);
-            }
+            snapToGrid();
+            texture.loopAnimationChannel(animIdle);
         }, Duration.seconds(duration));
     }
-
-    //Metodos especificos para movimiento con animacion
     public void moveUp() {
-        double velocity = ((double) TILE_SIZE) / 0.5;
-        moveEntity(0, -velocity, animArriba, 1);
+        moveEntity(0, -1, animArriba, 1);
     }
 
     public void moveDown() {
-        double velocity = ((double) TILE_SIZE) / 0.5;
-        moveEntity(0, velocity, animAbajo, 1);
+        moveEntity(0, 1, animAbajo, 1);
     }
 
     public void moveLeft() {
-        double velocity = ((double) TILE_SIZE) / 0.5;
-        moveEntity(-velocity, 0, animWalk, -1);
+        moveEntity(-1, 0, animWalk, -1);
     }
 
     public void moveRight() {
-        double velocity = ((double) TILE_SIZE) / 0.5;
-        moveEntity(velocity, 0, animWalk, 1);
+        moveEntity(1, 0, animWalk, 1);
     }
 
+    private void snapToGrid() {
+        double newX = Math.round(entity.getX() / TILE_SIZE) * TILE_SIZE;
+        double newY = Math.round(entity.getY() / TILE_SIZE) * TILE_SIZE;
+        entity.setPosition(newX, newY);
+    }
     public void stopMoving() {
         if (texture.getAnimationChannel() != animIdle) {
             texture.loopAnimationChannel(animIdle);
@@ -218,18 +199,25 @@ public class AnimationComponents extends Component
     }
 
     //Otras animaciones
-    public void attack() {
+    public void playAttackAnimation() {
         // Reproducir la animación de ataque una vez
         texture.playAnimationChannel(animAtackBasic);
-        FXGL.getAudioPlayer().loopMusic(FXGL.getAssetLoader().loadMusic("arma.wav"));
 
 
         // Programar el retorno a la animación idle después de 0.5 segundos
         FXGL.getGameTimer().runOnceAfter(() -> {
-            texture.loopAnimationChannel(animIdle);
-            FXGL.getAudioPlayer().stopAllMusic();
-            FXGL.getAudioPlayer().loopMusic(FXGL.getAssetLoader().loadMusic("loading.wav"));
 
-        }, Duration.seconds(0.5));
+            texture.loopAnimationChannel(animIdle);
+            //FXGL.getAudioPlayer().stopAllMusic();
+            MusicService.playBattle();
+
+        }, Duration.seconds(animVelocity));
+    }
+
+    public void playDeatAnimation()
+    {
+        if (animMuerte != null){
+            texture.playAnimationChannel(animMuerte);
+        }
     }
 }

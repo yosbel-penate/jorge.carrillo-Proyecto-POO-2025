@@ -1,6 +1,7 @@
 package App.EntityFactory;
 
 import App.Components.AnimationComponents;
+import App.Components.CombatStatsComponent;
 import Domain.Entity.Types;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -16,14 +17,16 @@ import static Domain.Settings.SettingsGame.TILE_SIZE;
 
 public class PlayersFactory implements EntityFactory {
 
-    @Spawns("Cyborg")
+    //Entidades
+    @Spawns("cyborg")
     public Entity newCyborg(SpawnData data) {
         PhysicsComponent physicsComponent = new PhysicsComponent();
         physicsComponent.setBodyType(BodyType.DYNAMIC);
 
         return FXGL.entityBuilder(data)
                 .at(TILE_SIZE * 5, TILE_SIZE * 4)
-                .type(Types.EntityType.CYBORG)
+                .type(Types.EntityType.PLAYER)
+                .with(new CombatStatsComponent(Cyborg.life,Cyborg.atack))
                 .with(new AnimationComponents(
                         "cyborg",
                         Cyborg.cantidadFrames,
@@ -36,7 +39,8 @@ public class PlayersFactory implements EntityFactory {
                         Cyborg.cantidadFrames - 1,
                         6,
                         300,
-                        50
+                        50,
+                        11
 
                 ))
                 .with(physicsComponent)

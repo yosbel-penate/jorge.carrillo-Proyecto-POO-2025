@@ -9,63 +9,86 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getInput;
 
 public class Input {
 
+    private boolean canMove = true;
+
+    public boolean canMove() {
+        return canMove;
+    }
+
+    public void setCanMove(boolean canMove) {
+        this.canMove = canMove;
+    }
+
     public void movInput(Entity character , CombatModeUI combatModeUI) {
 
         getInput().addAction(new UserAction("Mover Arriba") {
             @Override
             protected void onActionBegin() {
-                character.getComponent(AnimationComponents.class).moveUp();
+                if (canMove){
+                    character.getComponent(AnimationComponents.class).moveUp();
+
+                }
             }
 
             @Override
             protected void onActionEnd()
             {
-                character.getComponent(AnimationComponents.class).stopMoving();
-                combatModeUI.reduceStepPoint();
+                if (canMove){
+                    character.getComponent(AnimationComponents.class).stopMoving();
+                }
+                //combatModeUI.reduceStepPoint();
             }
-        }, KeyCode.UP);
+        }, KeyCode.W);
 
         getInput().addAction(new UserAction("Mover Abajo") {
             @Override
             protected void onActionBegin() {
-                character.getComponent(AnimationComponents.class).moveDown();
+                if (canMove){
+                    character.getComponent(AnimationComponents.class).moveDown();
+
+                }
             }
 
             @Override
             protected void onActionEnd()
             {
                 character.getComponent(AnimationComponents.class).stopMoving();
-                combatModeUI.reduceStepPoint();
+                //combatModeUI.reduceStepPoint();
             }
-        }, KeyCode.DOWN);
+        }, KeyCode.S);
 
         getInput().addAction(new UserAction("Mover Izquierda") {
             @Override
             protected void onActionBegin()
             {
-                character.getComponent(AnimationComponents.class).moveLeft();
+                if (canMove){
+                    character.getComponent(AnimationComponents.class).moveLeft();
+                }
             }
 
             @Override
             protected void onActionEnd()
             {
                 character.getComponent(AnimationComponents.class).stopMoving();
-                combatModeUI.reduceStepPoint();
+                //combatModeUI.reduceStepPoint();
             }
-        }, KeyCode.LEFT);
+        }, KeyCode.A);
 
         getInput().addAction(new UserAction("Mover Derecha") {
             @Override
             protected void onActionBegin() {
-                character.getComponent(AnimationComponents.class).moveRight();
+                if (canMove){
+                    character.getComponent(AnimationComponents.class).moveRight();
+
+                }
             }
 
             @Override
             protected void onActionEnd()
             {
                 character.getComponent(AnimationComponents.class).stopMoving();
-                combatModeUI.reduceStepPoint();
+                //combatModeUI.reduceStepPoint();
             }
-        }, KeyCode.RIGHT);
+        }, KeyCode.D);
     }
 }

@@ -4,9 +4,9 @@ import Domain.Entity.Characters.Characters;
 
 public class Cyborg extends Characters
 {
-    public static final int life = 8;
+    public static final int life = 17;
     public static final int steeps = 1;
-    public static final int atack = 2;
+    public static int atack = 2;
     public static final String nameCharacter = "cyborg";
     public static final int cantidadFrames = 8;
     public static final int anchoSpriteSheet = 400;
