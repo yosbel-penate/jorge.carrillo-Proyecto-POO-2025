@@ -28,7 +28,7 @@ public class EnemyFactory implements EntityFactory {
         physics.setBodyType(BodyType.KINEMATIC);
 
         return FXGL.entityBuilder(data)
-                .at(TILE_SIZE * 10, TILE_SIZE * 6)
+                .at(TILE_SIZE * 10, TILE_SIZE * 10)
                 .type(Types.EntityType.ENEMY)
                 .with(new CombatStatsComponent(droneTipe1.life, droneTipe1.atack))
                 .with(new AnimationComponents(
@@ -58,7 +58,7 @@ public class EnemyFactory implements EntityFactory {
         physics.setBodyType(BodyType.KINEMATIC);
 
         return FXGL.entityBuilder(data)
-                .at(TILE_SIZE * 10, TILE_SIZE * 10)
+                .at(TILE_SIZE * 12, TILE_SIZE * 4)
                 .type(Types.EntityType.ENEMY)
                 .with(new CombatStatsComponent(drone.life, drone.atack))
                 .with(new AnimationComponents(
@@ -72,7 +72,7 @@ public class EnemyFactory implements EntityFactory {
                         0,
                         3,
                         12,
-                        650,
+                        840,
                         50,
                         12
                 ))

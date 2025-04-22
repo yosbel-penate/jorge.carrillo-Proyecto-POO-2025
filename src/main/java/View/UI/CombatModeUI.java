@@ -184,6 +184,7 @@ public class CombatModeUI {
 
             // Remover enemigo y finalizar combate después de 2 segundos
             FXGL.runOnce(() -> {
+                statusbuttonAtacck = true;
                 enemy.removeFromWorld();
                 getGameScene().removeUINode(panelCombatView);
                 getGameScene().removeUINode(buttonAtack);

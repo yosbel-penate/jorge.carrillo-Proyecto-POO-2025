@@ -15,6 +15,7 @@ public class AnimationComponents extends Component
 {
 
     int hitBox;
+    boolean isMoving;
     double animVelocity = 0.7;
     CollitionService collitionService = new CollitionService();
     private AnimatedTexture  texture;
@@ -150,18 +151,17 @@ public class AnimationComponents extends Component
     @Override
     public void onUpdate(double tpf) {}
 
-    // Modifica el método moveEntity
-    private void moveEntity(double directionX, double directionY, AnimationChannel channel, double scaleX) {
-        double duration = animVelocity; // 0.5 segundos por tile
+    private void move(Point2D dir, AnimationChannel channel, double scaleX) {
+        if (isMoving) return;
+        isMoving = true;
 
-        // Ajustar velocidad basada en duración y tpf
-        double speedX = (TILE_SIZE / duration) * directionX;
-        double speedY = (TILE_SIZE / duration) * directionY;
+        double seconds = 0.7;
+        double speedX = (TILE_SIZE / seconds) * dir.getX();
+        double speedY = (TILE_SIZE / seconds) * dir.getY();
 
         PhysicsComponent physics = entity.getComponent(PhysicsComponent.class);
         physics.setLinearVelocity(speedX, speedY);
 
-        // Configurar animación para que coincida con la duración del movimiento
         texture.loopAnimationChannel(channel);
         entity.setScaleX(scaleX);
 
@@ -169,28 +169,19 @@ public class AnimationComponents extends Component
             physics.setLinearVelocity(0, 0);
             snapToGrid();
             texture.loopAnimationChannel(animIdle);
-        }, Duration.seconds(duration));
-    }
-    public void moveUp() {
-        moveEntity(0, -1, animArriba, 1);
+            isMoving = false;
+        }, Duration.seconds(seconds));
     }
 
-    public void moveDown() {
-        moveEntity(0, 1, animAbajo, 1);
-    }
-
-    public void moveLeft() {
-        moveEntity(-1, 0, animWalk, -1);
-    }
-
-    public void moveRight() {
-        moveEntity(1, 0, animWalk, 1);
-    }
+    public void moveUp()    { move(new Point2D(0, -1), animArriba, 1); }
+    public void moveDown()  { move(new Point2D(0, 1), animAbajo, 1); }
+    public void moveLeft()  { move(new Point2D(-1, 0), animWalk, -1); } // Flipped horizontally
+    public void moveRight() { move(new Point2D(1, 0), animWalk, 1); }
 
     private void snapToGrid() {
-        double newX = Math.round(entity.getX() / TILE_SIZE) * TILE_SIZE;
-        double newY = Math.round(entity.getY() / TILE_SIZE) * TILE_SIZE;
-        entity.setPosition(newX, newY);
+        double x = Math.round(entity.getX() / TILE_SIZE) * TILE_SIZE;
+        double y = Math.round(entity.getY() / TILE_SIZE) * TILE_SIZE;
+        entity.setPosition(x, y);
     }
     public void stopMoving() {
         if (texture.getAnimationChannel() != animIdle) {
@@ -203,6 +194,7 @@ public class AnimationComponents extends Component
         // Reproducir la animación de ataque una vez
         texture.playAnimationChannel(animAtackBasic);
 
+        MusicService.playWeanpon();
 
         // Programar el retorno a la animación idle después de 0.5 segundos
         FXGL.getGameTimer().runOnceAfter(() -> {

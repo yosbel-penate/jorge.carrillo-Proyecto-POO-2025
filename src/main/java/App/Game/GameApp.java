@@ -60,10 +60,10 @@ public class GameApp extends GameApplication
         droid1 = FXGL.spawn("droid1");
         droid2 = FXGL.spawn("droid2");
         cyborg = FXGL.spawn("cyborg");
-        itemLife = FXGL.spawn("itemLife", TILE_SIZE,TILE_SIZE * 5);
-        itemLife = FXGL.spawn("itemLife", TILE_SIZE * 2,TILE_SIZE * 25);
 
-        itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 2,TILE_SIZE * 3);
+        itemLife = FXGL.spawn("itemLife", TILE_SIZE * 19,TILE_SIZE * 5);
+
+        itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 9,TILE_SIZE * 4);
 
 
         //Components

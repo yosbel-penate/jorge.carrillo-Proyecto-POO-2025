@@ -78,7 +78,6 @@ public class CollitionService
 
             @Override
             protected void onCollision(Entity player, Entity enemy) {
-                inCollition(player,enemy);
             }
 
             @Override
@@ -99,16 +98,6 @@ public class CollitionService
             combatModeUI.combatModeStart(combatMode,player,enemy);
             MusicService.stopLevel1();
             MusicService.battleMusic();
-        }
-
-    }
-
-    public void inCollition(Entity player, Entity enemy){
-        if (combatMode){
-            // Anula cualquier desplazamiento residual del jugador
-            //PhysicsComponent pc = player.getComponent(PhysicsComponent.class);
-            //pc.setLinearVelocity(0, 0);
-            //pc.overwritePosition(player.getPosition());
         }
 
     }
