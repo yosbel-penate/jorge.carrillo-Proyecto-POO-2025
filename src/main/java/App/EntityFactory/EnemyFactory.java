@@ -3,7 +3,9 @@ package App.EntityFactory;
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
 import Domain.Entity.Characters.Enemies.Drone;
+import Domain.Entity.Characters.Enemies.Drone3;
 import Domain.Entity.Characters.Enemies.DroneTipe_1;
+import Domain.Entity.Characters.Enemies.Golem;
 import Domain.Entity.Types;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -28,7 +30,6 @@ public class EnemyFactory implements EntityFactory {
         physics.setBodyType(BodyType.KINEMATIC);
 
         return FXGL.entityBuilder(data)
-                .at(TILE_SIZE * 10, TILE_SIZE * 10)
                 .type(Types.EntityType.ENEMY)
                 .with(new CombatStatsComponent(droneTipe1.life, droneTipe1.atack))
                 .with(new AnimationComponents(
@@ -58,7 +59,6 @@ public class EnemyFactory implements EntityFactory {
         physics.setBodyType(BodyType.KINEMATIC);
 
         return FXGL.entityBuilder(data)
-                .at(TILE_SIZE * 12, TILE_SIZE * 4)
                 .type(Types.EntityType.ENEMY)
                 .with(new CombatStatsComponent(drone.life, drone.atack))
                 .with(new AnimationComponents(
@@ -74,6 +74,61 @@ public class EnemyFactory implements EntityFactory {
                         12,
                         840,
                         50,
+                        12
+                ))
+                .with(physics)
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+    @Spawns("golem")
+    public Entity newGolem(SpawnData data){
+
+        PhysicsComponent physics = new PhysicsComponent();
+        physics.setBodyType(BodyType.KINEMATIC);
+
+        return FXGL.entityBuilder(data)
+                .type(Types.EntityType.ENEMY)
+                .with(new CombatStatsComponent(Golem.life, Golem.atack))
+                .with(new AnimationComponents(
+                        "golem", Golem.cantidadFrames,
+                Golem.cantidadFramesAtackBasic,
+                Golem.anchoSpriteSheetAtackBasic,
+                Golem.altoSpriteSheetAtackBasic,
+                Golem.anchoSpriteSheet,
+                Golem.altoSpriteSheet,
+                0,
+                Golem.cantidadFrames - 1,
+                Golem.cantidadFramesMuerte,
+                Golem.anchoFrameMuerte,
+                Golem.altoFrameMuerte,
+                22
+                ))
+                .with(physics)
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+    @Spawns("droid3")
+    public Entity newDroid3(SpawnData data){
+
+        PhysicsComponent physics = new PhysicsComponent();
+        physics.setBodyType(BodyType.KINEMATIC);
+
+        return FXGL.entityBuilder(data)
+                .type(Types.EntityType.ENEMY)
+                .with(new CombatStatsComponent(Drone3.life, Drone3.atack))
+                .with(new AnimationComponents(
+                        "droid3",
+                        Drone3.cantidadFrames,
+                        Drone3.cantidadFramesAtackBasic,
+                        Drone3.anchoSpriteSheetAtackBasic,
+                        Drone3.altoSpriteSheetAtackBasic,
+                        Drone3.anchoSpriteSheet,
+                        Drone3.altoSpriteSheet,
+                        0,
+                        Drone3.cantidadFrames - 1,
+                        Drone3.cantidadFramesMuerte,
+                        Drone3.anchoFrameMuerte,
+                        Drone3.altoFrameMuerte,
                         12
                 ))
                 .with(physics)

@@ -26,6 +26,7 @@ public class GameApp extends GameApplication
     private Entity cyborg;
     private Entity droid1;
     private Entity droid2;
+    private Entity droid3;
     private Entity itemAtack;
     private Entity itemLife;
     CombatModeUI combatModeUI = new CombatModeUI(ui);
@@ -57,13 +58,29 @@ public class GameApp extends GameApplication
         Maps.setLevel1();
 
         //Entities
-        droid1 = FXGL.spawn("droid1");
-        droid2 = FXGL.spawn("droid2");
+        //golem = FXGL.spawn("golem",TILE_SIZE * 18, TILE_SIZE * 8);
+        droid1 = FXGL.spawn("droid1",TILE_SIZE * 10, TILE_SIZE * 10);
+        droid1 = FXGL.spawn("droid1",TILE_SIZE * 28, TILE_SIZE * 15);
+
+
+        droid2 = FXGL.spawn("droid2",TILE_SIZE * 12, TILE_SIZE * 4);
+        droid2 = FXGL.spawn("droid2",TILE_SIZE * 28, TILE_SIZE * 5);
+
+        droid3 = FXGL.spawn("droid3",TILE_SIZE * 18, TILE_SIZE * 5);
+        droid3 = FXGL.spawn("droid3",TILE_SIZE * 18, TILE_SIZE * 20);
+
+
+
+
         cyborg = FXGL.spawn("cyborg");
 
-        itemLife = FXGL.spawn("itemLife", TILE_SIZE * 19,TILE_SIZE * 5);
+        itemLife = FXGL.spawn("itemLife", TILE_SIZE * 19,TILE_SIZE * 10);
+        itemLife = FXGL.spawn("itemLife", TILE_SIZE * 3,TILE_SIZE * 13);
+
 
         itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 9,TILE_SIZE * 4);
+        itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 19, TILE_SIZE * 15);
+
 
 
         //Components
