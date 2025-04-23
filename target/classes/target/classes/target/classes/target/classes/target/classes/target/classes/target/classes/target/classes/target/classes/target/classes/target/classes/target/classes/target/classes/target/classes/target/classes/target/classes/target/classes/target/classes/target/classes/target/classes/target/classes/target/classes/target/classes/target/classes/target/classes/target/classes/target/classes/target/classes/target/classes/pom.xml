@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.github.almasb</groupId>
             <artifactId>fxgl</artifactId>
-            <version>17.3</version>
+            <version>21.1</version>
         </dependency>
     </dependencies>
 

@@ -26,7 +26,7 @@ public class PlayersFactory implements EntityFactory {
         return FXGL.entityBuilder(data)
                 .at(TILE_SIZE * 5, TILE_SIZE * 4)
                 .type(Types.EntityType.PLAYER)
-                .with(new CombatStatsComponent(Cyborg.life,Cyborg.atack))
+                .with(new CombatStatsComponent(Cyborg.life,Cyborg.atack,1))
                 .with(new AnimationComponents(
                         "cyborg",
                         Cyborg.cantidadFrames,
@@ -39,6 +39,9 @@ public class PlayersFactory implements EntityFactory {
                         Cyborg.cantidadFrames - 1,
                         6,
                         300,
+                        50,
+                        12,
+                        1500,
                         50,
                         11
 

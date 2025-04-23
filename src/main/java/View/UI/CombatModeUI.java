@@ -2,9 +2,7 @@ package View.UI;
 
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
-import App.Game.CollitionService;
 import App.Game.MusicService;
-import Domain.Entity.Characters.Enemies.Drone;
 import Domain.Entity.Characters.Players.Cyborg;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -24,31 +22,37 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class CombatModeUI {
 
     //Images
+    Image specialPointImage;
     Image lifePointPlayer;
     Image heartBarPlayer;
     Image panelCombat;
-    Image atackImage;
+    Image atackBasicButtonImage;
     Image lifePointEnemi;
     Image heartBarEnemi;
+    Image atackSpecialButtonImage;
 
     //ImagesView
+    ImageView specialPointView;
+    ImageView atackSpeciaButtonView;
     ImageView panelCombatView;
-    ImageView atackView;
+    ImageView atackBasicButtonView;
     ImageView heartBarImageViewEnemi;
     ImageView heartBarImageViewPlayer;
 
     //Hboxs
+    public HBox specialPointsHbox;
     public HBox heartsBarEnemiHbox;
     public HBox heartsBarPlayerHbox;
 
     //Buttons
-    Button buttonAtack;
+    Button buttonAtackSpecial;
+    Button buttonAtackBasic;
 
     //Instances
     private UI ui;
-    //CollitionService collitionService;
 
     //Vars
+    private String tipoOfAnimationInButton;
     public boolean statusbuttonAtacck = true;
     private PauseTransition enemyTurnDelay = new PauseTransition(Duration.seconds(1));
 
@@ -60,12 +64,15 @@ public class CombatModeUI {
     public CombatModeUI(){}
 
     public void showCombatUI(){
+
         //Cargadores de imagenes
+        specialPointImage = getAssetLoader().loadImage("specialPoint.png");
+        atackSpecialButtonImage = getAssetLoader().loadImage("atackSpecialButton.png");
         heartBarEnemi = getAssetLoader().loadImage("barra_enemigo.png");
         lifePointEnemi = getAssetLoader().loadImage("life_point_enemi.png");
         heartBarPlayer = getAssetLoader().loadImage("life_bar.png");
         lifePointPlayer = getAssetLoader().loadImage("life_point.png");
-        atackImage = getAssetLoader().loadImage("button_atacck.png");
+        atackBasicButtonImage = getAssetLoader().loadImage("atackBasicButton.png");
         panelCombat = getAssetLoader().loadImage("combat_panel.png");
 
         //=============ImagesViews=============
@@ -85,18 +92,39 @@ public class CombatModeUI {
         panelCombatView = new ImageView();
         panelCombatView.setImage(panelCombat);
 
-        //=============Boton de Ataque basico===========
-        buttonAtack = new Button();
-        buttonAtack.setPrefSize(100, 100);
-        atackView = new ImageView();
-        atackView.setImage(atackImage);
-        atackView.setFitHeight(100);
-        atackView.setFitWidth(100);
-        buttonAtack.setGraphic(atackView);
-        buttonAtack.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+        //===========Boton de Ataque Especial===========
+        buttonAtackSpecial = new Button();
+        buttonAtackSpecial.setPrefSize(100,100);
+        atackSpeciaButtonView = new ImageView();
+        atackSpeciaButtonView.setImage(atackSpecialButtonImage);
+        atackSpeciaButtonView.setFitWidth(100);
+        atackSpeciaButtonView.setFitHeight(100);
+        buttonAtackSpecial.setGraphic(atackSpeciaButtonView);
+        buttonAtackSpecial.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
 
+        //=============Boton de Ataque basico===========
+        buttonAtackBasic = new Button();
+        buttonAtackBasic.setPrefSize(100, 100);
+        atackBasicButtonView = new ImageView();
+        atackBasicButtonView.setImage(atackBasicButtonImage);
+        atackBasicButtonView.setFitHeight(100);
+        atackBasicButtonView.setFitWidth(100);
+        buttonAtackBasic.setGraphic(atackBasicButtonView);
+        buttonAtackBasic.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+
+        //Barra de Puntos Especiales
+        specialPointsHbox = new HBox(5);
+        for (int i = 0; i < 1; i ++){
+            ImageView specialPointView = new ImageView(specialPointImage);
+            specialPointView.setFitHeight(30);
+            specialPointView.setFitWidth(72);
+            specialPointsHbox.getChildren().add(specialPointView);
+        }
+        specialPointsHbox.setTranslateY(TILE_SIZE * 15 + 3);
+        specialPointsHbox.setTranslateX(TILE_SIZE * 4 - 37);
+
+        //Barra de vida de Enemigos
         heartsBarEnemiHbox = new HBox(5);
-        heartsBarEnemiHbox= new HBox(5);
         for (int i = 0; i < 10; i++) {
             ImageView heartViewEnemi = new ImageView(lifePointEnemi);
             // Opcional: ajustar tamaño de cada imagen
@@ -105,8 +133,6 @@ public class CombatModeUI {
             heartsBarEnemiHbox.getChildren().add(heartViewEnemi);
         }
         heartsBarEnemiHbox.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-
-
 
         //=========Barra de vida de Jugadores===============
         heartsBarPlayerHbox = new HBox(5); // Espaciado de 5 píxeles entre corazones.
@@ -121,8 +147,10 @@ public class CombatModeUI {
         heartsBarPlayerHbox.setTranslateX(TILE_SIZE + 12);
         heartsBarPlayerHbox.setTranslateY(TILE_SIZE * 17 + 13);
 
+
         getGameScene().addUINode(heartBarImageViewPlayer);
         getGameScene().addUINode(heartsBarPlayerHbox);
+        getGameScene().addUINode(specialPointsHbox);
     }
 
     public void combatModeStart(boolean combatModeStatus , Entity player,Entity enemy) {
@@ -152,31 +180,70 @@ public class CombatModeUI {
             panelCombatView.setTranslateX(TILE_SIZE);
             panelCombatView.setTranslateY(TILE_SIZE * 10);
 
-            buttonAtack.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    if (statusbuttonAtacck){
-                        startAtacckPLayer(player, enemy);
-                    }
-                }
-            });
+            //Show combat buttons
+           initButtonAtacckBasic(player,enemy);
+           initButtonAtacckSpecial(player, enemy);
 
-            //boton
-            getGameScene().addUINode(buttonAtack);
-            buttonAtack.setTranslateX(TILE_SIZE * 3);
-            buttonAtack.setTranslateY(TILE_SIZE * 10 + 10);
+
+            //Add buttons to scene
+            getGameScene().addUINode(buttonAtackSpecial);
+            buttonAtackSpecial.setTranslateX(TILE_SIZE * 5);
+            buttonAtackSpecial.setTranslateY(TILE_SIZE * 10 + 10);
+            getGameScene().addUINode(buttonAtackBasic);
+            buttonAtackBasic.setTranslateX(TILE_SIZE * 3);
+            buttonAtackBasic.setTranslateY(TILE_SIZE * 10 + 10);
 
         } else {
             getGameScene().removeUINode(panelCombatView);
-            getGameScene().removeUINode(buttonAtack);
+            getGameScene().removeUINode(buttonAtackBasic);
         }
     }
 
-    public void startAtacckPLayer(Entity player, Entity enemy){
+    public void initButtonAtacckBasic(Entity player, Entity enemy){
+        buttonAtackBasic.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (statusbuttonAtacck){
+                    tipoOfAnimationInButton = "basic";
+                    startAtacckPLayer(player, enemy, tipoOfAnimationInButton);
+                }
+            }
+        });
+    }
+
+    public void initButtonAtacckSpecial(Entity player, Entity enemy){
+        if (player.getComponent(CombatStatsComponent.class).getCurrentSpecialPoints() > 0){
+            buttonAtackSpecial.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (statusbuttonAtacck){
+                        tipoOfAnimationInButton = "special";
+                        reduceSpecialPoint(player);
+                        startAtacckPLayer(player, enemy, tipoOfAnimationInButton);
+                    }
+                }
+            });
+        }else {
+            buttonAtackSpecial.setDisable(true);
+        }
+
+    }
+
+    public void startAtacckPLayer(Entity player, Entity enemy, String tipoOfAnimationInButton){
         statusbuttonAtacck = false;
-        player.getComponent(AnimationComponents.class).playAttackAnimation();
-        reduceHealthEnemi(Cyborg.atack,enemy);
-        MusicService.playWeanpon();
+        switch (tipoOfAnimationInButton){
+            case "basic" :
+                player.getComponent(AnimationComponents.class).playAttackAnimation();
+                reduceHealthEnemi(Cyborg.atack,enemy);
+                MusicService.playWeanpon();
+                break;
+            case "special" :
+                reduceSpecialPoint(player);
+                player.getComponent(AnimationComponents.class).playSpecialAnimation();
+                reduceHealthEnemi(Cyborg.atack,enemy);
+                MusicService.playWeanpon();
+                break;
+        }
 
         if (enemy.getComponent(CombatStatsComponent.class).getCurrentHealth() <= 0) {
             enemyDead(enemy);//animacion de muerte del enemigo
@@ -187,9 +254,10 @@ public class CombatModeUI {
                 statusbuttonAtacck = true;
                 enemy.removeFromWorld();
                 getGameScene().removeUINode(panelCombatView);
-                getGameScene().removeUINode(buttonAtack);
+                getGameScene().removeUINode(buttonAtackBasic);
                 getGameScene().removeUINode(heartsBarEnemiHbox);
                 getGameScene().removeUINode(heartBarImageViewEnemi);
+                getGameScene().removeUINode(buttonAtackSpecial);
                 MusicService.stopBattleMusic();
                 MusicService.playLevel1Music();
             }, Duration.seconds(2));
@@ -268,6 +336,35 @@ public class CombatModeUI {
         }
     }
 
+    public void incrementSpecialPoint(Entity player){
+        //player.getComponent(CombatStatsComponent.class).incrementSpecialPoint();
+    }
+
+    public void reduceSpecialPoint(Entity player){
+
+        player.getComponent(CombatStatsComponent.class).currentSpecialPoints -= 1;
+        if (player.getComponent(CombatStatsComponent.class).currentSpecialPoints < 0)
+            player.getComponent(CombatStatsComponent.class).currentSpecialPoints = 0;
+        updateSpecialPointBarPLayer(player);
+    }
+
+    public void updateSpecialPointBarPLayer(Entity player){
+        CombatStatsComponent stats = player.getComponent(CombatStatsComponent.class);
+        int maxSP = stats.getSpecialPoints();
+        int curSP = stats.getCurrentSpecialPoints();
+
+        for (int i = 0; i < maxSP; i++) {
+            ImageView spView = (ImageView) specialPointsHbox.getChildren().get(i);
+
+            boolean active = (i < curSP);
+            spView.setVisible(active);
+            spView.setManaged(active);                         // ← clave para relayout
+            if (active) {
+                spView.setImage(specialPointImage);
+            }
+        }
+    }
+
     public void setHealthEnemi(int health,Entity enemy) {
         enemy.getComponent(CombatStatsComponent.class).currentHealth = Math.max(0, Math.min(health,enemy.getComponent(CombatStatsComponent.class).getMaxHealth()));
         updateHealthBarEnemi(enemy);
@@ -316,9 +413,5 @@ public class CombatModeUI {
     }
 
     */
-
-    public void disableCombatMode(boolean combatMode){
-        combatMode = false;
-    }
 
 }

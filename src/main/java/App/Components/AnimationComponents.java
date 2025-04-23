@@ -46,7 +46,7 @@ public class AnimationComponents extends Component
                 cantidadFrames - 1);
         texture = new AnimatedTexture(animIdle);
     }
-    //Contructor para Imagenes Dinamicas con animaciones de ataque
+    //Contructor para Imagenes Dinamicas con animaciones de Enemigos
     public AnimationComponents(String nameCharacter,
                                int cantidadFrames,
                                int cantidadFramesAtack,
@@ -61,6 +61,82 @@ public class AnimationComponents extends Component
                                int altoMuerte,
                                int hitBox) {
         this.hitBox = hitBox;
+        animAtackBasic = new AnimationChannel(FXGL.image(nameCharacter + "atack_basic.png"),
+                cantidadFramesAtack,
+                anchoImagenAtack / cantidadFramesAtack,
+                altoImagenAtack,
+                Duration.seconds(animVelocity),
+                0,
+                cantidadFramesAtack - 1);
+
+        animIdle = new AnimationChannel(FXGL.image(nameCharacter + "idle.png"),
+                cantidadFrames,
+                anchoImagen / cantidadFrames,
+                altoImagen,
+                Duration.seconds(animVelocity),
+                0,
+                cantidadFrames - 1);
+
+        animWalk = new AnimationChannel(FXGL.image(nameCharacter + "caminando.png"),
+                cantidadFrames,
+                anchoImagen / cantidadFrames,
+                altoImagen,
+                Duration.seconds(animVelocity),
+                frameInicio,
+                frameFinal);
+
+        animAbajo = new AnimationChannel(FXGL.image(nameCharacter + "adelante.png"),
+                cantidadFrames,
+                anchoImagen / cantidadFrames,
+                altoImagen,
+                Duration.seconds(animVelocity),
+                frameInicio,
+                frameFinal);
+
+        animArriba = new AnimationChannel(FXGL.image(nameCharacter + "atras.png"),
+                cantidadFrames,
+                anchoImagen / cantidadFrames,
+                altoImagen,
+                Duration.seconds(animVelocity),
+                frameInicio,
+                frameFinal);
+        animMuerte = new AnimationChannel(FXGL.image(nameCharacter + "deat.png"),
+                cantidadFramesMuerte,
+                anchoMuerte / cantidadFramesMuerte,
+                altoMuerte,
+                Duration.seconds(animVelocity),
+                0,
+                cantidadFramesMuerte - 1);
+
+        texture = new AnimatedTexture(animIdle);
+    }
+
+    public AnimationComponents(String nameCharacter,
+                               int cantidadFrames,
+                               int cantidadFramesAtack,
+                               int anchoImagenAtack,
+                               int altoImagenAtack,
+                               int anchoImagen,
+                               int altoImagen,
+                               int frameInicio,
+                               int frameFinal,
+                               int cantidadFramesMuerte,
+                               int anchoMuerte,
+                               int altoMuerte,
+                               int cantidadFramesSpecialAtack,
+                               int anchoAtackSpecialFrame,
+                               int altoAtackSpecialFrame,
+                               int hitBox) {
+        this.hitBox = hitBox;
+        animAtackEspecial = new AnimationChannel(FXGL.image(nameCharacter + "atack_special.png"),
+                cantidadFramesSpecialAtack,
+                anchoAtackSpecialFrame / cantidadFramesSpecialAtack,
+                altoAtackSpecialFrame,
+                Duration.seconds(animVelocity),
+                0,
+                cantidadFramesSpecialAtack - 1);
+
+
         animAtackBasic = new AnimationChannel(FXGL.image(nameCharacter + "atack_basic.png"),
                 cantidadFramesAtack,
                 anchoImagenAtack / cantidadFramesAtack,
@@ -196,7 +272,6 @@ public class AnimationComponents extends Component
 
         MusicService.playWeanpon();
 
-        // Programar el retorno a la animación idle después de 0.5 segundos
         FXGL.getGameTimer().runOnceAfter(() -> {
 
             texture.loopAnimationChannel(animIdle);
@@ -204,6 +279,20 @@ public class AnimationComponents extends Component
             MusicService.playBattle();
 
         }, Duration.seconds(animVelocity));
+    }
+
+    public void playSpecialAnimation(){
+        texture.playAnimationChannel(animAtackEspecial);
+
+        MusicService.playWeanpon();
+
+        FXGL.getGameTimer().runOnceAfter(() -> {
+
+            texture.loopAnimationChannel(animIdle);
+            //FXGL.getAudioPlayer().stopAllMusic();
+            MusicService.playBattle();
+
+        }, Duration.seconds(1));
     }
 
     public void playDeatAnimation()

@@ -1,6 +1,8 @@
 package View.UI;
 
 import Domain.Entity.Characters.Players.Cyborg;
+import com.almasb.fxgl.dsl.FXGL;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -14,8 +16,11 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class UI {
 
     //Images
+    Image buttonGameMenuImage;
+    Image buttonMainMenuImage;
     Image statBar;
     Image statAtackBar;
+    Image specialPointsBarImage;
 
     //Image SteepPointPlayer;
     //Image barraPasosPlayer;
@@ -26,9 +31,17 @@ public class UI {
     Text porcentAtackText;
 
     //ImagesView
+    ImageView buttonGameMenuView;
+    ImageView buttonMainMenuView;
+    ImageView specialPointBarView;
     ImageView heartBarImageViewPlayer;
     ImageView statAtackBarView;
     ImageView statBarView;
+
+    //Buttons
+    Button gameMenuButton;
+    Button mainMenuButton;
+
 
 
     //Hbox
@@ -39,7 +52,6 @@ public class UI {
 
     public void showUI()
     {
-
 
         porcentAtackText = new Text("Atacck +" + 2);
         porcentAtackText.setTranslateX(TILE_SIZE * 8);
@@ -55,6 +67,9 @@ public class UI {
 
 
         //=============ImagesLoader=============
+        buttonGameMenuImage = getAssetLoader().loadImage("botonGameMenu.png");
+        buttonMainMenuImage = getAssetLoader().loadImage("buttonMainMenu.png");
+        specialPointsBarImage = getAssetLoader().loadImage("specialPointBar.png");
         statBar = getAssetLoader().loadImage("statBar.png");
         statAtackBar = getAssetLoader().loadImage("statAtackBar.png");
 
@@ -64,16 +79,44 @@ public class UI {
         //puntosPasosEnemigo = getAssetLoader().loadImage("pasos_point_enemi.png");
 
 
+
+
+        //Special Point Bar
+        specialPointBarView = new ImageView();
+        specialPointBarView.setImage(specialPointsBarImage);
+        specialPointBarView.setFitWidth(245);
+        specialPointBarView.setFitHeight(50);
+        specialPointBarView.setTranslateY(TILE_SIZE * 15 - 3);
+        specialPointBarView.setTranslateX(TILE_SIZE * 3 + 5);
+
+        //Stat Bar
         statBarView = new ImageView();
         statBarView.setImage(statBar);
         statAtackBarView = new ImageView();
         statAtackBarView.setImage(statAtackBar);
-
         statAtackBarView.setTranslateX(TILE_SIZE * 7);
         statAtackBarView.setTranslateY(TILE_SIZE * 16);
-
         statBarView.setTranslateX(TILE_SIZE);
         statBarView.setTranslateY(TILE_SIZE * 15 - 10);
+
+        buttonGameMenuView = new ImageView();
+        buttonGameMenuView.setImage(buttonGameMenuImage);
+        gameMenuButton = new Button();
+        gameMenuButton.setPrefSize(70,70);
+        gameMenuButton.setGraphic(buttonGameMenuView);
+        gameMenuButton.setTranslateX(TILE_SIZE);
+        gameMenuButton.setTranslateY(TILE_SIZE);
+        gameMenuButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+
+
+        buttonMainMenuView = new ImageView();
+        buttonMainMenuView.setImage(buttonMainMenuImage);
+        mainMenuButton = new Button();
+        mainMenuButton.setPrefSize(70,70);
+        mainMenuButton.setGraphic(buttonMainMenuView);
+        mainMenuButton.setTranslateX(TILE_SIZE);
+        mainMenuButton.setTranslateY(TILE_SIZE * 3 - 30);
+        mainMenuButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
 
 
         //Contador de pasos del Jugador
@@ -87,9 +130,6 @@ public class UI {
         //barraPasosEnemigoView.setImage(barraPasosEnemigo);
         //barraPasosEnemigoView.setTranslateX(TILE_SIZE * 22);
         //barraPasosEnemigoView.setTranslateY(TILE_SIZE);
-
-
-
 
         /*
 
@@ -122,7 +162,12 @@ public class UI {
 
         */
 
+        gameMenuButton.setOnAction(e -> FXGL.getGameController().gotoGameMenu());
+        mainMenuButton.setOnAction(e -> FXGL.getGameController().gotoMainMenu());
         //Add Nodes
+        getGameScene().addUINode(gameMenuButton);
+        getGameScene().addUINode(mainMenuButton);
+        getGameScene().addUINode(specialPointBarView);
         getGameScene().addUINode(statAtackBarView);
         getGameScene().addUINode(statBarView);
         getGameScene().addUINode(nameCharaterText);

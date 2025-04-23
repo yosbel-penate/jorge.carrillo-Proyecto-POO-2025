@@ -2,6 +2,7 @@ package App.Game;
 
 import App.Board;
 import App.Components.CombatStatsComponent;
+import App.Components.MyMenu;
 import App.EntityFactory.EnemyFactory;
 import App.EntityFactory.ObjectFactory;
 import App.EntityFactory.PlayersFactory;
@@ -12,8 +13,21 @@ import View.UI.CombatModeUI;
 import View.UI.UI;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.app.scene.FXGLMenu;
+import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.ui.ProgressBar;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
 import static Domain.Settings.SettingsGame.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
@@ -32,12 +46,22 @@ public class GameApp extends GameApplication
     CombatModeUI combatModeUI = new CombatModeUI(ui);
     CollitionService collitionService = new CollitionService(input);
 
+
+    private Stage loadingStage;
+
     @Override
     protected void initSettings(GameSettings settings)
     {
+        settings.setMainMenuEnabled(true);
+        settings.setSceneFactory(new SceneFactory(){
+            @Override
+            public FXGLMenu newMainMenu() {
+                return new MyMenu();              // <– nuestro menú con fondo nuevo
+            }
+        });
         settings.setDeveloperMenuEnabled(true);
-        settings.setWidth(TILE_SIZE * NUM_TILES_X);
-        settings.setHeight(TILE_SIZE * NUM_TILES_Y);
+        settings.setWidth(1920);
+        settings.setHeight(1080);
         settings.setTitle(SettingsGame.gameTitle);
     }
 
@@ -52,6 +76,7 @@ public class GameApp extends GameApplication
         getGameWorld().addEntityFactory(new ObjectFactory());
 
         //Music
+        MusicService.stopMainMenu();
         MusicService.playLevel1Music();
 
         //Level Loader
@@ -69,9 +94,6 @@ public class GameApp extends GameApplication
         droid3 = FXGL.spawn("droid3",TILE_SIZE * 18, TILE_SIZE * 5);
         droid3 = FXGL.spawn("droid3",TILE_SIZE * 18, TILE_SIZE * 20);
 
-
-
-
         cyborg = FXGL.spawn("cyborg");
 
         itemLife = FXGL.spawn("itemLife", TILE_SIZE * 19,TILE_SIZE * 10);
@@ -81,8 +103,6 @@ public class GameApp extends GameApplication
         itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 9,TILE_SIZE * 4);
         itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 19, TILE_SIZE * 15);
 
-
-
         //Components
         //boss.addComponent(new EnemyController(cyborg,combatModeUI, TILE_SIZE));
         input.movInput(cyborg,combatModeUI);
@@ -90,10 +110,21 @@ public class GameApp extends GameApplication
 
     protected void initUI()
     {
+        Button btnMenu = new Button();
+        btnMenu.setTranslateX(750); // Ajusta la posición X según tu diseño
+        btnMenu.setTranslateY(10);  // Ajusta la posición Y según tu diseño
+
+        btnMenu.setOnAction(e -> FXGL.getGameController().gotoGameMenu());
+
+        FXGL.addUINode(btnMenu);
+
+
+
+
         ui.showUI();
         combatModeUI.showCombatUI();
-        combatModeUI.setHealthEnemi(droid2.getComponent(CombatStatsComponent.class).getMaxHealth(),droid2);
-        combatModeUI.setHealthEnemi(droid1.getComponent(CombatStatsComponent.class).getMaxHealth(),droid1);
+       // combatModeUI.setHealthEnemi(droid2.getComponent(CombatStatsComponent.class).getMaxHealth(),droid2);
+       // combatModeUI.setHealthEnemi(droid1.getComponent(CombatStatsComponent.class).getMaxHealth(),droid1);
         combatModeUI.setHealthPLayer(cyborg.getComponent(CombatStatsComponent.class).getMaxHealth(),cyborg);
     }
 

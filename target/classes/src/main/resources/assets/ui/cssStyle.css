@@ -1,0 +1,29 @@
+/* Sobrescribe TODOS los botones FXGL */
+.fxgl-button {
+    -fx-background-color: #2E2E2E; /* Color normal */
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-font-size: 16px;
+}
+
+/* Efecto al pasar el mouse */
+.fxgl-button:hover {
+    -fx-background-color: #4A4A4E; /* Color hover */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
+}
+
+/* Efecto al presionar */
+.fxgl-button:pressed {
+    -fx-background-color: #1E1E1E; /* Color pressed */
+}
+
+/* Efecto de foco (teclado) */
+.fxgl-button:focused {
+    -fx-border-color: #00FF00; /* Borde verde */
+    -fx-border-width: 2px;
+}
+.fxgl-button:hover {
+    -fx-background-color: #FF0000 !important; /* Rojo al hacer hover */
+}

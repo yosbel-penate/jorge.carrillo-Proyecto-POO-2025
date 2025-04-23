@@ -15,11 +15,18 @@ public class MusicService {
 
     }
 
+    public static void playMainMenu(){
+        FXGL.getAudioPlayer().playMusic(FXGL.getAssetLoader().loadMusic("menu.wav"));
+    }
+
+    public static void stopMainMenu(){
+        FXGL.getAudioPlayer().stopMusic(FXGL.getAssetLoader().loadMusic("menu.wav"));
+    }
+
     public static void playItem(){
         FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("item.wav"));
 
     }
-
 
     public static void playBattle(){
         FXGL.getAudioPlayer().loopMusic(FXGL.getAssetLoader().loadMusic("battle.wav"));
