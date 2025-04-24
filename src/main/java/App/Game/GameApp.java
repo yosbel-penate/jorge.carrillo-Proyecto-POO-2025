@@ -1,12 +1,14 @@
 package App.Game;
 
-import App.Board;
 import App.Components.CombatStatsComponent;
-import App.Components.MyMenu;
+import App.Services.CollitionService;
+import App.Services.MusicService;
+import View.UI.GameMenu;
+import View.UI.MyMenu;
 import App.EntityFactory.EnemyFactory;
 import App.EntityFactory.ObjectFactory;
 import App.EntityFactory.PlayersFactory;
-import App.Input;
+import App.Services.Input;
 import Domain.Settings.SettingsGame;
 import View.Maps.Maps;
 import View.UI.CombatModeUI;
@@ -17,16 +19,6 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.ui.ProgressBar;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import static Domain.Settings.SettingsGame.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
@@ -37,17 +29,24 @@ public class GameApp extends GameApplication
     Input input = new Input();
     UI ui = new UI();
     Board board = new Board();
+    CombatModeUI combatModeUI = new CombatModeUI(ui);
+    CollitionService collitionService = new CollitionService(input);
+
+    //Entidades
     private Entity cyborg;
+    private Entity explore;
     private Entity droid1;
     private Entity droid2;
     private Entity droid3;
     private Entity itemAtack;
     private Entity itemLife;
-    CombatModeUI combatModeUI = new CombatModeUI(ui);
-    CollitionService collitionService = new CollitionService(input);
-
-
-    private Stage loadingStage;
+    private Entity itemSpecialPoint;
+    private Entity barrier;
+    private Entity barrier1;
+    private Entity barrier2;
+    private Entity barrierDisabled;
+    private Entity panel;
+    private Entity panel2;
 
     @Override
     protected void initSettings(GameSettings settings)
@@ -56,18 +55,25 @@ public class GameApp extends GameApplication
         settings.setSceneFactory(new SceneFactory(){
             @Override
             public FXGLMenu newMainMenu() {
-                return new MyMenu();              // <– nuestro menú con fondo nuevo
+                return new MyMenu();
+            }
+
+            @Override
+            public FXGLMenu newGameMenu() {
+                return new GameMenu();
             }
         });
         settings.setDeveloperMenuEnabled(true);
-        settings.setWidth(1920);
-        settings.setHeight(1080);
+        settings.setWidth(1536);
+        settings.setHeight(1024);
         settings.setTitle(SettingsGame.gameTitle);
     }
+
 
     @Override
     protected void initGame()
     {
+        //Tablero de juego
         Board.boardTable(NUM_TILES_Y,NUM_TILES_X, TILE_SIZE);
 
         //Entities Factory
@@ -82,49 +88,50 @@ public class GameApp extends GameApplication
         //Level Loader
         Maps.setLevel1();
 
-        //Entities
-        //golem = FXGL.spawn("golem",TILE_SIZE * 18, TILE_SIZE * 8);
+        //===================Entidades en el mapa========================
+        //Explore
+        explore = FXGL.spawn("explore",TILE_SIZE * 20 , TILE_SIZE * 10);
+        explore = FXGL.spawn("explore",TILE_SIZE * 8 , TILE_SIZE * 13);
+        //Droid1
         droid1 = FXGL.spawn("droid1",TILE_SIZE * 10, TILE_SIZE * 10);
         droid1 = FXGL.spawn("droid1",TILE_SIZE * 28, TILE_SIZE * 15);
-
-
+        //Droid2
+        droid2 = FXGL.spawn("droid2",TILE_SIZE * 17 , TILE_SIZE * 15);
         droid2 = FXGL.spawn("droid2",TILE_SIZE * 12, TILE_SIZE * 4);
         droid2 = FXGL.spawn("droid2",TILE_SIZE * 28, TILE_SIZE * 5);
-
+        //Droid3
         droid3 = FXGL.spawn("droid3",TILE_SIZE * 18, TILE_SIZE * 5);
         droid3 = FXGL.spawn("droid3",TILE_SIZE * 18, TILE_SIZE * 20);
-
-        cyborg = FXGL.spawn("cyborg");
-
+        //Barriers
+        barrierDisabled = FXGL.spawn("barrierDisabled",TILE_SIZE * 16,TILE_SIZE * 13);
+        barrierDisabled = FXGL.spawn("barrierDisabled",TILE_SIZE * 22,TILE_SIZE * 13);
+        barrierDisabled = FXGL.spawn("barrierDisabled",TILE_SIZE * 22,TILE_SIZE * 23);
+        barrierDisabled = FXGL.spawn("barrierDisabled",TILE_SIZE * 16,TILE_SIZE * 23);
+        barrier = FXGL.spawn("barrier",TILE_SIZE * 16,TILE_SIZE * 3);
+        barrier1 = FXGL.spawn("barrier",TILE_SIZE * 22,TILE_SIZE * 3);
+        //Panels
+        panel = FXGL.spawn("controlPanel",TILE_SIZE * 15,TILE_SIZE * 2);
+        panel2 = FXGL.spawn("controlPanel",TILE_SIZE * 23,TILE_SIZE * 2);
+        //Items
+        itemSpecialPoint = FXGL.spawn("itemSpecialPoint",TILE_SIZE * 5, TILE_SIZE * 7);
+        itemSpecialPoint = FXGL.spawn("itemSpecialPoint",TILE_SIZE * 25, TILE_SIZE * 5);
         itemLife = FXGL.spawn("itemLife", TILE_SIZE * 19,TILE_SIZE * 10);
         itemLife = FXGL.spawn("itemLife", TILE_SIZE * 3,TILE_SIZE * 13);
-
-
         itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 9,TILE_SIZE * 4);
         itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 19, TILE_SIZE * 15);
+        //Players
+        cyborg = FXGL.spawn("cyborg");
 
         //Components
         //boss.addComponent(new EnemyController(cyborg,combatModeUI, TILE_SIZE));
+
         input.movInput(cyborg,combatModeUI);
     }
 
     protected void initUI()
     {
-        Button btnMenu = new Button();
-        btnMenu.setTranslateX(750); // Ajusta la posición X según tu diseño
-        btnMenu.setTranslateY(10);  // Ajusta la posición Y según tu diseño
-
-        btnMenu.setOnAction(e -> FXGL.getGameController().gotoGameMenu());
-
-        FXGL.addUINode(btnMenu);
-
-
-
-
         ui.showUI();
-        combatModeUI.showCombatUI();
-       // combatModeUI.setHealthEnemi(droid2.getComponent(CombatStatsComponent.class).getMaxHealth(),droid2);
-       // combatModeUI.setHealthEnemi(droid1.getComponent(CombatStatsComponent.class).getMaxHealth(),droid1);
+        combatModeUI.showCombatUI(cyborg);
         combatModeUI.setHealthPLayer(cyborg.getComponent(CombatStatsComponent.class).getMaxHealth(),cyborg);
     }
 
@@ -132,8 +139,12 @@ public class GameApp extends GameApplication
     protected void initPhysics()
     {
         FXGL.getPhysicsWorld().setGravity(0,0);
+        collitionService.starPanelCollition(barrier1);
+        collitionService.starPanelCollition(barrier);
+        collitionService.startCollitionBarrier(combatModeUI);
         collitionService.startCollitionEnemy(combatModeUI);
         collitionService.startCollitionItemAtack(ui);
+        collitionService.startCollitionItemSpecialPoint(combatModeUI);
         collitionService.startCollitionItemLife(combatModeUI);
     }
 

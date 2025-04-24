@@ -1,7 +1,7 @@
 package App.Components;
 
-import App.Game.CollitionService;
-import App.Game.MusicService;
+import App.Services.CollitionService;
+import App.Services.MusicService;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.physics.PhysicsComponent;
@@ -13,7 +13,6 @@ import static Domain.Settings.SettingsGame.TILE_SIZE;
 
 public class AnimationComponents extends Component
 {
-
     int hitBox;
     boolean isMoving;
     double animVelocity = 0.7;
@@ -25,10 +24,10 @@ public class AnimationComponents extends Component
                              animArriba,
                              animAtackBasic,
                              animAtackEspecial,
-                             animMuerte;
+                             animMuerte,
+                             animDisableBarrier;
 
-    //===================Contructores====================
-    //Contructor para Imagenes Dinamicas(items)
+    //Constructor para los Items y otros objetos de un solo canal de animacion
     public AnimationComponents(String nameItem,
                                int cantidadFrames,
                                int anchoImagen,
@@ -44,8 +43,17 @@ public class AnimationComponents extends Component
                 Duration.seconds(animVelocity),
                 0,
                 cantidadFrames - 1);
+
+        animDisableBarrier = new AnimationChannel(FXGL.image(nameItem + "disabled.png"),
+                cantidadFrames,
+                anchoImagen / cantidadFrames,
+                altoImagen,
+                Duration.seconds(1),
+                0,
+                cantidadFrames - 1);
         texture = new AnimatedTexture(animIdle);
     }
+
     //Contructor para Imagenes Dinamicas con animaciones de Enemigos
     public AnimationComponents(String nameCharacter,
                                int cantidadFrames,
@@ -92,7 +100,6 @@ public class AnimationComponents extends Component
                 Duration.seconds(animVelocity),
                 frameInicio,
                 frameFinal);
-
         animArriba = new AnimationChannel(FXGL.image(nameCharacter + "atras.png"),
                 cantidadFrames,
                 anchoImagen / cantidadFrames,
@@ -111,6 +118,7 @@ public class AnimationComponents extends Component
         texture = new AnimatedTexture(animIdle);
     }
 
+    //Constructor para Players
     public AnimationComponents(String nameCharacter,
                                int cantidadFrames,
                                int cantidadFramesAtack,
@@ -187,24 +195,6 @@ public class AnimationComponents extends Component
         texture = new AnimatedTexture(animIdle);
     }
 
-    //Contructor para Imagenes Estaticas(Un solo frame)
-    public AnimationComponents(String nameCharacter,
-                               int anchoImagen,
-                               int altoImagen,
-                               int cantidadFrames)
-    {
-        animIdle = new AnimationChannel(FXGL.image(nameCharacter + "idle.png"),
-                cantidadFrames,
-                anchoImagen / cantidadFrames,
-                altoImagen,
-                Duration.seconds(animVelocity),
-                0,
-                7);
-
-
-        texture = new AnimatedTexture(animIdle);
-    }
-
     @Override
     public void onAdded()
     {
@@ -214,18 +204,26 @@ public class AnimationComponents extends Component
         texture.loopAnimationChannel(animIdle);
     }
 
+    //Animacion de Movimiento
     public void selectTypeOfHitBox(int hitBox){
         if (hitBox == 11){
             collitionService.updateCollisionBox1x1(this.entity);
         } else if (hitBox == 12) {
             collitionService.updateCollisionBox1x2(this.entity);
-        }else {
+        }else if (hitBox == 22){
             collitionService.updateCollisionBox2x2(this.entity);
+        }else if(hitBox == 13){
+            collitionService.updateCollisionBox1x3(this.entity);
         }
     }
 
-    @Override
-    public void onUpdate(double tpf) {}
+    public void playDisabledBarrier(){
+        texture.playAnimationChannel(animDisableBarrier);
+    }
+
+    public void playChangesPanel(){
+        texture.loopAnimationChannel(animDisableBarrier);
+    }
 
     private void move(Point2D dir, AnimationChannel channel, double scaleX) {
         if (isMoving) return;
@@ -259,6 +257,7 @@ public class AnimationComponents extends Component
         double y = Math.round(entity.getY() / TILE_SIZE) * TILE_SIZE;
         entity.setPosition(x, y);
     }
+
     public void stopMoving() {
         if (texture.getAnimationChannel() != animIdle) {
             texture.loopAnimationChannel(animIdle);
@@ -300,5 +299,10 @@ public class AnimationComponents extends Component
         if (animMuerte != null){
             texture.playAnimationChannel(animMuerte);
         }
+        FXGL.getGameTimer().runOnceAfter(() -> {
+
+            texture.loopAnimationChannel(animIdle);
+
+        }, Duration.seconds(1));
     }
 }

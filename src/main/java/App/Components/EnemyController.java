@@ -1,7 +1,6 @@
 package App.Components;
 
 import View.UI.CombatModeUI;
-import View.UI.UI;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.entity.Entity;
@@ -16,7 +15,6 @@ public class EnemyController extends Component {
     private boolean isMoving = false;
     private int actionPoints = 5; // Pasos por turno
     private CombatModeUI ui;
-
     private PhysicsComponent physics;
     private AnimationComponents anim;
 
@@ -96,21 +94,17 @@ public class EnemyController extends Component {
     }
 
     private boolean isPositionFree(Point2D position) {
-        // Convertimos la posición objetivo en coordenadas de tile
         int targetTileX = (int) (position.getX() / tileSize);
         int targetTileY = (int) (position.getY() / tileSize);
 
-        // Obtenemos la posición del jugador también como tile
         int playerTileX = (int) (player.getX() / tileSize);
         int playerTileY = (int) (player.getY() / tileSize);
 
-        // Si el tile destino es el mismo donde está el jugador, no es libre
         if (targetTileX == playerTileX && targetTileY == playerTileY) {
             return false;
         }
 
-        // Podés agregar aquí más lógica para otros obstáculos si querés
 
-        return true; // Si no hay conflicto, la posición está libre
+        return true;
     }
 }

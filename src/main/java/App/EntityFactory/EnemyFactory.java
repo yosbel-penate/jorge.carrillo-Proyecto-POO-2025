@@ -18,11 +18,40 @@ import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import static Domain.Settings.SettingsGame.TILE_SIZE;
 
 public class EnemyFactory implements EntityFactory {
-    //Instancias :
+
     Drone drone = new Drone();
     DroneTipe_1 droneTipe1 = new DroneTipe_1();
 
     //Entidades
+    @Spawns("explore")
+    public Entity newExplore(SpawnData data){
+
+        PhysicsComponent physics = new PhysicsComponent();
+        physics.setBodyType(BodyType.KINEMATIC);
+
+        return FXGL.entityBuilder(data)
+                .type(Types.EntityType.ENEMY)
+                .with(new CombatStatsComponent(droneTipe1.life, droneTipe1.atack,3))
+                .with(new AnimationComponents(
+                        "explore",
+                        8,
+                        4,
+                        200,
+                        50,
+                        600,
+                        49,
+                        0,
+                        7,
+                        12,
+                        600,
+                        50,
+                        11
+                ))
+                .with(physics)
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+
     @Spawns("droid1")
     public Entity newDroid1(SpawnData data){
 
@@ -80,6 +109,7 @@ public class EnemyFactory implements EntityFactory {
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }
+
     @Spawns("golem")
     public Entity newGolem(SpawnData data){
 
@@ -107,6 +137,7 @@ public class EnemyFactory implements EntityFactory {
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }
+
     @Spawns("droid3")
     public Entity newDroid3(SpawnData data){
 

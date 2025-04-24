@@ -2,7 +2,6 @@ package App.Components;
 
 import com.almasb.fxgl.entity.component.Component;
 
-// HealthComponent.java
 public class CombatStatsComponent extends Component {
     private int maxHealth;
     public int currentHealth;
@@ -23,9 +22,7 @@ public class CombatStatsComponent extends Component {
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.atacck = atacck;
-
     }
-
     // Getters
     public int getSpecialPoints(){return specialPoints; }
     public int getCurrentSpecialPoints(){return currentSpecialPoints; }

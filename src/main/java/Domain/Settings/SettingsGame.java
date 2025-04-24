@@ -11,10 +11,7 @@ public class SettingsGame {
 
     public static final int screenWidth = TILE_SIZE * NUM_TILES_X;
     public static final int screenHeigth = TILE_SIZE * NUM_TILES_Y;
-    public static String gameTitle = "Pruebas en FXGL";
 
-    //UI
-    public static final int GENERAL_UI_X = 117;
-    public static final int GENERAL_UI_Y = 98;
+    public static String gameTitle = "Eclipsis: el legado de la nave abandonada(BetaVer)";
 
 }

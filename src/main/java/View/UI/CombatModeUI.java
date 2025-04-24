@@ -2,7 +2,7 @@ package View.UI;
 
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
-import App.Game.MusicService;
+import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -32,7 +32,6 @@ public class CombatModeUI {
     Image atackSpecialButtonImage;
 
     //ImagesView
-    ImageView specialPointView;
     ImageView atackSpeciaButtonView;
     ImageView panelCombatView;
     ImageView atackBasicButtonView;
@@ -63,16 +62,16 @@ public class CombatModeUI {
     }
     public CombatModeUI(){}
 
-    public void showCombatUI(){
+    public void showCombatUI(Entity player){
 
         //Cargadores de imagenes
         specialPointImage = getAssetLoader().loadImage("specialPoint.png");
-        atackSpecialButtonImage = getAssetLoader().loadImage("atackSpecialButton.png");
+        atackSpecialButtonImage = getAssetLoader().loadImage("special.png");
         heartBarEnemi = getAssetLoader().loadImage("barra_enemigo.png");
         lifePointEnemi = getAssetLoader().loadImage("life_point_enemi.png");
         heartBarPlayer = getAssetLoader().loadImage("life_bar.png");
         lifePointPlayer = getAssetLoader().loadImage("life_point.png");
-        atackBasicButtonImage = getAssetLoader().loadImage("atackBasicButton.png");
+        atackBasicButtonImage = getAssetLoader().loadImage("button_atacck.png");
         panelCombat = getAssetLoader().loadImage("combat_panel.png");
 
         //=============ImagesViews=============
@@ -85,7 +84,7 @@ public class CombatModeUI {
         //=========Barra de vida del Enemigo==========
         heartBarImageViewEnemi = new ImageView();
         heartBarImageViewEnemi.setImage(heartBarEnemi);
-        heartBarImageViewEnemi.setTranslateX(TILE_SIZE * 21);
+        heartBarImageViewEnemi.setTranslateX(TILE_SIZE * 20);
         heartBarImageViewEnemi.setTranslateY(TILE_SIZE * 17);
 
         //=======Panel Jugador============
@@ -97,8 +96,8 @@ public class CombatModeUI {
         buttonAtackSpecial.setPrefSize(100,100);
         atackSpeciaButtonView = new ImageView();
         atackSpeciaButtonView.setImage(atackSpecialButtonImage);
-        atackSpeciaButtonView.setFitWidth(100);
-        atackSpeciaButtonView.setFitHeight(100);
+        //atackSpeciaButtonView.setFitWidth(100);
+        //atackSpeciaButtonView.setFitHeight(100);
         buttonAtackSpecial.setGraphic(atackSpeciaButtonView);
         buttonAtackSpecial.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
 
@@ -114,7 +113,7 @@ public class CombatModeUI {
 
         //Barra de Puntos Especiales
         specialPointsHbox = new HBox(5);
-        for (int i = 0; i < 1; i ++){
+        for (int i = 0; i < player.getComponent(CombatStatsComponent.class).getSpecialPoints(); i ++){
             ImageView specialPointView = new ImageView(specialPointImage);
             specialPointView.setFitHeight(30);
             specialPointView.setFitWidth(72);
@@ -147,7 +146,6 @@ public class CombatModeUI {
         heartsBarPlayerHbox.setTranslateX(TILE_SIZE + 12);
         heartsBarPlayerHbox.setTranslateY(TILE_SIZE * 17 + 13);
 
-
         getGameScene().addUINode(heartBarImageViewPlayer);
         getGameScene().addUINode(heartsBarPlayerHbox);
         getGameScene().addUINode(specialPointsHbox);
@@ -166,26 +164,19 @@ public class CombatModeUI {
                 newBar.getChildren().add(heartViewEnemi);
             }
             newBar.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-            newBar.setTranslateX(TILE_SIZE * 28 + 24);
+            newBar.setTranslateX(TILE_SIZE * 27 + 24);
             newBar.setTranslateY(TILE_SIZE * 17 + 12);
-
             this.heartsBarEnemiHbox = newBar;
-
-            //agregando nodos graficos
-            getGameScene().addUINode(heartBarImageViewEnemi);
-            getGameScene().addUINode(panelCombatView);
-            getGameScene().addUINode(newBar);
-
 
             panelCombatView.setTranslateX(TILE_SIZE);
             panelCombatView.setTranslateY(TILE_SIZE * 10);
 
-            //Show combat buttons
            initButtonAtacckBasic(player,enemy);
            initButtonAtacckSpecial(player, enemy);
 
-
-            //Add buttons to scene
+            getGameScene().addUINode(heartBarImageViewEnemi);
+            getGameScene().addUINode(panelCombatView);
+            getGameScene().addUINode(newBar);
             getGameScene().addUINode(buttonAtackSpecial);
             buttonAtackSpecial.setTranslateX(TILE_SIZE * 5);
             buttonAtackSpecial.setTranslateY(TILE_SIZE * 10 + 10);
@@ -238,7 +229,6 @@ public class CombatModeUI {
                 MusicService.playWeanpon();
                 break;
             case "special" :
-                reduceSpecialPoint(player);
                 player.getComponent(AnimationComponents.class).playSpecialAnimation();
                 reduceHealthEnemi(Cyborg.atack,enemy);
                 MusicService.playWeanpon();
@@ -260,7 +250,7 @@ public class CombatModeUI {
                 getGameScene().removeUINode(buttonAtackSpecial);
                 MusicService.stopBattleMusic();
                 MusicService.playLevel1Music();
-            }, Duration.seconds(2));
+            }, Duration.seconds(1));
         }else {
             // Turno enemigo después de 1 segundo
             enemyTurnDelay.setOnFinished(ev -> startAtacckEnemy(player, enemy));
@@ -289,36 +279,31 @@ public class CombatModeUI {
     }
 
     public void updateHealthBarPlayer(Entity player) {
-        // 1. Obtener el componente una sola vez
         CombatStatsComponent stats = player.getComponent(CombatStatsComponent.class);
 
-        // 2. Verificar que existe el componente
         if (stats == null) {
             throw new IllegalStateException("El jugador no tiene CombatStatsComponent");
         }
 
-        // 3. Asegurar que el HBox tiene suficientes corazones
         int maxHearts = stats.getMaxHealth();
         if (heartsBarPlayerHbox.getChildren().size() != maxHearts) {
             initializeHearts(maxHearts); // Método para crear los corazones
         }
 
-        // 4. Actualizar visibilidad
         for (int i = 0; i < maxHearts; i++) {
             ImageView heartView = (ImageView) heartsBarPlayerHbox.getChildren().get(i);
             heartView.setVisible(i < stats.currentHealth);
         }
     }
 
-    // Método nuevo para inicializar los corazones
     private void initializeHearts(int maxHearts) {
         heartsBarPlayerHbox.getChildren().clear();
 
         for (int i = 0; i < maxHearts; i++) {
             ImageView heart = new ImageView(lifePointPlayer);
-            heart.setFitWidth(20);  // Ajustar al tamaño deseado
+            heart.setFitWidth(20);
             heart.setFitHeight(32);
-            heart.setVisible(false); // Inicialmente ocultos
+            heart.setVisible(false);
             heartsBarPlayerHbox.getChildren().add(heart);
         }
     }
@@ -336,13 +321,12 @@ public class CombatModeUI {
         }
     }
 
-    public void incrementSpecialPoint(Entity player){
-        //player.getComponent(CombatStatsComponent.class).incrementSpecialPoint();
-    }
-
     public void reduceSpecialPoint(Entity player){
 
-        player.getComponent(CombatStatsComponent.class).currentSpecialPoints -= 1;
+        if (player.getComponent(CombatStatsComponent.class).currentSpecialPoints > 0){
+            player.getComponent(CombatStatsComponent.class).currentSpecialPoints -= 1;
+        }
+
         if (player.getComponent(CombatStatsComponent.class).currentSpecialPoints < 0)
             player.getComponent(CombatStatsComponent.class).currentSpecialPoints = 0;
         updateSpecialPointBarPLayer(player);
@@ -358,16 +342,11 @@ public class CombatModeUI {
 
             boolean active = (i < curSP);
             spView.setVisible(active);
-            spView.setManaged(active);                         // ← clave para relayout
+            spView.setManaged(active);
             if (active) {
                 spView.setImage(specialPointImage);
             }
         }
-    }
-
-    public void setHealthEnemi(int health,Entity enemy) {
-        enemy.getComponent(CombatStatsComponent.class).currentHealth = Math.max(0, Math.min(health,enemy.getComponent(CombatStatsComponent.class).getMaxHealth()));
-        updateHealthBarEnemi(enemy);
     }
 
     public void setHealthPLayer(int health,Entity player) {
@@ -413,5 +392,4 @@ public class CombatModeUI {
     }
 
     */
-
 }

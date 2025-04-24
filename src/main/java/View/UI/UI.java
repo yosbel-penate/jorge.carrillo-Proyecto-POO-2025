@@ -1,11 +1,13 @@
 package View.UI;
 
+import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
 import com.almasb.fxgl.dsl.FXGL;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -16,6 +18,8 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class UI {
 
     //Images
+    Image wikiImage;
+    Image buttonWikiImage;
     Image buttonGameMenuImage;
     Image buttonMainMenuImage;
     Image statBar;
@@ -31,6 +35,8 @@ public class UI {
     Text porcentAtackText;
 
     //ImagesView
+    ImageView buttonWikiView;
+    ImageView wikiView;
     ImageView buttonGameMenuView;
     ImageView buttonMainMenuView;
     ImageView specialPointBarView;
@@ -39,20 +45,18 @@ public class UI {
     ImageView statBarView;
 
     //Buttons
+    Button buttonWiki;
     Button gameMenuButton;
     Button mainMenuButton;
-
-
 
     //Hbox
     //public HBox playerSteepHbox;
     //public HBox enemyStepsHbox;
 
-    //=============Instancia de LogicCombat=============
-
     public void showUI()
     {
 
+        //Caja de informacion
         porcentAtackText = new Text("Atacck +" + 2);
         porcentAtackText.setTranslateX(TILE_SIZE * 8);
         porcentAtackText.setTranslateY(TILE_SIZE * 16 + 23);
@@ -65,10 +69,10 @@ public class UI {
         nameCharaterText.setFill(Color.CYAN);
         nameCharaterText.setFont(Font.font("Negrita", 25));
 
-
         //=============ImagesLoader=============
         buttonGameMenuImage = getAssetLoader().loadImage("botonGameMenu.png");
         buttonMainMenuImage = getAssetLoader().loadImage("buttonMainMenu.png");
+        buttonWikiImage = getAssetLoader().loadImage("wikiButton.png");
         specialPointsBarImage = getAssetLoader().loadImage("specialPointBar.png");
         statBar = getAssetLoader().loadImage("statBar.png");
         statAtackBar = getAssetLoader().loadImage("statAtackBar.png");
@@ -78,8 +82,20 @@ public class UI {
         //barraPasosEnemigo = getAssetLoader().loadImage("barra_pasos_ememigo.png");
         //puntosPasosEnemigo = getAssetLoader().loadImage("pasos_point_enemi.png");
 
-
-
+        //wiki
+        buttonWikiView = new ImageView();
+        buttonWikiView.setImage(buttonWikiImage);
+        wikiImage =getAssetLoader().loadImage("wiki_image.png");
+        wikiView = new ImageView();
+        wikiView.setImage(wikiImage);
+        wikiView.setTranslateX(TILE_SIZE * 8);
+        wikiView.setTranslateY(TILE_SIZE * 5);
+        buttonWiki = new Button();
+        buttonWiki.setPrefSize(70,70);
+        buttonWiki.setGraphic(buttonWikiView);
+        buttonWiki.setTranslateX(TILE_SIZE);
+        buttonWiki.setTranslateY(TILE_SIZE * 4 - 10);
+        buttonWiki.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
 
         //Special Point Bar
         specialPointBarView = new ImageView();
@@ -99,6 +115,7 @@ public class UI {
         statBarView.setTranslateX(TILE_SIZE);
         statBarView.setTranslateY(TILE_SIZE * 15 - 10);
 
+        //Button GameMenu
         buttonGameMenuView = new ImageView();
         buttonGameMenuView.setImage(buttonGameMenuImage);
         gameMenuButton = new Button();
@@ -108,7 +125,7 @@ public class UI {
         gameMenuButton.setTranslateY(TILE_SIZE);
         gameMenuButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
 
-
+        //Button MainMenu
         buttonMainMenuView = new ImageView();
         buttonMainMenuView.setImage(buttonMainMenuImage);
         mainMenuButton = new Button();
@@ -117,7 +134,6 @@ public class UI {
         mainMenuButton.setTranslateX(TILE_SIZE);
         mainMenuButton.setTranslateY(TILE_SIZE * 3 - 30);
         mainMenuButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
-
 
         //Contador de pasos del Jugador
         //barraPasosPlayerView = new ImageView();
@@ -162,9 +178,20 @@ public class UI {
 
         */
 
-        gameMenuButton.setOnAction(e -> FXGL.getGameController().gotoGameMenu());
-        mainMenuButton.setOnAction(e -> FXGL.getGameController().gotoMainMenu());
-        //Add Nodes
+        gameMenuButton.setOnAction(e -> {
+            FXGL.getGameController().gotoGameMenu();
+            MusicService.playKey();
+        });
+        buttonWiki.setOnAction(e -> {
+            setImageWiki();
+            MusicService.playKey();
+        });
+        mainMenuButton.setOnAction(e -> {
+            FXGL.getGameController().gotoMainMenu();
+            MusicService.playKey();
+        });
+
+        getGameScene().addUINode(buttonWiki);
         getGameScene().addUINode(gameMenuButton);
         getGameScene().addUINode(mainMenuButton);
         getGameScene().addUINode(specialPointBarView);
@@ -177,6 +204,20 @@ public class UI {
         //etGameScene().addUINode(playerSteepHbox);
         //getGameScene().addUINode(barraPasosEnemigoView);
         //getGameScene().addUINode(enemyStepsHbox);
+    }
+
+    private void setImageWiki(){
+        getGameScene().addUINode(wikiView);
+
+        wikiView.addEventFilter(MouseEvent.MOUSE_PRESSED, MouseEvent::consume);
+
+        Scene scene = getGameScene().getRoot().getScene();
+        scene.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            // Si la wikiView sigue en la UI, la quitamos
+            if (getGameScene().getUINodes().contains(wikiView)) {
+                getGameScene().removeUINode(wikiView);
+            }
+        });
     }
 
     public void atackBar(int amount){
