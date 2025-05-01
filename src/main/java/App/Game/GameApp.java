@@ -49,8 +49,7 @@ public class GameApp extends GameApplication
     private Entity panel2;
 
     @Override
-    protected void initSettings(GameSettings settings)
-    {
+    protected void initSettings(GameSettings settings) {
         settings.setMainMenuEnabled(true);
         settings.setSceneFactory(new SceneFactory(){
             @Override
@@ -69,10 +68,8 @@ public class GameApp extends GameApplication
         settings.setTitle(SettingsGame.gameTitle);
     }
 
-
     @Override
-    protected void initGame()
-    {
+    protected void initGame() {
         //Tablero de juego
         Board.boardTable(NUM_TILES_Y,NUM_TILES_X, TILE_SIZE);
 
@@ -128,8 +125,7 @@ public class GameApp extends GameApplication
         input.movInput(cyborg,combatModeUI);
     }
 
-    protected void initUI()
-    {
+    protected void initUI() {
         ui.showUI();
         combatModeUI.showCombatUI(cyborg);
         combatModeUI.setHealthPLayer(cyborg.getComponent(CombatStatsComponent.class).getMaxHealth(),cyborg);

@@ -70,7 +70,7 @@ public class CollitionService
 
     public void startCollitionItemSpecialPoint(CombatModeUI combatModeUI){
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                Types.EntityType.ITEM_SPECIAL_POINT)
+                                                                        Types.EntityType.ITEM_SPECIAL_POINT)
         {
             @Override
             protected void onCollision(Entity player, Entity item){

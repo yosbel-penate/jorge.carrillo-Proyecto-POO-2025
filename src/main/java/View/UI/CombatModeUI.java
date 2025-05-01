@@ -22,6 +22,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class CombatModeUI {
 
     //Images
+    Image statBarEnemyImage;
     Image specialPointImage;
     Image lifePointPlayer;
     Image heartBarPlayer;
@@ -32,6 +33,7 @@ public class CombatModeUI {
     Image atackSpecialButtonImage;
 
     //ImagesView
+    ImageView statBarEnemyView;
     ImageView atackSpeciaButtonView;
     ImageView panelCombatView;
     ImageView atackBasicButtonView;
@@ -207,6 +209,9 @@ public class CombatModeUI {
             buttonAtackSpecial.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    if (player.getComponent(CombatStatsComponent.class).currentSpecialPoints > 0){
+                        buttonAtackSpecial.setDisable(false);
+                    }
                     if (statusbuttonAtacck){
                         tipoOfAnimationInButton = "special";
                         reduceSpecialPoint(player);
@@ -368,28 +373,4 @@ public class CombatModeUI {
         updateHealthBarEnemi(enemy);
     }
 
-    /*
-
-    public void reduceStepPoint() {
-        if (combatStats.numeroActualPasos < combatStats.setPLayerInitSteeps()) {
-            // Se obtiene el ImageView correspondiente al paso a descontar
-            ImageView pasoIcon = (ImageView) playerSteepHbox.getChildren().get(combatStats.numeroActualPasos);
-            // Se puede optar por ocultarlo o cambiarle la opacidad para dar efecto de "gastado"
-            pasoIcon.setVisible(false);
-            // Alternativamente, si no deseas ocultar por completo puedes reducir la opacidad:
-            // pasoIcon.setOpacity(0.3);
-            combatStats.numeroActualPasos++;
-        }
-    }
-
-    public void reduceEnemyStepPoint() {
-        if (combatStats.enemyConsumedSteps < combatStats.enemyMaxSteps) {
-            // Obtén el ícono correspondiente a ese paso y cambia su visibilidad o su opacidad
-            ImageView enemyStepIcon = (ImageView) ui.enemyStepsHbox.getChildren().get(combatStats.enemyConsumedSteps);
-            enemyStepIcon.setVisible(false); // O, alternativamente: enemyStepIcon.setOpacity(0.3);
-            combatStats.enemyConsumedSteps++;
-        }
-    }
-
-    */
 }
