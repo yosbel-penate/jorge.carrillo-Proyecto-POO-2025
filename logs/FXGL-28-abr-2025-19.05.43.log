@@ -1,0 +1,417 @@
+19:04:50.340 [main                     ] DEBUG Logger               - Configured Logger
+19:04:50.356 [main                     ] DEBUG GameApplication      - Logging settings
+Title: Eclipsis: el legado de la nave abandonada(BetaVer)
+Version: 0.0
+Width: 1536
+Height: 1024
+Fullscreen: false
+Intro: false
+Profiling: false
+Single step:false
+App Mode: DEVELOPER
+Menu Key: ESCAPE
+Stage Style: DECORATED
+Scene Factory: class App.Game.GameApp$1
+
+19:04:50.550 [JavaFX Application Thread] DEBUG FXGLApplication      - Initializing FXGL
+19:04:50.557 [JavaFX Application Thread] INFO  Engine               - FXGL-21.1 (27.03.2024 07.52) on LINUX (J:21.0.6 FX:21.0.1)
+19:04:50.557 [JavaFX Application Thread] DEBUG Engine               - JRE Vendor Name: Oracle Corporation
+19:04:50.558 [JavaFX Application Thread] DEBUG Engine               - Running on OS: Linux version 6.8.0-58-generic
+19:04:50.558 [JavaFX Application Thread] DEBUG Engine               - Architecture: amd64
+19:04:50.558 [JavaFX Application Thread] INFO  Engine               - Source code and latest versions at: https://github.com/AlmasB/FXGL
+19:04:50.559 [JavaFX Application Thread] INFO  Engine               -       Ask questions and discuss at: https://github.com/AlmasB/FXGL/discussions
+19:04:50.559 [JavaFX Application Thread] INFO  Engine               -              Join the FXGL chat at: https://gitter.im/AlmasB/FXGL
+19:04:50.673 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Creating a JavaFX scene
+19:04:50.673 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Target size > screen size
+19:04:50.753 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Target settings size: 1536.0 x 1024.0
+19:04:50.753 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled scene size:    1397.0 x 948.0
+19:04:50.753 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled ratio: (0.9095052083333334, 0.92578125)
+19:04:50.755 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Set initial scene to FXGLStartupScene
+19:04:50.757 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Opening main window
+19:04:50.803 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Window border size: (0.27783203125, 35.0)
+19:04:50.804 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled size: 1397.0 x 913.185302734375
+19:04:50.804 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled ratio: (0.9095052083333334, 0.8917825222015381)
+19:04:50.804 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scene size: 1397.0 x 948.0
+19:04:50.805 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Stage size: 1397.27783203125 x 948.185302734375
+19:04:50.814 [FXGL Background Thread 1 ] DEBUG Engine               - Initializing environment variables
+19:04:50.896 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - User app class for loading assets: class App.Game.GameApp
+19:04:50.897 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Applying CSS: fxgl_dark.css
+19:04:50.898 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///home/avrann/.m2/repository/com/github/almasb/fxgl/21.1/fxgl-21.1.jar!/fxglassets/ui/css/fxgl_dark.css
+19:04:50.976 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Initializing application scenes
+19:04:51.027 [FXGL Background Thread 1 ] DEBUG GameWorld            - Game world initialized
+19:04:51.109 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Physics world initialized: appHeight=1024, physics.ppm=50.0
+19:04:51.109 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Using strategy: BRUTE_FORCE
+19:04:51.112 [FXGL Background Thread 1 ] DEBUG GameScene            - Game scene initialized: 1536x1024
+19:04:51.120 [FXGL Background Thread 1 ] DEBUG FXGL.DefaultMenu     - createMenuBodyMainMenu()
+19:04:51.133 [FXGL Background Thread 1 ] DEBUG FXGL.DefaultMenu     - createOptionsMenu()
+19:04:51.142 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///home/avrann/.m2/repository/com/github/almasb/fxgl/21.1/fxgl-21.1.jar!/fxglassets/textures/particles/smoke.png
+19:04:51.241 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///home/avrann/.m2/repository/com/github/almasb/fxgl/21.1/fxgl-21.1.jar!/fxglassets/textures/particles/trace_horizontal.png
+19:04:51.285 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/music/menu.wav
+19:04:51.398 [FXGL Background Thread 1 ] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@67fbf68b
+19:04:51.402 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/fondo.png
+19:04:51.486 [FXGL Background Thread 1 ] DEBUG FXGL.DefaultMenu     - createMenuBodyGameMenu()
+19:04:51.487 [FXGL Background Thread 1 ] DEBUG FXGL.DefaultMenu     - createOptionsMenu()
+19:04:51.503 [FXGL Background Thread 1 ] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@67fbf68b
+19:04:51.504 [FXGL Background Thread 1 ] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@67fbf68b
+19:04:51.504 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/fondoGameMenu.png
+19:04:51.543 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Application scenes initialized
+19:04:51.553 [FXGL Background Thread 1 ] DEBUG SystemBundleService  - Loading FXGL system data
+19:04:51.557 [FXGL Background Thread 1 ] DEBUG FileSystemAccess     - Reading from: /home/avrann/Escritorio/Repo Proyecto DPOO/jorge.carrillo-Proyecto-POO-2025/system/fxgl.bundle
+19:04:51.566 [FXGL Background Thread 1 ] DEBUG SystemBundleService  - Bundle FXGL: {}
+19:04:51.566 [FXGL Background Thread 1 ] DEBUG UpdaterService       - Checking for updates
+19:04:51.594 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Loading fonts
+19:04:51.594 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///home/avrann/.m2/repository/com/github/almasb/fxgl/21.1/fxgl-21.1.jar!/fxglassets/ui/fonts/VarelaRound-Regular.ttf
+19:04:51.594 [FXGL Background Thread 1 ] DEBUG FXGLApplication      - Loading default localization
+19:04:51.595 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///home/avrann/.m2/repository/com/github/almasb/fxgl/21.1/fxgl-21.1.jar!/fxglassets/languages/english.lang
+19:04:51.603 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///home/avrann/.m2/repository/com/github/almasb/fxgl/21.1/fxgl-21.1.jar!/fxglassets/ui/fonts/Abel-Regular.ttf
+19:04:51.605 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///home/avrann/.m2/repository/com/github/almasb/fxgl/21.1/fxgl-21.1.jar!/fxglassets/ui/fonts/TerminalLandMono-Regular.otf
+19:04:51.606 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///home/avrann/.m2/repository/com/github/almasb/fxgl/21.1/fxgl-21.1.jar!/fxglassets/ui/fonts/Courier-Prime.ttf
+19:04:51.610 [JavaFX Application Thread] DEBUG FXGLApplication      - Registering font factories with UI factory
+19:04:51.612 [FXGL Background Thread 1 ] INFO  FXGLApplication      - FXGL initialization took: 0.798 sec
+19:04:51.613 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///home/avrann/.m2/repository/com/github/almasb/fxgl/21.1/fxgl-21.1.jar!/fxglassets/textures/fxgl_icon.png
+19:04:51.636 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///home/avrann/.m2/repository/com/github/almasb/fxgl/21.1/fxgl-21.1.jar!/fxglassets/textures/fxgl_default_cursor.png
+19:04:51.649 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Screenshot - CTRL+8
+19:04:51.649 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Dev Options - 1
+19:04:51.650 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Dev Console - 2
+19:04:51.650 [JavaFX Application Thread] DEBUG Input                - Registered new binding: System info dump - CTRL+9
+19:04:51.650 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Restart - CTRL+R
+19:04:51.651 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Toggle Debug Camera - CTRL+7
+19:04:51.654 [JavaFX Application Thread] DEBUG LoopRunner           - Starting loop
+19:04:51.667 [JavaFX Application Thread] DEBUG LoopRunner           - Initializing JavaFX AnimationTimerLoop
+19:04:51.669 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+19:04:51.687 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLStartupScene and adding to FXGLMainMenuDummyScene
+19:04:51.691 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLStartupScene -> FXGLMainMenuDummyScene
+19:04:51.692 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Push state: MyMenu
+19:04:51.701 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+19:04:51.706 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLMainMenuDummyScene and adding to MyMenu
+19:04:51.707 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLMainMenuDummyScene -> MyMenu
+19:04:53.916 [JavaFX Application Thread] DEBUG Menu                 - fireNewGame()
+19:04:53.916 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+19:04:53.919 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Pop state: MyMenu
+19:04:53.919 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+19:04:53.921 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from MyMenu and adding to FXGLMainMenuDummyScene
+19:04:53.927 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLMainMenuDummyScene <- MyMenu
+19:04:53.928 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+19:04:53.954 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLMainMenuDummyScene and adding to FXGLLoadingScene
+19:04:53.955 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLMainMenuDummyScene -> FXGLLoadingScene
+19:04:53.955 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+19:04:53.955 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+19:04:53.956 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+19:04:53.956 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+19:04:53.958 [FXGL Background Thread 2 ] DEBUG FXGLApplication      - Initializing game
+19:04:54.245 [FXGL Background Thread 2 ] DEBUG AudioPlayer          - Stopping music com.almasb.fxgl.audio.Music@67fbf68b
+19:04:54.263 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/music/loading.wav
+19:04:54.277 [FXGL Background Thread 2 ] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@3ae7699d
+19:04:54.341 [FXGL Background Thread 2 ] DEBUG TMXLevelLoader       - Parsed TiledMap: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/levels/level_01.tmx
+19:04:54.342 [FXGL Background Thread 2 ] DEBUG TMXLevelLoader       - Creating tile layer entities
+19:04:54.346 [FXGL Background Thread 2 ] DEBUG TilesetLoader        - Loading view for layer Capa de patrones 1
+19:04:54.348 [FXGL Background Thread 2 ] DEBUG TilesetLoader        - Created buffer with size 2000.0x1500.0
+19:04:54.387 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.389 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.391 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.391 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.395 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.402 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.403 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.407 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.413 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.416 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.420 [FXGL Background Thread 2 ] WARN  TilesetLoader        - Diagonally flipped tiles are not currently supported
+19:04:54.423 [FXGL Background Thread 2 ] DEBUG TilesetLoader        - Loading view for layer Capa de Decoracion
+19:04:54.431 [FXGL Background Thread 2 ] DEBUG TilesetLoader        - Created buffer with size 2000.0x1500.0
+19:04:54.464 [FXGL Background Thread 2 ] DEBUG TMXLevelLoader       - Creating object layer entities
+19:04:54.528 [FXGL Background Thread 2 ] DEBUG GameWorld            - Clearing removable entities
+19:04:54.583 [FXGL Background Thread 2 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@1e0fe95a
+19:04:54.595 [FXGL Background Thread 3 ] DEBUG Engine               - Logging environment variables
+19:04:54.596 [FXGL Background Thread 3 ] DEBUG Engine               - achievements: []
+19:04:54.596 [FXGL Background Thread 3 ] DEBUG Engine               - actualHeight: 913.185302734375
+19:04:54.596 [FXGL Background Thread 3 ] DEBUG Engine               - actualHeightProperty: ReadOnlyDoubleProperty [value: 942.2763061523438]
+19:04:54.596 [FXGL Background Thread 3 ] DEBUG Engine               - actualWidth: 1397.0
+19:04:54.596 [FXGL Background Thread 3 ] DEBUG Engine               - actualWidthProperty: ReadOnlyDoubleProperty [value: 1397.0]
+19:04:54.596 [FXGL Background Thread 3 ] DEBUG Engine               - appIcon: fxgl_icon.png
+19:04:54.596 [FXGL Background Thread 3 ] DEBUG Engine               - applicationMode: DEVELOPER
+19:04:54.596 [FXGL Background Thread 3 ] DEBUG Engine               - cSSList: [fxgl_dark.css]
+19:04:54.597 [FXGL Background Thread 3 ] DEBUG Engine               - collisionDetectionStrategy: BRUTE_FORCE
+19:04:54.604 [FXGL Background Thread 3 ] DEBUG Engine               - configClass: Optional.empty
+19:04:54.604 [FXGL Background Thread 3 ] DEBUG Engine               - credits: []
+19:04:54.604 [FXGL Background Thread 3 ] DEBUG Engine               - defaultCursor: CursorInfo(imageName=fxgl_default_cursor.png, hotspotX=7.0, hotspotY=6.0)
+19:04:54.608 [FXGL Background Thread 3 ] DEBUG Engine               - devBBoxColorProperty: ObjectProperty [value: 0xff0000ff]
+19:04:54.608 [FXGL Background Thread 3 ] DEBUG Engine               - devEnableDebugCameraProperty: BooleanProperty [value: false]
+19:04:54.608 [FXGL Background Thread 3 ] DEBUG Engine               - devSensorColorProperty: ObjectProperty [value: 0xffff00ff]
+19:04:54.608 [FXGL Background Thread 3 ] DEBUG Engine               - devShowBBoxProperty: BooleanProperty [value: false]
+19:04:54.609 [FXGL Background Thread 3 ] DEBUG Engine               - devShowPositionProperty: BooleanProperty [value: false]
+19:04:54.610 [FXGL Background Thread 3 ] DEBUG Engine               - enabledMenuItems: []
+19:04:54.610 [FXGL Background Thread 3 ] DEBUG Engine               - engineServices: [class com.almasb.fxgl.app.services.FXGLAssetLoaderService, class com.almasb.fxgl.app.FXGLApplication$GameApplicationService, class com.almasb.fxgl.app.services.FXGLDialogService, class com.almasb.fxgl.app.services.IOTaskExecutorService, class com.almasb.fxgl.io.FileSystemService, class com.almasb.fxgl.localization.LocalizationService, class com.almasb.fxgl.app.services.SystemBundleService, class com.almasb.fxgl.profile.SaveLoadService, class com.almasb.fxgl.ui.FXGLUIFactoryServiceProvider, class com.almasb.fxgl.ui.FXGLDialogFactoryServiceProvider, class com.almasb.fxgl.audio.AudioPlayer, class com.almasb.fxgl.notification.impl.NotificationServiceProvider, class com.almasb.fxgl.achievement.AchievementService, class com.almasb.fxgl.cutscene.CutsceneService, class com.almasb.fxgl.minigames.MiniGameService, class com.almasb.fxgl.net.NetService, class com.almasb.fxgl.app.services.UpdaterService, class com.almasb.fxgl.dev.DevService]
+19:04:54.610 [FXGL Background Thread 3 ] DEBUG Engine               - fontGame: Abel-Regular.ttf
+19:04:54.610 [FXGL Background Thread 3 ] DEBUG Engine               - fontMono: TerminalLandMono-Regular.otf
+19:04:54.610 [FXGL Background Thread 3 ] DEBUG Engine               - fontSizeScaleUI: 1.0
+19:04:54.611 [FXGL Background Thread 3 ] DEBUG Engine               - fontText: Courier-Prime.ttf
+19:04:54.614 [FXGL Background Thread 3 ] DEBUG Engine               - fontUI: VarelaRound-Regular.ttf
+19:04:54.614 [FXGL Background Thread 3 ] DEBUG Engine               - fullScreen: BooleanProperty [value: false]
+19:04:54.615 [FXGL Background Thread 3 ] DEBUG Engine               - gameDifficulty: MEDIUM
+19:04:54.615 [FXGL Background Thread 3 ] DEBUG Engine               - gameDifficultyProperty: ObjectProperty [value: MEDIUM]
+19:04:54.615 [FXGL Background Thread 3 ] DEBUG Engine               - globalMusicVolume: 0.5
+19:04:54.618 [FXGL Background Thread 3 ] DEBUG Engine               - globalMusicVolumeProperty: DoubleProperty [value: 0.5]
+19:04:54.619 [FXGL Background Thread 3 ] DEBUG Engine               - globalSoundVolume: 0.5
+19:04:54.620 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/exploreatack_basic.png
+19:04:54.619 [FXGL Background Thread 3 ] DEBUG Engine               - globalSoundVolumeProperty: DoubleProperty [value: 0.5]
+19:04:54.623 [FXGL Background Thread 3 ] DEBUG Engine               - height: 1024
+19:04:54.623 [FXGL Background Thread 3 ] DEBUG Engine               - is3D: false
+19:04:54.623 [FXGL Background Thread 3 ] DEBUG Engine               - isAndroid: false
+19:04:54.623 [FXGL Background Thread 3 ] DEBUG Engine               - isBrowser: false
+19:04:54.623 [FXGL Background Thread 3 ] DEBUG Engine               - isClickFeedbackEnabled: false
+19:04:54.623 [FXGL Background Thread 3 ] DEBUG Engine               - isCloseConfirmation: false
+19:04:54.623 [FXGL Background Thread 3 ] DEBUG Engine               - isDesktop: true
+19:04:54.623 [FXGL Background Thread 3 ] DEBUG Engine               - isDeveloperMenuEnabled: true
+19:04:54.623 [FXGL Background Thread 3 ] DEBUG Engine               - isEmbedded: false
+19:04:54.624 [FXGL Background Thread 3 ] DEBUG Engine               - isEntityPreloadEnabled: true
+19:04:54.624 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/exploreidle.png
+19:04:54.626 [FXGL Background Thread 3 ] DEBUG Engine               - isExperimentalTiledLargeMap: false
+19:04:54.627 [FXGL Background Thread 3 ] DEBUG Engine               - isFileSystemWriteAllowed: true
+19:04:54.629 [FXGL Background Thread 3 ] DEBUG Engine               - isFullScreenAllowed: false
+19:04:54.629 [FXGL Background Thread 3 ] DEBUG Engine               - isFullScreenFromStart: false
+19:04:54.633 [FXGL Background Thread 3 ] DEBUG Engine               - isGameMenuEnabled: true
+19:04:54.633 [FXGL Background Thread 3 ] DEBUG Engine               - isIOS: false
+19:04:54.633 [FXGL Background Thread 3 ] DEBUG Engine               - isIntroEnabled: false
+19:04:54.633 [FXGL Background Thread 3 ] DEBUG Engine               - isLinux: true
+19:04:54.633 [FXGL Background Thread 3 ] DEBUG Engine               - isMac: false
+19:04:54.633 [FXGL Background Thread 3 ] DEBUG Engine               - isMainMenuEnabled: true
+19:04:54.633 [FXGL Background Thread 3 ] DEBUG Engine               - isManualResizeEnabled: false
+19:04:54.633 [FXGL Background Thread 3 ] DEBUG Engine               - isMobile: false
+19:04:54.633 [FXGL Background Thread 3 ] DEBUG Engine               - isNative: false
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - isPauseMusicWhenMinimized: true
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - isPreserveResizeRatio: false
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - isProfilingEnabled: false
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - isScaleAffectedOnResize: true
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - isSingleStep: false
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - isUserProfileEnabled: false
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - isWindows: false
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - language: ObjectProperty [value: ENGLISH]
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - menuKey: ESCAPE
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - mouseSensitivity: 0.2
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - notificationViewClass: class com.almasb.fxgl.notification.view.XboxNotificationView
+19:04:54.634 [FXGL Background Thread 3 ] DEBUG Engine               - pixelsPerMeter: 50.0
+19:04:54.635 [FXGL Background Thread 3 ] DEBUG Engine               - platform: LINUX
+19:04:54.635 [FXGL Background Thread 3 ] DEBUG Engine               - prefHeightProperty: ReadOnlyDoubleProperty [value: 1024.0]
+19:04:54.635 [FXGL Background Thread 3 ] DEBUG Engine               - prefWidthProperty: ReadOnlyDoubleProperty [value: 1536.0]
+19:04:54.635 [FXGL Background Thread 3 ] DEBUG Engine               - profileDir: profiles/
+19:04:54.635 [FXGL Background Thread 3 ] DEBUG Engine               - profileName: StringProperty [value: DEFAULT]
+19:04:54.635 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/explorecaminando.png" was not found!
+19:04:54.635 [FXGL Background Thread 3 ] DEBUG Engine               - randomSeed: -1
+19:04:54.635 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.635 [FXGL Background Thread 3 ] DEBUG Engine               - runtimeInfo: RuntimeInfo(platform=LINUX, version=21.1, build=27.03.2024 07.52)
+19:04:54.635 [FXGL Background Thread 3 ] DEBUG Engine               - saveFileExt: sav
+19:04:54.635 [FXGL Background Thread 3 ] DEBUG Engine               - scaledHeightProp$fxgl: DoubleProperty [bound, value: 942.2763061523438]
+19:04:54.636 [FXGL Background Thread 3 ] DEBUG Engine               - scaledWidthProp$fxgl: DoubleProperty [bound, value: 1397.0]
+19:04:54.643 [FXGL Background Thread 3 ] DEBUG Engine               - sceneFactory: App.Game.GameApp$1@31b5d84a
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - secondsIn24h: 60
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - soundMenuBack: menu/back.wav
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - soundMenuPress: menu/press.wav
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - soundMenuSelect: menu/select.wav
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - soundNotification: core/notification.wav
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - stageStyle: DECORATED
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - supportedLanguages: [ENGLISH, FRENCH, GERMAN, HUNGARIAN, RUSSIAN]
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - ticksPerSecond: -1
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - title: Eclipsis: el legado de la nave abandonada(BetaVer)
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - urlGithub: https://github.com/AlmasB/FXGL
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - urlLeaderboard: http://fxgl-top.herokuapp.com/
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - urlPOM: https://raw.githubusercontent.com/AlmasB/FXGL/release/README.md
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - userAppClass: class App.Game.GameApp
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - version: 0.0
+19:04:54.645 [FXGL Background Thread 3 ] DEBUG Engine               - versionCheckDays: 7
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - width: 1536
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - Logging services
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.FXGLAssetLoaderService
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.FXGLApplication$GameApplicationService
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.FXGLDialogService
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.IOTaskExecutorService
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.io.FileSystemService
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.localization.LocalizationService
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.SystemBundleService
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.profile.SaveLoadService
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.ui.FXGLUIFactoryServiceProvider
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.ui.FXGLDialogFactoryServiceProvider
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.audio.AudioPlayer
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.notification.impl.NotificationServiceProvider
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.achievement.AchievementService
+19:04:54.648 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.cutscene.CutsceneService
+19:04:54.649 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.minigames.MiniGameService
+19:04:54.649 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.net.NetService
+19:04:54.652 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.UpdaterService
+19:04:54.652 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.dev.DevService
+19:04:54.694 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/exploreadelante.png" was not found!
+19:04:54.696 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.696 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/exploreatras.png" was not found!
+19:04:54.696 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.697 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/exploredeat.png
+19:04:54.702 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.703 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/explorecaminando.png" was not found!
+19:04:54.703 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.704 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/exploreadelante.png" was not found!
+19:04:54.704 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.704 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/exploreatras.png" was not found!
+19:04:54.704 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.705 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.706 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/droidatack_basic.png
+19:04:54.724 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/droididle.png
+19:04:54.725 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droidcaminando.png" was not found!
+19:04:54.725 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.725 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droidadelante.png" was not found!
+19:04:54.725 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.725 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droidatras.png" was not found!
+19:04:54.726 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.726 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/droiddeat.png
+19:04:54.728 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.729 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droidcaminando.png" was not found!
+19:04:54.729 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.729 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droidadelante.png" was not found!
+19:04:54.729 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.729 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droidatras.png" was not found!
+19:04:54.730 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.732 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.733 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/droid2atack_basic.png
+19:04:54.737 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/droid2idle.png
+19:04:54.740 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid2caminando.png" was not found!
+19:04:54.740 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.740 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid2adelante.png" was not found!
+19:04:54.741 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.741 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid2atras.png" was not found!
+19:04:54.741 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.741 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/droid2deat.png
+19:04:54.744 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.745 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid2caminando.png" was not found!
+19:04:54.745 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.745 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid2adelante.png" was not found!
+19:04:54.745 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.745 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid2atras.png" was not found!
+19:04:54.746 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.747 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.748 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid2caminando.png" was not found!
+19:04:54.749 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.750 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid2adelante.png" was not found!
+19:04:54.750 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.751 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid2atras.png" was not found!
+19:04:54.751 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.751 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.753 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/droid3atack_basic.png
+19:04:54.756 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/droid3idle.png
+19:04:54.757 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid3caminando.png" was not found!
+19:04:54.758 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.758 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid3adelante.png" was not found!
+19:04:54.758 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.758 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid3atras.png" was not found!
+19:04:54.758 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.759 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/droid3deat.png
+19:04:54.763 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.765 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid3caminando.png" was not found!
+19:04:54.765 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.765 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid3adelante.png" was not found!
+19:04:54.765 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.765 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/droid3atras.png" was not found!
+19:04:54.765 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.767 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.768 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/barreraDesactivadaitem.png
+19:04:54.782 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/barreraDesactivadadisabled.png" was not found!
+19:04:54.782 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.783 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.784 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/barreraDesactivadadisabled.png" was not found!
+19:04:54.784 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.784 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.785 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/barreraDesactivadadisabled.png" was not found!
+19:04:54.785 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.787 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.788 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/barreraDesactivadadisabled.png" was not found!
+19:04:54.788 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.788 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.789 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/barreraitem.png
+19:04:54.804 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/barreradisabled.png
+19:04:54.813 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.816 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.816 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/panelitem.png
+19:04:54.825 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/paneldisabled.png
+19:04:54.831 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.834 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.835 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/generatorSpecialPointitem.png
+19:04:54.838 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/generatorSpecialPointdisabled.png" was not found!
+19:04:54.838 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.854 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.856 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/generatorSpecialPointdisabled.png" was not found!
+19:04:54.856 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.856 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.865 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/lifeitem.png
+19:04:54.877 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/lifedisabled.png" was not found!
+19:04:54.877 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.878 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.884 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/lifedisabled.png" was not found!
+19:04:54.884 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.884 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.885 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/atackitem.png
+19:04:54.895 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/atackdisabled.png" was not found!
+19:04:54.895 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.899 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.900 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/atackdisabled.png" was not found!
+19:04:54.900 [FXGL Background Thread 2 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:04:54.900 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.914 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/cyborgatack_special.png
+19:04:54.919 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/cyborgatack_basic.png
+19:04:54.926 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/cyborgidle.png
+19:04:54.932 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/cyborgcaminando.png
+19:04:54.934 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/cyborgadelante.png
+19:04:54.940 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/cyborgatras.png
+19:04:54.944 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/cyborgdeat.png
+19:04:54.948 [FXGL Background Thread 2 ] WARN  GameWorld            - Entity is already attached to world
+19:04:54.948 [FXGL Background Thread 2 ] DEBUG Input                - Registered new binding: Mover Arriba - W
+19:04:54.948 [FXGL Background Thread 2 ] DEBUG Input                - Registered new binding: Mover Abajo - S
+19:04:54.948 [FXGL Background Thread 2 ] DEBUG Input                - Registered new binding: Mover Izquierda - A
+19:04:54.949 [FXGL Background Thread 2 ] DEBUG Input                - Registered new binding: Mover Derecha - D
+19:04:54.959 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/botonGameMenu.png
+19:04:54.963 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/buttonMainMenu.png
+19:04:54.968 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/wikiButton.png
+19:04:54.969 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/specialPointBar.png
+19:04:54.971 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/statBar.png
+19:04:54.973 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/statAtackBar.png
+19:04:54.979 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/wiki_image.png
+19:04:54.993 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/specialPoint.png
+19:04:54.995 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/special.png
+19:04:54.996 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/barra_enemigo.png
+19:04:54.998 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/life_point_enemi.png
+19:04:54.998 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/life_bar.png
+19:04:55.001 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/life_point.png
+19:04:55.002 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/button_atacck.png
+19:04:55.003 [FXGL Background Thread 2 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/textures/combat_panel.png
+19:04:55.011 [FXGL Background Thread 2 ] INFO  FXGLApplication      - Game initialization took: 1.052 sec
+19:04:55.017 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+19:04:55.027 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+19:04:55.032 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+19:05:01.089 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/sounds/item.wav
+19:05:10.325 [JavaFX Application Thread] DEBUG AudioPlayer          - Stopping music com.almasb.fxgl.audio.Music@3ae7699d
+19:05:10.343 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/music/battle.wav
+19:05:10.356 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@1f4b0ac1
+19:05:12.238 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/sounds/arma.wav
+19:05:13.191 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@1f4b0ac1
+19:05:13.259 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/sounds/armaEnemigos.wav
+19:05:13.907 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@1f4b0ac1
+19:05:15.379 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/sounds/muerte.wav
+19:05:16.047 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@1f4b0ac1
+19:05:16.361 [JavaFX Application Thread] DEBUG AudioPlayer          - Stopping music com.almasb.fxgl.audio.Music@1f4b0ac1
+19:05:16.401 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@3ae7699d
+19:05:16.403 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@3ae7699d
+19:05:22.087 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/home/avrann/Escritorio/Repo%20Proyecto%20DPOO/jorge.carrillo-Proyecto-POO-2025/target/classes/assets/sounds/panel.wav
+19:05:22.138 [JavaFX Application Thread] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/barreraDesactivadadisabled.png" was not found!
+19:05:22.139 [JavaFX Application Thread] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+19:05:22.140 [JavaFX Application Thread] WARN  GameWorld            - Entity is already attached to world
+19:05:32.352 [JavaFX Application Thread] DEBUG AudioPlayer          - Stopping music com.almasb.fxgl.audio.Music@3ae7699d
+19:05:32.358 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@1f4b0ac1
+19:05:35.244 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@1f4b0ac1
+19:05:35.876 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@1f4b0ac1
+19:05:37.790 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@1f4b0ac1
+19:05:38.084 [JavaFX Application Thread] DEBUG AudioPlayer          - Stopping music com.almasb.fxgl.audio.Music@1f4b0ac1
+19:05:38.117 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@3ae7699d
+19:05:38.119 [JavaFX Application Thread] DEBUG AudioPlayer          - Playing music com.almasb.fxgl.audio.Music@3ae7699d
+19:05:43.040 [JavaFX Application Thread] DEBUG FXGLApplication      - Exiting FXGL
+19:05:43.040 [JavaFX Application Thread] DEBUG LoopRunner           - Stopping loop
+19:05:43.040 [JavaFX Application Thread] DEBUG SystemBundleService  - Saving FXGL system data
+19:05:43.075 [JavaFX Application Thread] DEBUG FileSystemAccess     - Writing to: /home/avrann/Escritorio/Repo Proyecto DPOO/jorge.carrillo-Proyecto-POO-2025/system/fxgl.bundle
+19:05:43.081 [JavaFX Application Thread] DEBUG Async                - Shutting down background threads
+19:05:43.082 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Closing main window
+19:05:43.088 [JavaFX Application Thread] DEBUG Logger               - Closing Logger
