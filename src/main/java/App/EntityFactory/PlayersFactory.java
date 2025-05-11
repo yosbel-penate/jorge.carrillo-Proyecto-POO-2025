@@ -17,7 +17,8 @@ import static Domain.Settings.SettingsGame.TILE_SIZE;
 
 public class PlayersFactory implements EntityFactory {
 
-    //Entidades
+    Cyborg cyborg = new Cyborg();
+
     @Spawns("cyborg")
     public Entity newCyborg(SpawnData data) {
         PhysicsComponent physicsComponent = new PhysicsComponent();
@@ -26,25 +27,24 @@ public class PlayersFactory implements EntityFactory {
         return FXGL.entityBuilder(data)
                 .at(TILE_SIZE * 5, TILE_SIZE * 4)
                 .type(Types.EntityType.PLAYER)
-                .with(new CombatStatsComponent(Cyborg.life,Cyborg.atack,3))
+                .with(new CombatStatsComponent(cyborg.life,cyborg.atack,3))
                 .with(new AnimationComponents(
-                        "cyborg",
-                        Cyborg.cantidadFrames,
-                        Cyborg.cantidadFramesAtackBasic,
-                        Cyborg.anchoSpriteSheetAtackBasic,
-                        Cyborg.altoSpriteSheetAtackBasic,
-                        Cyborg.anchoSpriteSheet,
-                        Cyborg.altoSpriteSheet,
+                        cyborg.name,
+                        cyborg.cantidadFramesIdle,
+                        cyborg.cantidadFramesAtack,
+                        cyborg.anchoFrameAtack,
+                        cyborg.altoFrameAtack,
+                        cyborg.anchoFramesIdle,
+                        cyborg.altoFramesIdle,
                         0,
-                        Cyborg.cantidadFrames - 1,
-                        4,
-                        205,
-                        50,
-                        12,
-                        1500,
-                        50,
-                        11
-
+                        cyborg.cantidadFramesIdle - 1,
+                        cyborg.cantidaFramesMuerte,
+                        cyborg.anchoFramesMuerte,
+                        cyborg.altoFramesMuerte,
+                        cyborg.cantidadFramesAtackSpecial,
+                        cyborg.anchoFramesAtackSpecial,
+                        cyborg.altoFramesAtackSpecial,
+                        cyborg.hitBox
                 ))
                 .with(physicsComponent)
                 .with(new CollidableComponent(true))

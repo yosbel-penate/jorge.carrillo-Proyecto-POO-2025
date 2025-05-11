@@ -1,50 +1,67 @@
 package View.UI;
 
-import App.Services.MusicService;
-import com.almasb.fxgl.app.scene.FXGLDefaultMenu;
+import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.scene.SubScene;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+
+import java.util.Objects;
+
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
 
 
-public class MyMenu extends FXGLDefaultMenu {
+public class MyMenu extends FXGLMenu {
 
-    public MyMenu() {
-        super(MenuType.MAIN_MENU);
+    private SubScene charactersSeleccion;
 
-        Pane root = getContentRoot();
+    public MyMenu(MenuType type) {
+        super(type);
 
-        //Elimina el nodo del fondo por defecto
-        root.getChildren().removeIf(node -> node instanceof Rectangle);
 
-        MusicService.playMainMenu();
+        // 1. Carga la textura desde assets/textures
+        Image tex = new Image(Objects.requireNonNull(getClass().getResource(
+                "/assets/textures/fondo.png"
+        )).toExternalForm());
 
-        //Elimina el nodo del StackPane
-        if (!root.getChildren().isEmpty() && root.getChildren().get(0) instanceof StackPane) {
-            root.getChildren().remove(0);
-        }
+        // 2. Obtén el ImageView y ajústalo
+        ImageView bg = new ImageView();
+        bg.setImage(tex);
+        bg.setFitWidth(getAppWidth());
+        bg.setFitHeight(getAppHeight());
+        bg.setPreserveRatio(false);
 
-        //Elimina el nodo de efecto grafico
-        if (root.getChildren().size() > 1 && root.getChildren().get(1) instanceof Pane) {
-            root.getChildren().remove(1);
-        }
+        // 3. Añádelo al content root (al fondo)
+        getContentRoot().getChildren().add(bg);
 
-        // Elimina el nodo del título "v0.0-DEVELOPER" (es un nodo Text)
-        root.getChildren().removeIf(node -> {
-            if (node instanceof Text) {
-                String text = ((Text) node).getText();
-                return text.equals("v0.0-DEVELOPER");
-            }
-            return false;
+        // 2. Vista del botón
+        Image boton = new Image(Objects.requireNonNull(getClass().getResource(
+                "/assets/textures/ui/playButtonMainMenu.png"
+        )).toExternalForm());
+
+
+        ImageView icon = new ImageView();
+        icon.setImage(boton);
+        Button btnStart = new Button();
+
+        btnStart.setGraphic(icon);
+        btnStart.setTranslateX(50);
+        btnStart.setTranslateY(400);
+        btnStart.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+
+        // 3. Acción
+        charactersSeleccion = new EscenaSeleccion();
+
+        // 4. Acción del botón: en vez de fireNewGame(), mostramos la SubScene
+        btnStart.setOnAction(e -> {
+            getGameController().startNewGame();
         });
 
-        //Fondo
-        ImageView fondoView = FXGL.texture("fondo.png");
-        root.getChildren().add(0, fondoView);
-
+        // 4. Añadir al root
+        getContentRoot().getChildren().add(btnStart);
     }
 }

@@ -21,6 +21,8 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class CombatModeUI {
 
+    Cyborg cyborg;
+
     //Images
     Image statBarEnemyImage;
     Image specialPointImage;
@@ -58,9 +60,9 @@ public class CombatModeUI {
     private PauseTransition enemyTurnDelay = new PauseTransition(Duration.seconds(1));
 
     //Contructores
-    public CombatModeUI(UI ui){
+    public CombatModeUI(UI ui,Cyborg cyborg){
         this.ui = ui;
-        //this.collitionService = collitionService;
+        this.cyborg = cyborg;
     }
     public CombatModeUI(){}
 
@@ -138,7 +140,7 @@ public class CombatModeUI {
         //=========Barra de vida de Jugadores===============
         heartsBarPlayerHbox = new HBox(5); // Espaciado de 5 píxeles entre corazones.
 
-        for (int i = 0; i < Cyborg.life; i++) {
+        for (int i = 0; i < cyborg.life; i++) {
             ImageView heartView = new ImageView(lifePointPlayer);
             // Opcional: ajustar tamaño de cada imagen
             heartView.setFitWidth(20);
@@ -230,12 +232,12 @@ public class CombatModeUI {
         switch (tipoOfAnimationInButton){
             case "basic" :
                 player.getComponent(AnimationComponents.class).playAttackAnimation();
-                reduceHealthEnemi(Cyborg.atack,enemy);
+                reduceHealthEnemi(cyborg.atack,enemy);
                 MusicService.playWeanpon();
                 break;
             case "special" :
                 player.getComponent(AnimationComponents.class).playSpecialAnimation();
-                reduceHealthEnemi(Cyborg.atack,enemy);
+                reduceHealthEnemi(cyborg.atack,enemy);
                 MusicService.playWeanpon();
                 break;
         }

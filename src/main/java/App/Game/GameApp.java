@@ -3,6 +3,7 @@ package App.Game;
 import App.Components.CombatStatsComponent;
 import App.Services.CollitionService;
 import App.Services.MusicService;
+import Domain.Entity.Characters.Players.Cyborg;
 import View.UI.GameMenu;
 import View.UI.MyMenu;
 import App.EntityFactory.EnemyFactory;
@@ -16,6 +17,7 @@ import View.UI.UI;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
+import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -25,12 +27,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class GameApp extends GameApplication
 {
-    //Instancias
-    Input input = new Input();
-    UI ui = new UI();
-    Board board = new Board();
-    CombatModeUI combatModeUI = new CombatModeUI(ui);
-    CollitionService collitionService = new CollitionService(input);
+    Cyborg cyborgInstance = new Cyborg();
 
     //Entidades
     private Entity cyborg;
@@ -48,13 +45,21 @@ public class GameApp extends GameApplication
     private Entity panel;
     private Entity panel2;
 
+    //Instancias
+    Input input = new Input();
+    UI ui = new UI(cyborgInstance);
+    Board board = new Board();
+    CombatModeUI combatModeUI = new CombatModeUI(ui,cyborgInstance);
+    CollitionService collitionService = new CollitionService(input);
+
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setMainMenuEnabled(true);
         settings.setSceneFactory(new SceneFactory(){
+
             @Override
             public FXGLMenu newMainMenu() {
-                return new MyMenu();
+                return new MyMenu(MenuType.MAIN_MENU);
             }
 
             @Override

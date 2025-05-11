@@ -17,6 +17,10 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class UI {
 
+    Cyborg cyborg;
+    public UI(Cyborg cyborg){
+        this.cyborg = cyborg;
+    }
     //Images
     Image wikiImage;
     Image buttonWikiImage;
@@ -33,6 +37,7 @@ public class UI {
 
     Text nameCharaterText;
     Text porcentAtackText;
+
 
     //ImagesView
     ImageView buttonWikiView;
@@ -221,7 +226,7 @@ public class UI {
     }
 
     public void atackBar(int amount){
-        int total = Cyborg.atack += amount;
+        int total = cyborg.atack += amount;
         porcentAtackText.setText("Atacck +" + total );
     }
 }
