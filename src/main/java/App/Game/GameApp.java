@@ -5,6 +5,7 @@ import App.Services.CollitionService;
 import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
 import Domain.Entity.Characters.Players.JaxKane;
+import Domain.Entity.Types;
 import View.UI.GameMenu;
 import View.UI.MyMenu;
 import App.EntityFactory.EnemyFactory;
@@ -22,6 +23,13 @@ import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.input.UserAction;
+import javafx.geometry.Point2D;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static Domain.Settings.SettingsGame.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
@@ -30,7 +38,8 @@ public class GameApp extends GameApplication
 {
 
     //Entidades
-    private Entity JaxKane;
+    private static Entity JaxKane;
+    public static Entity currentEntity;
     private Entity cyborg;
     private Entity explore;
     private Entity droid1;
@@ -46,8 +55,11 @@ public class GameApp extends GameApplication
     private Entity panel;
     private Entity panel2;
 
+    public static ArrayList<Entity> playersSelected = new ArrayList<>();
+
+
     //Instancias
-    Input input = new Input();
+    static Input input = new Input();
     UI ui = new UI();
     Board board = new Board();
     CombatModeUI combatModeUI = new CombatModeUI(ui);
@@ -76,6 +88,7 @@ public class GameApp extends GameApplication
 
     @Override
     protected void initGame() {
+
         //Tablero de juego
         Board.boardTable(NUM_TILES_Y,NUM_TILES_X, TILE_SIZE);
 
@@ -125,9 +138,22 @@ public class GameApp extends GameApplication
         //Players
         cyborg = FXGL.spawn("cyborg");
         JaxKane = FXGL.spawn("jaxKane",TILE_SIZE * 5, TILE_SIZE * 5);
+        playersSelected.add(cyborg);
+        playersSelected.add(JaxKane);
 
-        //input.movInput(cyborg,combatModeUI);
-        input.movInput(JaxKane,combatModeUI);
+        currentEntity = cyborg;
+        input.movInput();
+
+    }
+
+    public static void setActionsOnClick(String nameEntitySelected){
+        for (Entity entity : playersSelected){
+            String name = entity.getComponent(CombatStatsComponent.class).name;
+            if (name == nameEntitySelected){
+                currentEntity = entity;
+                break;
+            }
+        }
     }
 
     protected void initUI() {
@@ -147,12 +173,20 @@ public class GameApp extends GameApplication
         collitionService.startCollitionItemAtack(ui);
         collitionService.startCollitionItemSpecialPoint(combatModeUI);
         collitionService.startCollitionItemLife(combatModeUI);
+
     }
 
+    @Override
+    protected void initInput() {
+        System.out.println("se llama el init input");
+
+    }
     @Override
     protected void onUpdate(double tpf)
     {
         board.centrarPersonajes(cyborg);
+       // System.out.println(currentEntity.getComponent(CombatStatsComponent.class).name);
+
     }
 
     public static void main(String[] args) {

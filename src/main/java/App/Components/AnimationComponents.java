@@ -120,6 +120,7 @@ public class AnimationComponents extends Component
 
     //Constructor para Players
     public AnimationComponents(String nameCharacter,
+                               int cantidadFramesCaminando,
                                int cantidadFrames,
                                int cantidadFramesAtack,
                                int anchoImagenAtack,
@@ -134,6 +135,8 @@ public class AnimationComponents extends Component
                                int cantidadFramesSpecialAtack,
                                int anchoAtackSpecialFrame,
                                int altoAtackSpecialFrame,
+                               int altoFramesCaminando,
+                               int anchoFramesCaminando,
                                int hitBox) {
         this.hitBox = hitBox;
         animAtackEspecial = new AnimationChannel(FXGL.image(nameCharacter + "atack_special.png"),
@@ -162,25 +165,25 @@ public class AnimationComponents extends Component
                 cantidadFrames - 1);
 
         animWalk = new AnimationChannel(FXGL.image(nameCharacter + "caminando.png"),
-                cantidadFrames,
-                anchoImagen / cantidadFrames,
-                altoImagen,
+                cantidadFramesCaminando,
+                anchoFramesCaminando / cantidadFramesCaminando,
+                altoFramesCaminando,
                 Duration.seconds(animVelocity),
                 frameInicio,
                 frameFinal);
 
         animAbajo = new AnimationChannel(FXGL.image(nameCharacter + "adelante.png"),
-                cantidadFrames,
-                anchoImagen / cantidadFrames,
-                altoImagen,
+                cantidadFramesCaminando,
+                anchoFramesCaminando / cantidadFramesCaminando,
+                altoFramesCaminando,
                 Duration.seconds(animVelocity),
                 frameInicio,
                 frameFinal);
 
         animArriba = new AnimationChannel(FXGL.image(nameCharacter + "atras.png"),
-                cantidadFrames,
-                anchoImagen / cantidadFrames,
-                altoImagen,
+                cantidadFramesCaminando,
+                anchoFramesCaminando / cantidadFramesCaminando,
+                altoFramesCaminando,
                 Duration.seconds(animVelocity),
                 frameInicio,
                 frameFinal);

@@ -1,5 +1,4 @@
 package View.Maps;
-import Domain.Utils.Texture;
 import View.Maps.EnvairomentHazards.envairomentHazard;
 import com.almasb.fxgl.entity.level.Level;
 
