@@ -1,8 +1,10 @@
 package View.UI;
 
+import App.Components.CombatStatsComponent;
 import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -17,9 +19,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class UI {
 
-    Cyborg cyborg;
-    public UI(Cyborg cyborg){
-        this.cyborg = cyborg;
+    public UI(){
     }
     //Images
     Image wikiImage;
@@ -225,8 +225,8 @@ public class UI {
         });
     }
 
-    public void atackBar(int amount){
-        int total = cyborg.atack += amount;
+    public void atackBar(int amount, Entity player){
+        int total = player.getComponent(CombatStatsComponent.class).atacck += amount;
         porcentAtackText.setText("Atacck +" + total );
     }
 }

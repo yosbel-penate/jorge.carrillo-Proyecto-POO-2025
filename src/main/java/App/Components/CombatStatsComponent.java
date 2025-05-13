@@ -5,7 +5,7 @@ import com.almasb.fxgl.entity.component.Component;
 public class CombatStatsComponent extends Component {
     private int maxHealth;
     public int currentHealth;
-    private int atacck;
+    public int atacck;
     private int specialPoints;
     public int currentSpecialPoints;
 

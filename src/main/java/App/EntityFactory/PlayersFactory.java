@@ -2,6 +2,7 @@ package App.EntityFactory;
 
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
+import Domain.Entity.Characters.Players.JaxKane;
 import Domain.Entity.Types;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -18,6 +19,7 @@ import static Domain.Settings.SettingsGame.TILE_SIZE;
 public class PlayersFactory implements EntityFactory {
 
     Cyborg cyborg = new Cyborg();
+    JaxKane jaxKane = new JaxKane();
 
     @Spawns("cyborg")
     public Entity newCyborg(SpawnData data) {
@@ -50,6 +52,38 @@ public class PlayersFactory implements EntityFactory {
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }
- }
+    @Spawns("jaxKane")
+    public Entity newJaxKane(SpawnData data) {
+        PhysicsComponent physicsComponent = new PhysicsComponent();
+        physicsComponent.setBodyType(BodyType.DYNAMIC);
+
+        return FXGL.entityBuilder(data)
+                .type(Types.EntityType.PLAYER)
+                .with(new CombatStatsComponent(jaxKane.life,
+                        jaxKane.atack,
+                        3))
+                .with(new AnimationComponents(
+                        jaxKane.name,
+                        jaxKane.cantidadFramesIdle,
+                        jaxKane.cantidadFramesAtack,
+                        jaxKane.anchoFrameAtack,
+                        jaxKane.altoFrameAtack,
+                        jaxKane.anchoFramesIdle,
+                        jaxKane.altoFramesIdle,
+                        0,
+                        cyborg.cantidadFramesIdle - 1,
+                        jaxKane.cantidaFramesMuerte,
+                        jaxKane.anchoFramesMuerte,
+                        jaxKane.altoFramesMuerte,
+                        jaxKane.cantidadFramesAtackSpecial,
+                        jaxKane.anchoFramesAtackSpecial,
+                        jaxKane.altoFramesAtackSpecial,
+                        jaxKane.hitBox
+                ))
+                .with(physicsComponent)
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+}
 
 

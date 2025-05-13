@@ -4,6 +4,7 @@ import App.Components.CombatStatsComponent;
 import App.Services.CollitionService;
 import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
+import Domain.Entity.Characters.Players.JaxKane;
 import View.UI.GameMenu;
 import View.UI.MyMenu;
 import App.EntityFactory.EnemyFactory;
@@ -27,9 +28,9 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class GameApp extends GameApplication
 {
-    Cyborg cyborgInstance = new Cyborg();
 
     //Entidades
+    private Entity JaxKane;
     private Entity cyborg;
     private Entity explore;
     private Entity droid1;
@@ -47,9 +48,9 @@ public class GameApp extends GameApplication
 
     //Instancias
     Input input = new Input();
-    UI ui = new UI(cyborgInstance);
+    UI ui = new UI();
     Board board = new Board();
-    CombatModeUI combatModeUI = new CombatModeUI(ui,cyborgInstance);
+    CombatModeUI combatModeUI = new CombatModeUI(ui);
     CollitionService collitionService = new CollitionService(input);
 
     @Override
@@ -123,11 +124,10 @@ public class GameApp extends GameApplication
         itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 19, TILE_SIZE * 15);
         //Players
         cyborg = FXGL.spawn("cyborg");
+        JaxKane = FXGL.spawn("jaxKane",TILE_SIZE * 5, TILE_SIZE * 5);
 
-        //Components
-        //boss.addComponent(new EnemyController(cyborg,combatModeUI, TILE_SIZE));
-
-        input.movInput(cyborg,combatModeUI);
+        //input.movInput(cyborg,combatModeUI);
+        input.movInput(JaxKane,combatModeUI);
     }
 
     protected void initUI() {
@@ -158,4 +158,5 @@ public class GameApp extends GameApplication
     public static void main(String[] args) {
         launch(args);
     }
+
 }

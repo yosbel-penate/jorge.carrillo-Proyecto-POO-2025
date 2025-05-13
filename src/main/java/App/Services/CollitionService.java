@@ -115,7 +115,7 @@ public class CollitionService
            protected void onCollision(Entity player, Entity item){
                item.removeFromWorld();
                MusicService.playItem();
-               ui.atackBar(1);
+               ui.atackBar(1,player);
            }
         });
     }
