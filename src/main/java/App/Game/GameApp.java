@@ -16,6 +16,7 @@ import Domain.Settings.SettingsGame;
 import View.Maps.Maps;
 import View.UI.CombatModeUI;
 import View.UI.UI;
+import com.almasb.fxgl.app.CursorInfo;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
@@ -23,10 +24,15 @@ import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.components.ViewComponent;
 import com.almasb.fxgl.input.UserAction;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +73,8 @@ public class GameApp extends GameApplication
 
     @Override
     protected void initSettings(GameSettings settings) {
+
+        settings.setDefaultCursor(new CursorInfo("cursor.png", 0, 0));
         settings.setMainMenuEnabled(true);
         settings.setSceneFactory(new SceneFactory(){
 
@@ -141,15 +149,56 @@ public class GameApp extends GameApplication
         playersSelected.add(cyborg);
         playersSelected.add(JaxKane);
 
+
         currentEntity = cyborg;
         input.movInput();
 
     }
 
+    public void borderEntityIdentifier(){
+
+        for (Entity entity : playersSelected){
+            if (entity != currentEntity){
+                ViewComponent viewComponent = entity.getViewComponent();
+
+                Node viewNode = viewComponent.getChildren().get(0);
+
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
+                dropShadow.setColor(Color.RED);                // Color del borde
+                dropShadow.setRadius(5);                     // Radio mínimo para nitidez
+                dropShadow.setSpread(1.0);                     // Extensión completa para solidez
+                dropShadow.setOffsetX(0);
+                dropShadow.setOffsetY(0);
+
+                viewNode.setEffect(dropShadow);
+            }
+            else {
+                ViewComponent viewComponent = entity.getViewComponent();
+
+                Node viewNode = viewComponent.getChildren().get(0);
+
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
+                dropShadow.setColor(Color.BLUE);                // Color del borde
+                dropShadow.setRadius(5);                     // Radio mínimo para nitidez
+                dropShadow.setSpread(1.0);                     // Extensión completa para solidez
+                dropShadow.setOffsetX(0);
+                dropShadow.setOffsetY(0);
+
+                viewNode.setEffect(dropShadow);
+            }
+        }
+
+    }
+
+
+
     public static void setActionsOnClick(String nameEntitySelected){
         for (Entity entity : playersSelected){
             String name = entity.getComponent(CombatStatsComponent.class).name;
             if (name == nameEntitySelected){
+                MusicService.playChangeCharacter();
                 currentEntity = entity;
                 break;
             }
@@ -185,7 +234,7 @@ public class GameApp extends GameApplication
     protected void onUpdate(double tpf)
     {
         board.centrarPersonajes(cyborg);
-       // System.out.println(currentEntity.getComponent(CombatStatsComponent.class).name);
+        borderEntityIdentifier();
 
     }
 

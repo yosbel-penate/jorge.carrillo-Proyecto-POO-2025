@@ -120,6 +120,17 @@ public class CollitionService
         });
     }
 
+    public void startCollitionPlayers(UI ui){
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
+                Types.EntityType.PLAYER)
+        {
+            @Override
+            protected void onCollision(Entity player, Entity item){
+
+            }
+        });
+    }
+
     public void startCollitionEnemy(CombatModeUI combatModeUI) {
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
                                                                         Types.EntityType.ENEMY)
