@@ -10,9 +10,9 @@ public class JaxKane extends Players {
         this.cantidadFramesCaminando = 4;
         this.altoFrameAtack = 50;
         this.anchoFrameAtack = 364;
-        this.altoFramesIdle = 50;
+        this.altoFramesIdle = 52;
         this.anchoFramesCaminando = 402;
-        this.anchoFramesIdle = 451;
+        this.anchoFramesIdle = 450;
         this.altoFramesCaminando = 70;
         this.cantidaFramesMuerte = 4;
         this.altoFramesMuerte = 50;

@@ -27,7 +27,6 @@ public class Input {
                     Entity character = GameApp.currentEntity;
 
                     character.getComponent(AnimationComponents.class).moveUp();
-                    System.out.println("la entidad que se mueve es :" + character.getComponent(CombatStatsComponent.class).name);
                 }
             }
 
@@ -92,7 +91,6 @@ public class Input {
                 Entity character = GameApp.currentEntity;
 
                 character.getComponent(AnimationComponents.class).stopMoving();
-                //combatModeUI.reduceStepPoint();
             }
         }, KeyCode.D);
     }

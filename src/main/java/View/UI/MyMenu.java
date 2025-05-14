@@ -58,7 +58,7 @@ public class MyMenu extends FXGLMenu {
 
         // 4. Acción del botón: en vez de fireNewGame(), mostramos la SubScene
         btnStart.setOnAction(e -> {
-            getGameController().startNewGame();
+            FXGL.getGameController().startNewGame();
         });
 
         // 4. Añadir al root

@@ -1,8 +1,5 @@
 package View.Maps;
-import View.Maps.EnvairomentHazards.envairomentHazard;
 import com.almasb.fxgl.entity.level.Level;
-
-import java.util.ArrayList;
 
 import static com.almasb.fxgl.dsl.FXGL.setLevelFromMap;
 

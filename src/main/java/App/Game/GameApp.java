@@ -145,10 +145,9 @@ public class GameApp extends GameApplication
         itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 19, TILE_SIZE * 15);
         //Players
         cyborg = FXGL.spawn("cyborg");
-        JaxKane = FXGL.spawn("jaxKane",TILE_SIZE * 5, TILE_SIZE * 5);
+        JaxKane = FXGL.spawn("jaxKane",TILE_SIZE * 5, TILE_SIZE * 7);
         playersSelected.add(cyborg);
         playersSelected.add(JaxKane);
-
 
         currentEntity = cyborg;
         input.movInput();
