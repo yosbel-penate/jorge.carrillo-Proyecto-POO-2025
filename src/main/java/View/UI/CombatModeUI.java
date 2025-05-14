@@ -21,7 +21,6 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class CombatModeUI {
 
-    Cyborg cyborg;
 
     //Images
     Image statBarEnemyImage;
@@ -60,9 +59,8 @@ public class CombatModeUI {
     private PauseTransition enemyTurnDelay = new PauseTransition(Duration.seconds(1));
 
     //Contructores
-    public CombatModeUI(UI ui,Cyborg cyborg){
+    public CombatModeUI(UI ui){
         this.ui = ui;
-        this.cyborg = cyborg;
     }
     public CombatModeUI(){}
 
@@ -140,7 +138,7 @@ public class CombatModeUI {
         //=========Barra de vida de Jugadores===============
         heartsBarPlayerHbox = new HBox(5); // Espaciado de 5 píxeles entre corazones.
 
-        for (int i = 0; i < cyborg.life; i++) {
+        for (int i = 0; i < player.getComponent(CombatStatsComponent.class).getMaxHealth(); i++) {
             ImageView heartView = new ImageView(lifePointPlayer);
             // Opcional: ajustar tamaño de cada imagen
             heartView.setFitWidth(20);
@@ -175,8 +173,8 @@ public class CombatModeUI {
             panelCombatView.setTranslateX(TILE_SIZE);
             panelCombatView.setTranslateY(TILE_SIZE * 10);
 
-           initButtonAtacckBasic(player,enemy);
-           initButtonAtacckSpecial(player, enemy);
+            initButtonAtacckBasic(player,enemy);
+            initButtonAtacckSpecial(player, enemy);
 
             getGameScene().addUINode(heartBarImageViewEnemi);
             getGameScene().addUINode(panelCombatView);
@@ -232,12 +230,12 @@ public class CombatModeUI {
         switch (tipoOfAnimationInButton){
             case "basic" :
                 player.getComponent(AnimationComponents.class).playAttackAnimation();
-                reduceHealthEnemi(cyborg.atack,enemy);
+                reduceHealthEnemi(player.getComponent(CombatStatsComponent.class).getAtacck(),enemy);
                 MusicService.playWeanpon();
                 break;
             case "special" :
                 player.getComponent(AnimationComponents.class).playSpecialAnimation();
-                reduceHealthEnemi(cyborg.atack,enemy);
+                reduceHealthEnemi(player.getComponent(CombatStatsComponent.class).getAtacck(),enemy);
                 MusicService.playWeanpon();
                 break;
         }

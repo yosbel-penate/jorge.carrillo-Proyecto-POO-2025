@@ -115,8 +115,19 @@ public class CollitionService
            protected void onCollision(Entity player, Entity item){
                item.removeFromWorld();
                MusicService.playItem();
-               ui.atackBar(1);
+               ui.atackBar(1,player);
            }
+        });
+    }
+
+    public void startCollitionPlayers(UI ui){
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
+                Types.EntityType.PLAYER)
+        {
+            @Override
+            protected void onCollision(Entity player, Entity item){
+
+            }
         });
     }
 

@@ -4,6 +4,8 @@ import App.Components.CombatStatsComponent;
 import App.Services.CollitionService;
 import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
+import Domain.Entity.Characters.Players.JaxKane;
+import Domain.Entity.Types;
 import View.UI.GameMenu;
 import View.UI.MyMenu;
 import App.EntityFactory.EnemyFactory;
@@ -14,6 +16,7 @@ import Domain.Settings.SettingsGame;
 import View.Maps.Maps;
 import View.UI.CombatModeUI;
 import View.UI.UI;
+import com.almasb.fxgl.app.CursorInfo;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
@@ -21,15 +24,28 @@ import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.components.ViewComponent;
+import com.almasb.fxgl.input.UserAction;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static Domain.Settings.SettingsGame.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class GameApp extends GameApplication
 {
-    Cyborg cyborgInstance = new Cyborg();
 
     //Entidades
+    private static Entity JaxKane;
+    public static Entity currentEntity;
     private Entity cyborg;
     private Entity explore;
     private Entity droid1;
@@ -45,15 +61,20 @@ public class GameApp extends GameApplication
     private Entity panel;
     private Entity panel2;
 
+    public static ArrayList<Entity> playersSelected = new ArrayList<>();
+
+
     //Instancias
-    Input input = new Input();
-    UI ui = new UI(cyborgInstance);
+    static Input input = new Input();
+    UI ui = new UI();
     Board board = new Board();
-    CombatModeUI combatModeUI = new CombatModeUI(ui,cyborgInstance);
+    CombatModeUI combatModeUI = new CombatModeUI(ui);
     CollitionService collitionService = new CollitionService(input);
 
     @Override
     protected void initSettings(GameSettings settings) {
+
+        settings.setDefaultCursor(new CursorInfo("cursor.png", 0, 0));
         settings.setMainMenuEnabled(true);
         settings.setSceneFactory(new SceneFactory(){
 
@@ -75,6 +96,7 @@ public class GameApp extends GameApplication
 
     @Override
     protected void initGame() {
+
         //Tablero de juego
         Board.boardTable(NUM_TILES_Y,NUM_TILES_X, TILE_SIZE);
 
@@ -123,11 +145,63 @@ public class GameApp extends GameApplication
         itemAtack = FXGL.spawn("itemAtack",TILE_SIZE * 19, TILE_SIZE * 15);
         //Players
         cyborg = FXGL.spawn("cyborg");
+        JaxKane = FXGL.spawn("jaxKane",TILE_SIZE * 5, TILE_SIZE * 7);
+        playersSelected.add(cyborg);
+        playersSelected.add(JaxKane);
 
-        //Components
-        //boss.addComponent(new EnemyController(cyborg,combatModeUI, TILE_SIZE));
+        currentEntity = cyborg;
+        input.movInput();
 
-        input.movInput(cyborg,combatModeUI);
+    }
+
+    public void borderEntityIdentifier(){
+
+        for (Entity entity : playersSelected){
+            if (entity != currentEntity){
+                ViewComponent viewComponent = entity.getViewComponent();
+
+                Node viewNode = viewComponent.getChildren().get(0);
+
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
+                dropShadow.setColor(Color.RED);                // Color del borde
+                dropShadow.setRadius(5);                     // Radio mínimo para nitidez
+                dropShadow.setSpread(1.0);                     // Extensión completa para solidez
+                dropShadow.setOffsetX(0);
+                dropShadow.setOffsetY(0);
+
+                viewNode.setEffect(dropShadow);
+            }
+            else {
+                ViewComponent viewComponent = entity.getViewComponent();
+
+                Node viewNode = viewComponent.getChildren().get(0);
+
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
+                dropShadow.setColor(Color.BLUE);                // Color del borde
+                dropShadow.setRadius(5);                     // Radio mínimo para nitidez
+                dropShadow.setSpread(1.0);                     // Extensión completa para solidez
+                dropShadow.setOffsetX(0);
+                dropShadow.setOffsetY(0);
+
+                viewNode.setEffect(dropShadow);
+            }
+        }
+
+    }
+
+
+
+    public static void setActionsOnClick(String nameEntitySelected){
+        for (Entity entity : playersSelected){
+            String name = entity.getComponent(CombatStatsComponent.class).name;
+            if (name == nameEntitySelected){
+                MusicService.playChangeCharacter();
+                currentEntity = entity;
+                break;
+            }
+        }
     }
 
     protected void initUI() {
@@ -147,15 +221,24 @@ public class GameApp extends GameApplication
         collitionService.startCollitionItemAtack(ui);
         collitionService.startCollitionItemSpecialPoint(combatModeUI);
         collitionService.startCollitionItemLife(combatModeUI);
+
     }
 
+    @Override
+    protected void initInput() {
+        System.out.println("se llama el init input");
+
+    }
     @Override
     protected void onUpdate(double tpf)
     {
         board.centrarPersonajes(cyborg);
+        borderEntityIdentifier();
+
     }
 
     public static void main(String[] args) {
         launch(args);
     }
+
 }
