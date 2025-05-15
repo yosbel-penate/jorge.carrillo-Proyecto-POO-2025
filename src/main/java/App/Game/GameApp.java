@@ -214,6 +214,7 @@ public class GameApp extends GameApplication
     protected void initPhysics()
     {
         FXGL.getPhysicsWorld().setGravity(0,0);
+        collitionService.startCollitionCoin(combatModeUI);
         collitionService.starPanelCollition(barrier1);
         collitionService.starPanelCollition(barrier);
         collitionService.startCollitionBarrier(combatModeUI);

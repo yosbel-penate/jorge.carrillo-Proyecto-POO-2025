@@ -9,7 +9,8 @@ public class Types {
         BARRIER,
         PANEL,
         PLAYER,
-        PlAYER_CYBORG
+        PlAYER_CYBORG,
+        COIN
     }
 
 }

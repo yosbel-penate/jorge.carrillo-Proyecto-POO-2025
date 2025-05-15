@@ -7,6 +7,7 @@ import View.UI.CombatModeUI;
 import View.UI.UI;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.physics.HitBox;
@@ -43,7 +44,7 @@ public class CollitionService
     }
 
     public void starPanelCollition(Entity barrier){
-        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PlAYER_CYBORG,
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
                                                                         Types.EntityType.PANEL)
         {
             @Override
@@ -103,6 +104,20 @@ public class CollitionService
 
                 // 3. Actualizar la UI con el nuevo valor
                 combatModeUI.updateHealthBarPlayer(player);
+            }
+        });
+    }
+
+    public void startCollitionCoin(CombatModeUI combatModeUI){
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
+                                                                        Types.EntityType.COIN)
+        {
+            @Override
+            protected void onCollision(Entity player, Entity item){
+                item.removeFromWorld();
+                MusicService.playCoin();
+
+
             }
         });
     }
@@ -169,6 +184,16 @@ public class CollitionService
         currentEnemy = null;
         inputController.setCanMove(true);
         MusicService.playLevel1Music();
+        // 1. Guardamos la posición del enemigo
+        Point2D pos = enemy.getPosition();
+
+
+        // 3. Hacemos spawn de la nueva entidad en esa misma posición
+        //    "NewEnemy" debe estar registrado en initSettings() con addEntityFactory()
+        FXGL.spawn("coin", new SpawnData(pos));
+        MusicService.playCoin();
+
+
     }
 
 

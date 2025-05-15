@@ -35,6 +35,8 @@ public class UI {
     Image statBar;
     Image statAtackBar;
     Image specialPointsBarImage;
+    Image imageTienda;
+    Image latienda;
 
     //Text
     Text nameCharaterText;
@@ -48,14 +50,33 @@ public class UI {
     ImageView specialPointBarView;
     ImageView statAtackBarView;
     ImageView statBarView;
+    ImageView viewLatienda;
 
     //Buttons
     Button buttonWiki;
+    Button buttonTienda;
     Button gameMenuButton;
     Button mainMenuButton;
 
     public void showUI()
     {
+
+        latienda = getAssetLoader().loadImage("latienda.png");
+        viewLatienda = new ImageView();
+        viewLatienda.setImage(latienda);
+        viewLatienda.setX(TILE_SIZE * 10);
+        viewLatienda.setY(TILE_SIZE * 5);
+        //Boton Tienda
+        imageTienda = getAssetLoader().loadImage("botonTienda.png");
+        buttonTienda = new Button();
+        buttonTienda.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+        buttonTienda.setGraphic(new ImageView(imageTienda));
+        buttonTienda.setTranslateX(TILE_SIZE);
+        buttonTienda.setTranslateY(TILE_SIZE * 5 + 10);
+        buttonTienda.setOnAction(e -> {
+            setImageTienda();
+            MusicService.playKey();
+        });
 
         //Caja de informacion
         porcentAtackText = new Text("Atacck +" + 2);
@@ -186,6 +207,7 @@ public class UI {
         getGameScene().addUINode(statBarView);
         getGameScene().addUINode(nameCharaterText);
         getGameScene().addUINode(porcentAtackText);
+        getGameScene().addUINode(buttonTienda);
     }
 
     public void pintarBordeIcono(String name,Button button){
@@ -219,6 +241,20 @@ public class UI {
 
     }
 
+    private void setImageTienda(){
+        getGameScene().addUINode(viewLatienda);
+
+        wikiView.addEventFilter(MouseEvent.MOUSE_PRESSED, MouseEvent::consume);
+
+        Scene scene = getGameScene().getRoot().getScene();
+        scene.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            // Si la wikiView sigue en la UI, la quitamos
+            if (getGameScene().getUINodes().contains(viewLatienda)) {
+                getGameScene().removeUINode(viewLatienda);
+            }
+        });
+    }
+
     private void setImageWiki(){
         getGameScene().addUINode(wikiView);
 
@@ -232,6 +268,7 @@ public class UI {
             }
         });
     }
+
 
     public void atackBar(int amount, Entity player){
         int total = player.getComponent(CombatStatsComponent.class).atacck += amount;
