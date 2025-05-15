@@ -6,6 +6,7 @@ import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import javafx.animation.ScaleTransition;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.BlurType;
@@ -17,16 +18,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static Domain.Settings.SettingsGame.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class UI {
 
-    public UI(){
-    }
+   static int cantidadMoneda = 0;
     //Images
     Image wikiImage;
     Image buttonWikiImage;
@@ -37,12 +40,14 @@ public class UI {
     Image specialPointsBarImage;
     Image imageTienda;
     Image latienda;
+    Image iconCoin;
 
     //Text
     Text nameCharaterText;
     Text porcentAtackText;
 
     //ImagesView
+    ImageView iconCoinView;
     ImageView buttonWikiView;
     ImageView wikiView;
     ImageView buttonGameMenuView;
@@ -58,8 +63,37 @@ public class UI {
     Button gameMenuButton;
     Button mainMenuButton;
 
+
+    static Text contadorMonedas;
+
+
+    // Campo de clase:
+    private Map<String, Button> mapNombreAButton = new HashMap<>();
+
+
     public void showUI()
     {
+
+        Image coinConteiner = getAssetLoader().loadImage("coinConteiner.png");
+        ImageView coinConteinerView = new ImageView(coinConteiner);
+        coinConteinerView.setX(TILE_SIZE * 27);
+        coinConteinerView.setY(TILE_SIZE * 17);
+
+        getGameScene().addUINode(coinConteinerView);
+        //Logica de monedas
+        iconCoin = getAssetLoader().loadImage("targetCoin.png");
+        iconCoinView = new ImageView();
+        iconCoinView.setImage(iconCoin);
+        iconCoinView.setX(TILE_SIZE  * 27 + 20);
+        iconCoinView.setY(TILE_SIZE * 17 + 20);
+
+
+        contadorMonedas = new Text();
+        contadorMonedas.setText("x " + 0);
+        contadorMonedas.setFill(Color.YELLOW);
+        contadorMonedas.setFont(Font.font("Negrita",20));
+        contadorMonedas.setX(TILE_SIZE * 28);
+        contadorMonedas.setY(TILE_SIZE * 18 - 10);
 
         latienda = getAssetLoader().loadImage("latienda.png");
         viewLatienda = new ImageView();
@@ -159,14 +193,18 @@ public class UI {
         gameMenuButton.setOnAction(e -> {
             FXGL.getGameController().gotoGameMenu();
             MusicService.playKey();
+            animacionPresionarBoton(gameMenuButton);
         });
         buttonWiki.setOnAction(e -> {
             setImageWiki();
             MusicService.playKey();
+            animacionPresionarBoton(buttonWiki);
         });
         mainMenuButton.setOnAction(e -> {
             FXGL.getGameController().gotoMainMenu();
             MusicService.playKey();
+            animacionPresionarBoton(mainMenuButton);
+
         });
 
         //Hbox de identificadores de players
@@ -193,6 +231,10 @@ public class UI {
         listaBotones.add(jaxKaneBtn);
         listaBotones.add(cyborgBtn);
 
+
+        mapNombreAButton.put("cyborg",  cyborgBtn);
+        mapNombreAButton.put("jaxKane",  jaxKaneBtn);
+
         barraIdentificadores.getChildren().addAll(cyborgBtn,jaxKaneBtn);
 
         barraIdentificadores.setTranslateX(TILE_SIZE * 26);
@@ -208,6 +250,9 @@ public class UI {
         getGameScene().addUINode(nameCharaterText);
         getGameScene().addUINode(porcentAtackText);
         getGameScene().addUINode(buttonTienda);
+        getGameScene().addUINode(iconCoinView);
+        getGameScene().addUINode(contadorMonedas);
+
     }
 
 
@@ -223,35 +268,21 @@ public class UI {
         porcentAtackText.setText("Attack + " + stats.getAtacck());
     }
 
-    public void pintarBordeIcono(String name,Button button){
+    public void pintarBordeIcono(String nameSeleccionado, Button botonClicado) {
+        // 1) Primero cambiamos la entidad activa
+        GameApp.setActionsOnClick(nameSeleccionado);
 
-        Entity entity = GameApp.currentEntity;
-        for (Entity cantidadEntidades : GameApp.playersSelected){
-            if (entity.getComponent(CombatStatsComponent.class).name.equals(name)){
-                GameApp.setActionsOnClick(name);
-                DropShadow dropShadow = new DropShadow();
-                dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
-                dropShadow.setColor(Color.GREEN);                // Color del borde
-                dropShadow.setRadius(15);                     // Radio mínimo para nitidez
-                dropShadow.setSpread(1.0);                     // Extensión completa para solidez
-                dropShadow.setOffsetX(0);
-                dropShadow.setOffsetY(0);
-                button.setEffect(dropShadow);
-            }else {
-                GameApp.setActionsOnClick(name);
-                DropShadow dropShadow = new DropShadow();
-                dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
-                dropShadow.setColor(Color.RED);                // Color del borde
-                dropShadow.setRadius(15);                     // Radio mínimo para nitidez
-                dropShadow.setSpread(1.0);                     // Extensión completa para solidez
-                dropShadow.setOffsetX(0);
-                dropShadow.setOffsetY(0);
-                button.setEffect(dropShadow);
-            }
+        // 2) Ahora recorremos cada jugador y su botón asociado
+        for (Map.Entry<String, Button> entry : mapNombreAButton.entrySet()) {
+            String nombre = entry.getKey();
+            Button btn   = entry.getValue();
+
+            // Si el nombre coincide con el seleccionado, pongo verde; si no, rojo
+            DropShadow sombra = new DropShadow(BlurType.ONE_PASS_BOX,
+                    nombre.equals(nameSeleccionado) ? Color.GREEN : Color.RED,
+                    15, 1.0, 0, 0);
+            btn.setEffect(sombra);
         }
-
-
-
     }
 
     private void setImageTienda(){
@@ -282,9 +313,44 @@ public class UI {
         });
     }
 
-
     public void atackBar(int amount, Entity player){
         int total = player.getComponent(CombatStatsComponent.class).atacck += amount;
         porcentAtackText.setText("Atacck +" + total );
+    }
+
+    public static void animacionPresionarBoton(Button btn) {
+
+
+        ScaleTransition pressAnim = new ScaleTransition(Duration.millis(100), btn);
+        pressAnim.setFromX(1.0);
+        pressAnim.setFromY(1.0);
+        pressAnim.setToX(0.95);
+        pressAnim.setToY(0.95);
+
+        ScaleTransition releaseAnim = new ScaleTransition(Duration.millis(100), btn);
+        releaseAnim.setFromX(0.95);
+        releaseAnim.setFromY(0.95);
+        releaseAnim.setToX(1.0);
+        releaseAnim.setToY(1.0);
+
+        btn.setOnMousePressed(e -> {
+            // Reiniciamos y reproducimos
+            pressAnim.stop();
+            pressAnim.playFromStart();
+        });
+
+        btn.setOnMouseReleased(e -> {
+            releaseAnim.stop();
+            releaseAnim.playFromStart();
+        });
+    }
+
+
+    public static void updateAmountCoins (int cantidad){
+        if (cantidadMoneda >= 0){
+            int total = cantidadMoneda += cantidad;
+            contadorMonedas.setText("X " + total);
+        }
+
     }
 }

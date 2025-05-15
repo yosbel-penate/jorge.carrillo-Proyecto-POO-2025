@@ -65,7 +65,7 @@ public class ObjectFactory implements EntityFactory {
                         30,
                         0,
                         8,
-                        11
+                        00
                 ))
                 .with(new CollidableComponent(true))
                 .buildAndAttach();

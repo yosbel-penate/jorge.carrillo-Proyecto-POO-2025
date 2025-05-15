@@ -217,6 +217,8 @@ public class AnimationComponents extends Component
             collitionService.updateCollisionBox2x2(this.entity);
         }else if(hitBox == 13){
             collitionService.updateCollisionBox1x3(this.entity);
+        }else if (hitBox == 00){
+            collitionService.updateCollisionBoxCoin(this.entity);
         }
     }
 

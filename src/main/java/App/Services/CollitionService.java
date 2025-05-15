@@ -116,8 +116,7 @@ public class CollitionService
             protected void onCollision(Entity player, Entity item){
                 item.removeFromWorld();
                 MusicService.playCoin();
-
-
+                UI.updateAmountCoins(1);
             }
         });
     }
@@ -189,7 +188,7 @@ public class CollitionService
 
         // 3. Hacemos spawn de la nueva entidad en esa misma posición
         //    "NewEnemy" debe estar registrado en initSettings() con addEntityFactory()
-        FXGL.spawn("coin", new SpawnData(pos));
+        FXGL.spawn("coin",pos.getX() + 10,pos.getY() + 10);
         MusicService.playCoin();
     }
 
@@ -223,5 +222,11 @@ public class CollitionService
                 TILE_SIZE * 3 - 1)));
     }
 
+    public void updateCollisionBoxCoin(Entity entity) {
+        entity.getBoundingBoxComponent().clearHitBoxes();
+        entity.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.box(
+                30,
+                30)));
+    }
 }
 

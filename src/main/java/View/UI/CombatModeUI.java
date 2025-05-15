@@ -198,6 +198,7 @@ public class CombatModeUI {
                 if (statusbuttonAtacck){
                     tipoOfAnimationInButton = "basic";
                     startAtacckPLayer(player, enemy, tipoOfAnimationInButton);
+                    UI.animacionPresionarBoton(buttonAtackBasic);
                 }
             }
         });
@@ -215,6 +216,8 @@ public class CombatModeUI {
                         tipoOfAnimationInButton = "special";
                         reduceSpecialPoint(player);
                         startAtacckPLayer(player, enemy, tipoOfAnimationInButton);
+                        UI.animacionPresionarBoton(buttonAtackSpecial);
+
                     }
                 }
             });
