@@ -6,6 +6,7 @@ import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -70,9 +71,34 @@ public class UI {
     // Campo de clase:
     private Map<String, Button> mapNombreAButton = new HashMap<>();
 
+    public void splashAnimacion (ImageView splash){
+
+        System.out.println("pantalla inicial");
+
+        FXGL.getGameTimer().runOnceAfter(() -> {
+            // Crea un FadeTransition de JavaFX: dura 1 s, de opacidad 1 a 0
+            FadeTransition ft = new FadeTransition(Duration.seconds(1), splash);
+            ft.setFromValue(1.0);
+            ft.setToValue(0.0);
+
+            // Al acabar, quita el nodo de la escena
+            ft.setOnFinished(evt -> FXGL.getGameScene().removeUINode(splash));
+
+            // Inicia la animación
+            ft.play();
+        }, Duration.seconds(2.0));  // ← aquí defines cuántos segundos permanece visible
+    }
+
 
     public void showUI()
     {
+
+        ImageView slpashLevel1 = new ImageView(getAssetLoader().loadImage("nivel1Texto.png"));
+        slpashLevel1.setY(TILE_SIZE * 2);
+        slpashLevel1.setX(TILE_SIZE * 10);
+        splashAnimacion(slpashLevel1);
+        getGameScene().addUINode(slpashLevel1);
+
 
         Image coinConteiner = getAssetLoader().loadImage("coinConteiner.png");
         ImageView coinConteinerView = new ImageView(coinConteiner);
@@ -351,6 +377,5 @@ public class UI {
             int total = cantidadMoneda += cantidad;
             contadorMonedas.setText("X " + total);
         }
-
     }
 }
