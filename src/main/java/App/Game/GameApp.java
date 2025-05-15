@@ -65,12 +65,11 @@ public class GameApp extends GameApplication
 
     public static ArrayList<Entity> playersSelected = new ArrayList<>();
 
-
     //Instancias
     static Input input = new Input();
-    UI ui = new UI();
+    static UI ui = new UI();
     Board board = new Board();
-    CombatModeUI combatModeUI = new CombatModeUI(ui);
+    static CombatModeUI combatModeUI = new CombatModeUI(ui);
     CollitionService collitionService = new CollitionService(input);
 
     @Override
@@ -100,7 +99,7 @@ public class GameApp extends GameApplication
     protected void initGame() {
 
         //Tablero de juego
-        Board.boardTable(NUM_TILES_Y,NUM_TILES_X, TILE_SIZE);
+        Board.boardTable(NUM_TILES_Y, NUM_TILES_X, TILE_SIZE);
 
         //Entities Factory
         getGameWorld().addEntityFactory(new PlayersFactory());
@@ -114,15 +113,13 @@ public class GameApp extends GameApplication
         //Level Loader
         Maps.setLevel1();
 
-        tanke = FXGL.spawn("tanke",TILE_SIZE * 7, TILE_SIZE);
-        tanke = FXGL.spawn("tanke",TILE_SIZE * 9, TILE_SIZE);
-
+        tanke = FXGL.spawn("tanke", TILE_SIZE * 7, TILE_SIZE);
+        tanke = FXGL.spawn("tanke", TILE_SIZE * 9, TILE_SIZE);
 
         coin = FXGL.spawn("coin",TILE_SIZE * 6 + 10, TILE_SIZE * 2 + 10);
         //coin = FXGL.spawn("coin",TILE_SIZE * 7 + 10, TILE_SIZE * 10 + 10);
         coin = FXGL.spawn("coin",TILE_SIZE * 20 + 10, TILE_SIZE * 8 + 10);
         coin = FXGL.spawn("coin",TILE_SIZE * 11 + 10, TILE_SIZE * 12 + 10);
-
 
         //===================Entidades en el mapa========================
         //Explore
@@ -208,6 +205,9 @@ public class GameApp extends GameApplication
             if (name == nameEntitySelected){
                 MusicService.playChangeCharacter();
                 currentEntity = entity;
+                ui.updateCurrentPlayerStats(currentEntity);
+                combatModeUI.setHealthPLayer(currentEntity.getComponent(CombatStatsComponent.class).getMaxHealth(),currentEntity);
+                combatModeUI.updateSpecialPointBarPLayer(currentEntity);
                 break;
             }
         }
@@ -215,8 +215,7 @@ public class GameApp extends GameApplication
 
     protected void initUI() {
         ui.showUI();
-        combatModeUI.showCombatUI(cyborg);
-        combatModeUI.setHealthPLayer(cyborg.getComponent(CombatStatsComponent.class).getMaxHealth(),cyborg);
+        combatModeUI.showCombatUI(currentEntity);
     }
 
     @Override
@@ -238,12 +237,13 @@ public class GameApp extends GameApplication
     protected void initInput() {
 
     }
+
     @Override
     protected void onUpdate(double tpf)
     {
+
         board.centrarPersonajes(currentEntity);
         //borderEntityIdentifier();
-
     }
 
     public static void main(String[] args) {

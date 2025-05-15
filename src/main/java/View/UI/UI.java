@@ -78,18 +78,20 @@ public class UI {
             MusicService.playKey();
         });
 
-        //Caja de informacion
-        porcentAtackText = new Text("Atacck +" + 2);
+        porcentAtackText = new Text();
         porcentAtackText.setTranslateX(TILE_SIZE * 8);
         porcentAtackText.setTranslateY(TILE_SIZE * 16 + 23);
         porcentAtackText.setFill(Color.CYAN);
         porcentAtackText.setFont(Font.font("Negrita",20));
 
-        nameCharaterText = new Text("Cyborg");
+        nameCharaterText = new Text();
         nameCharaterText.setTranslateX(TILE_SIZE * 4);
         nameCharaterText.setTranslateY(TILE_SIZE * 16 + 27);
         nameCharaterText.setFill(Color.CYAN);
         nameCharaterText.setFont(Font.font("Negrita", 25));
+
+
+       updateCurrentPlayerStats(GameApp.currentEntity);
 
         //=============ImagesLoader=============
         buttonGameMenuImage = getAssetLoader().loadImage("botonGameMenu.png");
@@ -169,8 +171,6 @@ public class UI {
 
         //Hbox de identificadores de players
 
-
-
         HBox barraIdentificadores = new HBox(10);
 
         ArrayList<Button> listaBotones = new ArrayList<>();
@@ -208,6 +208,19 @@ public class UI {
         getGameScene().addUINode(nameCharaterText);
         getGameScene().addUINode(porcentAtackText);
         getGameScene().addUINode(buttonTienda);
+    }
+
+
+    public void updateCurrentPlayerStats(Entity currentEntity){
+        //Caja de informacion
+        System.out.println("se llama al metodo");
+        System.out.println(currentEntity.getComponent(CombatStatsComponent.class).name);
+        CombatStatsComponent stats =
+                currentEntity.getComponent(CombatStatsComponent.class);
+
+        // Actualiza el texto, no crees un Text nuevo
+        nameCharaterText.setText(stats.name);
+        porcentAtackText.setText("Attack + " + stats.getAtacck());
     }
 
     public void pintarBordeIcono(String name,Button button){
