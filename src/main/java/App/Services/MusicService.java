@@ -31,8 +31,6 @@ public class MusicService {
 
     }
 
-
-
     public static void playKey(){
         FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("key.wav"));
     }

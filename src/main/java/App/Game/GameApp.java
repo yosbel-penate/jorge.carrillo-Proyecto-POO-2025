@@ -46,6 +46,7 @@ public class GameApp extends GameApplication
     //Entidades
     private static Entity JaxKane;
     public static Entity currentEntity;
+    private Entity coin;
     private Entity cyborg;
     private Entity explore;
     private Entity droid1;
@@ -112,6 +113,8 @@ public class GameApp extends GameApplication
         //Level Loader
         Maps.setLevel1();
 
+        coin = FXGL.spawn("coin",TILE_SIZE * 6 + 10, TILE_SIZE * 2 + 10);
+
         //===================Entidades en el mapa========================
         //Explore
         explore = FXGL.spawn("explore",TILE_SIZE * 20 , TILE_SIZE * 10);
@@ -151,10 +154,9 @@ public class GameApp extends GameApplication
 
         currentEntity = cyborg;
         input.movInput();
-
     }
 
-    public void borderEntityIdentifier(){
+    public void borderEntityIdentifier() {
 
         for (Entity entity : playersSelected){
             if (entity != currentEntity){
@@ -191,8 +193,6 @@ public class GameApp extends GameApplication
 
     }
 
-
-
     public static void setActionsOnClick(String nameEntitySelected){
         for (Entity entity : playersSelected){
             String name = entity.getComponent(CombatStatsComponent.class).name;
@@ -226,14 +226,13 @@ public class GameApp extends GameApplication
 
     @Override
     protected void initInput() {
-        System.out.println("se llama el init input");
 
     }
     @Override
     protected void onUpdate(double tpf)
     {
-        board.centrarPersonajes(cyborg);
-        borderEntityIdentifier();
+        board.centrarPersonajes(currentEntity);
+        //borderEntityIdentifier();
 
     }
 

@@ -1,18 +1,24 @@
 package View.UI;
 
 import App.Components.CombatStatsComponent;
+import App.Game.GameApp;
 import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
 
 import static Domain.Settings.SettingsGame.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
@@ -30,14 +36,9 @@ public class UI {
     Image statAtackBar;
     Image specialPointsBarImage;
 
-    //Image SteepPointPlayer;
-    //Image barraPasosPlayer;
-    //Image barraPasosEnemigo;
-    //Image puntosPasosEnemigo;
-
+    //Text
     Text nameCharaterText;
     Text porcentAtackText;
-
 
     //ImagesView
     ImageView buttonWikiView;
@@ -45,7 +46,6 @@ public class UI {
     ImageView buttonGameMenuView;
     ImageView buttonMainMenuView;
     ImageView specialPointBarView;
-    ImageView heartBarImageViewPlayer;
     ImageView statAtackBarView;
     ImageView statBarView;
 
@@ -53,10 +53,6 @@ public class UI {
     Button buttonWiki;
     Button gameMenuButton;
     Button mainMenuButton;
-
-    //Hbox
-    //public HBox playerSteepHbox;
-    //public HBox enemyStepsHbox;
 
     public void showUI()
     {
@@ -81,11 +77,6 @@ public class UI {
         specialPointsBarImage = getAssetLoader().loadImage("specialPointBar.png");
         statBar = getAssetLoader().loadImage("statBar.png");
         statAtackBar = getAssetLoader().loadImage("statAtackBar.png");
-
-        //barraPasosPlayer = getAssetLoader().loadImage("barra_pasos.png");
-        //SteepPointPlayer = getAssetLoader().loadImage("pasos_point.png");
-        //barraPasosEnemigo = getAssetLoader().loadImage("barra_pasos_ememigo.png");
-        //puntosPasosEnemigo = getAssetLoader().loadImage("pasos_point_enemi.png");
 
         //wiki
         buttonWikiView = new ImageView();
@@ -140,49 +131,8 @@ public class UI {
         mainMenuButton.setTranslateY(TILE_SIZE * 3 - 30);
         mainMenuButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
 
-        //Contador de pasos del Jugador
-        //barraPasosPlayerView = new ImageView();
-        //barraPasosPlayerView.setImage(barraPasosPlayer);
-        //barraPasosPlayerView.setTranslateX(TILE_SIZE);
-        //barraPasosPlayerView.setTranslateY(TILE_SIZE);
 
-        //Contador de pasos del Enemigo
-        //barraPasosEnemigoView = new ImageView();
-        //barraPasosEnemigoView.setImage(barraPasosEnemigo);
-        //barraPasosEnemigoView.setTranslateX(TILE_SIZE * 22);
-        //barraPasosEnemigoView.setTranslateY(TILE_SIZE);
-
-        /*
-
-         //===============Barra de Pasos Jugadores=================
-        playerSteepHbox = new HBox(5); // Espaciado de 5 píxeles entre corazones.
-
-        for (int i = 0; i < combatStats.setPLayerInitSteeps(); i++) {
-            ImageView pasosPointView = new ImageView(SteepPointPlayer);
-            // Opcional: ajustar tamaño de cada imagen
-            pasosPointView.setFitWidth(32);
-            pasosPointView.setFitHeight(32);
-            playerSteepHbox.getChildren().add(pasosPointView);
-        }
-        playerSteepHbox.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        playerSteepHbox.setTranslateX(TILE_SIZE + 14);
-        playerSteepHbox.setTranslateY(TILE_SIZE + 11);
-
-        //=============Barra de pasos del Enemigo===================
-        enemyStepsHbox = new HBox(5); // Espaciado de 5 píxeles entre íconos.
-
-        for (int i = 0; i < combatStats.enemyMaxSteps; i++) {
-            ImageView enemyStepIcon = new ImageView(puntosPasosEnemigo);
-            // Ajusta el tamaño si lo requieres
-            enemyStepIcon.setFitWidth(32);
-            enemyStepIcon.setFitHeight(32);
-            enemyStepsHbox.getChildren().add(enemyStepIcon);
-        }
-        enemyStepsHbox.setTranslateX(TILE_SIZE * 27);
-        enemyStepsHbox.setTranslateY(TILE_SIZE + 10);
-
-        */
-
+        //Botones del la interfaz principal
         gameMenuButton.setOnAction(e -> {
             FXGL.getGameController().gotoGameMenu();
             MusicService.playKey();
@@ -196,6 +146,38 @@ public class UI {
             MusicService.playKey();
         });
 
+        //Hbox de identificadores de players
+
+
+
+        HBox barraIdentificadores = new HBox(10);
+
+        ArrayList<Button> listaBotones = new ArrayList<>();
+
+        Image iconCyborg = getAssetLoader().loadTexture("iconCyborg.png").getImage();
+        Image iconJaxKane = getAssetLoader().loadTexture("iconJaxKane.png").getImage();
+
+        Button cyborgBtn = new Button();
+        cyborgBtn.setGraphic(new ImageView(iconCyborg));
+        cyborgBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+        //pintarBordeIcono("cyborg",cyborgBtn);
+        cyborgBtn.setOnAction(e -> pintarBordeIcono("cyborg",cyborgBtn));
+
+        Button jaxKaneBtn = new Button();
+        jaxKaneBtn.setGraphic(new ImageView(iconJaxKane));
+        jaxKaneBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+        //pintarBordeIcono("jaxKane",jaxKaneBtn);
+        jaxKaneBtn.setOnAction(e -> pintarBordeIcono("jaxKane",jaxKaneBtn));
+
+        listaBotones.add(jaxKaneBtn);
+        listaBotones.add(cyborgBtn);
+
+        barraIdentificadores.getChildren().addAll(cyborgBtn,jaxKaneBtn);
+
+        barraIdentificadores.setTranslateX(TILE_SIZE * 26);
+        barraIdentificadores.setTranslateY(TILE_SIZE );
+
+        getGameScene().addUINode(barraIdentificadores);
         getGameScene().addUINode(buttonWiki);
         getGameScene().addUINode(gameMenuButton);
         getGameScene().addUINode(mainMenuButton);
@@ -204,11 +186,37 @@ public class UI {
         getGameScene().addUINode(statBarView);
         getGameScene().addUINode(nameCharaterText);
         getGameScene().addUINode(porcentAtackText);
+    }
 
-        //getGameScene().addUINode(barraPasosPlayerView);
-        //etGameScene().addUINode(playerSteepHbox);
-        //getGameScene().addUINode(barraPasosEnemigoView);
-        //getGameScene().addUINode(enemyStepsHbox);
+    public void pintarBordeIcono(String name,Button button){
+
+        Entity entity = GameApp.currentEntity;
+        for (Entity cantidadEntidades : GameApp.playersSelected){
+            if (entity.getComponent(CombatStatsComponent.class).name.equals(name)){
+                GameApp.setActionsOnClick(name);
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
+                dropShadow.setColor(Color.GREEN);                // Color del borde
+                dropShadow.setRadius(15);                     // Radio mínimo para nitidez
+                dropShadow.setSpread(1.0);                     // Extensión completa para solidez
+                dropShadow.setOffsetX(0);
+                dropShadow.setOffsetY(0);
+                button.setEffect(dropShadow);
+            }else {
+                GameApp.setActionsOnClick(name);
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
+                dropShadow.setColor(Color.RED);                // Color del borde
+                dropShadow.setRadius(15);                     // Radio mínimo para nitidez
+                dropShadow.setSpread(1.0);                     // Extensión completa para solidez
+                dropShadow.setOffsetX(0);
+                dropShadow.setOffsetY(0);
+                button.setEffect(dropShadow);
+            }
+        }
+
+
+
     }
 
     private void setImageWiki(){

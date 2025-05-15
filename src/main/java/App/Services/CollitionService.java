@@ -43,7 +43,7 @@ public class CollitionService
     }
 
     public void starPanelCollition(Entity barrier){
-        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PlAYER_CYBORG,
                                                                         Types.EntityType.PANEL)
         {
             @Override
@@ -170,6 +170,9 @@ public class CollitionService
         inputController.setCanMove(true);
         MusicService.playLevel1Music();
     }
+
+
+
 
     //======================================================================
     //Metodos para manejo de HitBoxes en dependencia de las entidades

@@ -8,7 +8,8 @@ public class Types {
         ITEM_SPECIAL_POINT,
         BARRIER,
         PANEL,
-        PLAYER
+        PLAYER,
+        PlAYER_CYBORG
     }
 
 }

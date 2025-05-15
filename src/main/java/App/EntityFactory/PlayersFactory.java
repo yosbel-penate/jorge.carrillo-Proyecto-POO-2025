@@ -57,7 +57,6 @@ public class PlayersFactory implements EntityFactory {
                         cyborg.hitBox
                 ))
                 .with(physicsComponent)
-                .onClick(e -> GameApp.setActionsOnClick(cyborg.name))
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }
@@ -96,7 +95,6 @@ public class PlayersFactory implements EntityFactory {
 
                 ))
                 .with(physicsComponent)
-                .onClick(e -> GameApp.setActionsOnClick(jaxKane.name))
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }

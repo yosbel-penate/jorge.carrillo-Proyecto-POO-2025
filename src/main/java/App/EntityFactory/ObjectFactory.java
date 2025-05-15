@@ -52,6 +52,25 @@ public class ObjectFactory implements EntityFactory {
                 .buildAndAttach();
     }
 
+    @Spawns("coin")
+    public Entity newCoin(SpawnData data) {
+
+        return FXGL.entityBuilder(data)
+                //.at(TILE_SIZE * 10, TILE_SIZE * 11)
+                .type(Types.EntityType.ITEM_ATACCK)
+                .with(new AnimationComponents(
+                        "coin",
+                        9,
+                        270,
+                        30,
+                        0,
+                        8,
+                        11
+                ))
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+
     @Spawns("itemLife")
     public Entity newItemLife(SpawnData data) {
 
