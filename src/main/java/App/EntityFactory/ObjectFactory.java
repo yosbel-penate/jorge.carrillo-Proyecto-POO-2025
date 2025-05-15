@@ -71,6 +71,24 @@ public class ObjectFactory implements EntityFactory {
                 .buildAndAttach();
     }
 
+    @Spawns("tanke")
+    public Entity newTanke(SpawnData data) {
+
+        return FXGL.entityBuilder(data)
+                .type(Types.EntityType.ITEM_ATACCK)
+                .with(new AnimationComponents(
+                        "tanke",
+                        4,
+                        201,
+                        68,
+                        0,
+                        2,
+                        11
+                ))
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+
     @Spawns("itemLife")
     public Entity newItemLife(SpawnData data) {
 

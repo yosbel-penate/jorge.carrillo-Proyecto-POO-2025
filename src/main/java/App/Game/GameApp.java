@@ -47,6 +47,7 @@ public class GameApp extends GameApplication
     private static Entity JaxKane;
     public static Entity currentEntity;
     private Entity coin;
+    private Entity tanke;
     private Entity cyborg;
     private Entity explore;
     private Entity droid1;
@@ -113,7 +114,15 @@ public class GameApp extends GameApplication
         //Level Loader
         Maps.setLevel1();
 
+        tanke = FXGL.spawn("tanke",TILE_SIZE * 7, TILE_SIZE);
+        tanke = FXGL.spawn("tanke",TILE_SIZE * 9, TILE_SIZE);
+
+
         coin = FXGL.spawn("coin",TILE_SIZE * 6 + 10, TILE_SIZE * 2 + 10);
+        //coin = FXGL.spawn("coin",TILE_SIZE * 7 + 10, TILE_SIZE * 10 + 10);
+        coin = FXGL.spawn("coin",TILE_SIZE * 20 + 10, TILE_SIZE * 8 + 10);
+        coin = FXGL.spawn("coin",TILE_SIZE * 11 + 10, TILE_SIZE * 12 + 10);
+
 
         //===================Entidades en el mapa========================
         //Explore

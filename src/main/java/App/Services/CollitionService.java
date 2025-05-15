@@ -176,7 +176,6 @@ public class CollitionService
             MusicService.stopLevel1();
             MusicService.battleMusic();
         }
-
     }
 
     public void endCollition(Entity player, Entity enemy){
@@ -192,12 +191,7 @@ public class CollitionService
         //    "NewEnemy" debe estar registrado en initSettings() con addEntityFactory()
         FXGL.spawn("coin", new SpawnData(pos));
         MusicService.playCoin();
-
-
     }
-
-
-
 
     //======================================================================
     //Metodos para manejo de HitBoxes en dependencia de las entidades
