@@ -118,7 +118,7 @@ public class GameApp extends GameApplication
         MusicService.playLevel1Music();
 
         //Level Loader
-        Maps.setLevel1();
+        levelManager.loadLevel(1);
 
         doorLevel1 = FXGL.spawn("door",TILE_SIZE * 18,0);
 
