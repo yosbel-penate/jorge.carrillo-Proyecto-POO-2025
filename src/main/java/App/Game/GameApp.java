@@ -8,6 +8,7 @@ import View.UI.MyMenu;
 import App.EntityFactory.EnemyFactory;
 import App.EntityFactory.ObjectFactory;
 import App.EntityFactory.PlayersFactory;
+import App.Game.LevelManager;
 import App.Services.Input;
 import Domain.Settings.SettingsGame;
 import View.Maps.Maps;
@@ -56,6 +57,9 @@ public class GameApp extends GameApplication
     private Entity panel2;
 
     public static ArrayList<Entity> playersSelected = new ArrayList<>();
+
+    //Instancias de cambios de nivel    
+    private LevelManager levelManager = new LevelManager();
 
     //Instancias
     static Input input = new Input();
@@ -114,7 +118,7 @@ public class GameApp extends GameApplication
         MusicService.playLevel1Music();
 
         //Level Loader
-        Maps.setLevel1();
+        levelManager.loadLevel(1);
 
         doorLevel1 = FXGL.spawn("door",TILE_SIZE * 18,0);
 
@@ -237,6 +241,13 @@ public class GameApp extends GameApplication
         collitionService.startCollitionItemSpecialPoint(combatModeUI);
         collitionService.startCollitionItemLife(combatModeUI);
         collitionService.starDoorCollition(doorLevel1);
+
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.PLAYER, Types.DOOR) {
+         @Override
+         protected void onCollisionBegin(Entity player, Entity door) {
+           levelManager.nextLevel(); // Cambio automático de nivel
+         }
+       });
 
     }
 
