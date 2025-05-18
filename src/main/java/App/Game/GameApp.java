@@ -40,7 +40,7 @@ public class GameApp extends GameApplication
     public static Entity currentEntity;
     private Entity coin;
     private Entity tanke;
-    private Entity cyborg;
+    private static Entity cyborg;
     private Entity explore;
     private Entity droid1;
     private Entity droid2;
@@ -63,6 +63,16 @@ public class GameApp extends GameApplication
     Board board = new Board();
     static CombatModeUI combatModeUI = new CombatModeUI(ui);
     CollitionService collitionService = new CollitionService(input);
+
+    public static void switchLevel(String map){
+        Maps.setLevel2();
+    }
+
+    public static void spawnLevel2(){
+        JaxKane = FXGL.spawn("jaxKane",TILE_SIZE * 5, TILE_SIZE * 7);
+        cyborg = FXGL.spawn("cyborg");
+
+    }
 
     @Override
     protected void initSettings(GameSettings settings) {

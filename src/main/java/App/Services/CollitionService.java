@@ -2,6 +2,7 @@ package App.Services;
 
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
+import App.Game.GameApp;
 import Domain.Entity.Types;
 import View.Maps.Maps;
 import View.UI.CombatModeUI;
@@ -69,15 +70,24 @@ public class CollitionService
         });
     }
 
+
+    private void clearAllEntities() {
+        FXGL.getGameWorld()
+                // obtenemos una copia de la lista para evitar ConcurrentModificationException
+                .getEntitiesCopy()
+                // removemos cada entidad del mundo
+                .forEach(Entity::removeFromWorld);
+    }
     public void starDoorCollition(Entity door){
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
                                                                         Types.EntityType.DOOR)
         {
             @Override
-            protected void onCollisionBegin(Entity player, Entity item){
-                System.out.println("colisiona el personaje con la puerta");
-                item.getComponent(AnimationComponents.class).playChangesDoor();
-                Maps.setLevel2();
+            protected void onCollisionBegin(Entity player, Entity item) {
+                clearAllEntities();
+                ((GameApp) FXGL.getApp()).switchLevel("level_02.tmx");
+                GameApp.spawnLevel2();
+
             }
         });
     }

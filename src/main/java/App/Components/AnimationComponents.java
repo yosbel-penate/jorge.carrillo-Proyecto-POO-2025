@@ -280,7 +280,7 @@ public class AnimationComponents extends Component
 
         FXGL.runOnce(() -> {
             physics.setLinearVelocity(0, 0);
-            snapToGrid();
+            //snapToGrid();
             texture.loopAnimationChannel(animIdle);
             isMoving = false;
         }, Duration.seconds(seconds));
