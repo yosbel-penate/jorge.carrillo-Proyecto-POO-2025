@@ -242,6 +242,13 @@ public class GameApp extends GameApplication
         collitionService.startCollitionItemLife(combatModeUI);
         collitionService.starDoorCollition(doorLevel1);
 
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.PLAYER, Types.DOOR) {
+         @Override
+         protected void onCollisionBegin(Entity player, Entity door) {
+           levelManager.nextLevel(); // Cambio automático de nivel
+         }
+       });
+
     }
 
     @Override
