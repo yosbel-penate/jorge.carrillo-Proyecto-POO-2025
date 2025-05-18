@@ -58,6 +58,9 @@ public class GameApp extends GameApplication
 
     public static ArrayList<Entity> playersSelected = new ArrayList<>();
 
+    //Instancias de cambios de nivel    
+    private LevelManager levelManager = new LevelManager();
+
     //Instancias
     static Input input = new Input();
     static UI ui = new UI();
