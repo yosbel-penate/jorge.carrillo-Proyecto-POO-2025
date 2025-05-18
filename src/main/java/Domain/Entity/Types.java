@@ -10,7 +10,8 @@ public class Types {
         PANEL,
         PLAYER,
         PlAYER_CYBORG,
-        COIN
+        COIN,
+        DOOR
     }
 
 }

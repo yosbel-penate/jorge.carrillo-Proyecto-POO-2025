@@ -32,7 +32,7 @@ public class PlayersFactory implements EntityFactory {
         physicsComponent.setBodyType(BodyType.DYNAMIC);
 
         return FXGL.entityBuilder(data)
-                .at(TILE_SIZE * 5, TILE_SIZE * 4)
+                .at(TILE_SIZE * 19, TILE_SIZE * 4)
                 .type(Types.EntityType.PLAYER)
                 .with(new CombatStatsComponent(cyborg.life,cyborg.atack,3,"cyborg"))
                 .with(new AnimationComponents(

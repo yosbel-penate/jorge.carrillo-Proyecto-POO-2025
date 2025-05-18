@@ -89,7 +89,6 @@ public class UI {
         }, Duration.seconds(2.0));  // ← aquí defines cuántos segundos permanece visible
     }
 
-
     public void showUI()
     {
 

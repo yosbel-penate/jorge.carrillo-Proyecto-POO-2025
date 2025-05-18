@@ -3,9 +3,6 @@ package App.Game;
 import App.Components.CombatStatsComponent;
 import App.Services.CollitionService;
 import App.Services.MusicService;
-import Domain.Entity.Characters.Players.Cyborg;
-import Domain.Entity.Characters.Players.JaxKane;
-import Domain.Entity.Types;
 import View.UI.GameMenu;
 import View.UI.MyMenu;
 import App.EntityFactory.EnemyFactory;
@@ -25,17 +22,11 @@ import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.components.ViewComponent;
-import com.almasb.fxgl.input.UserAction;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import static Domain.Settings.SettingsGame.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
@@ -45,6 +36,7 @@ public class GameApp extends GameApplication
 
     //Entidades
     private static Entity JaxKane;
+    private static Entity doorLevel1;
     public static Entity currentEntity;
     private Entity coin;
     private Entity tanke;
@@ -98,6 +90,7 @@ public class GameApp extends GameApplication
     @Override
     protected void initGame() {
 
+
         //Tablero de juego
         Board.boardTable(NUM_TILES_Y, NUM_TILES_X, TILE_SIZE);
 
@@ -112,6 +105,9 @@ public class GameApp extends GameApplication
 
         //Level Loader
         Maps.setLevel1();
+
+        doorLevel1 = FXGL.spawn("door",TILE_SIZE * 18,0);
+
 
         tanke = FXGL.spawn("tanke", TILE_SIZE * 7, TILE_SIZE);
         tanke = FXGL.spawn("tanke", TILE_SIZE * 9, TILE_SIZE);
@@ -230,6 +226,7 @@ public class GameApp extends GameApplication
         collitionService.startCollitionItemAtack(ui);
         collitionService.startCollitionItemSpecialPoint(combatModeUI);
         collitionService.startCollitionItemLife(combatModeUI);
+        collitionService.starDoorCollition(doorLevel1);
 
     }
 

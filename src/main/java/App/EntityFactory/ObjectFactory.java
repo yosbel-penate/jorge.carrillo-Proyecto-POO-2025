@@ -125,6 +125,7 @@ public class ObjectFactory implements EntityFactory {
                 .buildAndAttach();
     }
 
+
     @Spawns("barrier")
     public Entity newBarrier(SpawnData data) {
         PhysicsComponent physicsComponent = new PhysicsComponent();
@@ -160,8 +161,35 @@ public class ObjectFactory implements EntityFactory {
                         150,
                         0,
                         17,
-                        13
+                        12
                 ))
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+
+    @Spawns("door")
+    public Entity newBarrierDoor(SpawnData data) {
+
+        PhysicsComponent physicsComponent = new PhysicsComponent();
+        physicsComponent.setBodyType(BodyType.STATIC);
+
+        return FXGL.entityBuilder(data)
+
+                .type(Types.EntityType.DOOR)
+
+                .with(new AnimationComponents(
+                        "puertaNivel",
+                        6,
+                        600,
+                        50,
+                        0,
+                        5,
+                        12,
+                        1200,
+                        50,
+                        12
+                ))
+                .with(physicsComponent)
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }

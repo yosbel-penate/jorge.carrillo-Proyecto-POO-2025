@@ -25,7 +25,10 @@ public class AnimationComponents extends Component
                              animAtackBasic,
                              animAtackEspecial,
                              animMuerte,
-                             animDisableBarrier;
+                             animDisableBarrier,
+                             animChangesDoor;
+
+
 
     //Constructor para los Items y otros objetos de un solo canal de animacion
     public AnimationComponents(String nameItem,
@@ -51,6 +54,35 @@ public class AnimationComponents extends Component
                 Duration.seconds(1),
                 0,
                 cantidadFrames - 1);
+        texture = new AnimatedTexture(animIdle);
+    }
+
+    public AnimationComponents(String nameItem,
+                               int cantidadFramesIdleDoor,
+                               int anchoImagenIdleDoor,
+                               int altoImagenIdleDoor,
+                               int frameInicioIdle,
+                               int frameFinalIdle,
+                               int cantidadFramesAnim,
+                               int anchoFramesAnim,
+                               int altoFramesAnim,
+                               int hitBox) {
+        this.hitBox = hitBox;
+        animIdle = new AnimationChannel(FXGL.image(nameItem + "item.png"),
+                cantidadFramesIdleDoor,
+                anchoImagenIdleDoor / cantidadFramesIdleDoor,
+                altoImagenIdleDoor,
+                Duration.seconds(animVelocity),
+                0,
+                cantidadFramesIdleDoor - 1);
+
+        animChangesDoor = new AnimationChannel(FXGL.image(nameItem + "disabled.png"),
+                cantidadFramesAnim,
+                anchoFramesAnim/ cantidadFramesAnim,
+                altoFramesAnim,
+                Duration.seconds(1),
+                0,
+                cantidadFramesAnim - 1);
         texture = new AnimatedTexture(animIdle);
     }
 
@@ -229,6 +261,8 @@ public class AnimationComponents extends Component
     public void playChangesPanel(){
         texture.loopAnimationChannel(animDisableBarrier);
     }
+
+    public void playChangesDoor(){texture.loopAnimationChannel(animChangesDoor);}
 
     private void move(Point2D dir, AnimationChannel channel, double scaleX) {
         if (isMoving) return;

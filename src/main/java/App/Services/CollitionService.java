@@ -3,6 +3,7 @@ package App.Services;
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
 import Domain.Entity.Types;
+import View.Maps.Maps;
 import View.UI.CombatModeUI;
 import View.UI.UI;
 import com.almasb.fxgl.dsl.FXGL;
@@ -66,7 +67,19 @@ public class CollitionService
                 lastBarrier = barrier;
             }
         });
+    }
 
+    public void starDoorCollition(Entity door){
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
+                                                                        Types.EntityType.DOOR)
+        {
+            @Override
+            protected void onCollisionBegin(Entity player, Entity item){
+                System.out.println("colisiona el personaje con la puerta");
+                item.getComponent(AnimationComponents.class).playChangesDoor();
+                Maps.setLevel2();
+            }
+        });
     }
 
     public void startCollitionItemSpecialPoint(CombatModeUI combatModeUI){
