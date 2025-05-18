@@ -8,6 +8,7 @@ import View.UI.MyMenu;
 import App.EntityFactory.EnemyFactory;
 import App.EntityFactory.ObjectFactory;
 import App.EntityFactory.PlayersFactory;
+import App.Game.LevelManager;
 import App.Services.Input;
 import Domain.Settings.SettingsGame;
 import View.Maps.Maps;
