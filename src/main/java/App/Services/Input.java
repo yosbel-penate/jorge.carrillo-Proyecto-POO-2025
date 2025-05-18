@@ -35,7 +35,7 @@ public class Input {
                 if (canMove){
                     Entity character = GameApp.currentEntity;
 
-                    character.getComponent(AnimationComponents.class).stopMoving();
+                    //character.getComponent(AnimationComponents.class).stopMoving();
                 }
             }
         }, KeyCode.W);

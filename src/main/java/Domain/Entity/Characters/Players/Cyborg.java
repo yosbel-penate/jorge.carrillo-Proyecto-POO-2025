@@ -6,7 +6,7 @@ public class Cyborg extends Players
     {
         this.name = "cyborg";
         this.atack = 2;
-        this.life = 17;
+        this.life = 5;
         this.cantidadFramesIdle = 8;
         this.cantidadFramesAtack = 9;
         this.cantidadFramesCaminando = 8;
