@@ -69,8 +69,10 @@ public class GameApp extends GameApplication
     }
 
     public static void spawnLevel2(){
+
         JaxKane = FXGL.spawn("jaxKane",TILE_SIZE * 5, TILE_SIZE * 7);
         cyborg = FXGL.spawn("cyborg");
+        currentEntity = cyborg;
 
     }
 
@@ -209,6 +211,7 @@ public class GameApp extends GameApplication
         for (Entity entity : playersSelected){
             String name = entity.getComponent(CombatStatsComponent.class).name;
             if (name == nameEntitySelected){
+
                 MusicService.playChangeCharacter();
                 currentEntity = entity;
                 ui.updateCurrentPlayerStats(currentEntity);

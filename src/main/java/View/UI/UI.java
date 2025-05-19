@@ -280,7 +280,6 @@ public class UI {
 
     }
 
-
     public void updateCurrentPlayerStats(Entity currentEntity){
         //Caja de informacion
         System.out.println("se llama al metodo");
@@ -369,7 +368,6 @@ public class UI {
             releaseAnim.playFromStart();
         });
     }
-
 
     public static void updateAmountCoins (int cantidad){
         if (cantidadMoneda >= 0){
