@@ -26,6 +26,7 @@ public class PlayersFactory implements EntityFactory {
     Cyborg cyborg = new Cyborg();
     JaxKane jaxKane = new JaxKane();
 
+
     @Spawns("cyborg")
     public Entity newCyborg(SpawnData data) {
         PhysicsComponent physicsComponent = new PhysicsComponent();
@@ -60,6 +61,9 @@ public class PlayersFactory implements EntityFactory {
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }
+
+
+
 
     @Spawns("jaxKane")
     public Entity newJaxKane(SpawnData data) {
