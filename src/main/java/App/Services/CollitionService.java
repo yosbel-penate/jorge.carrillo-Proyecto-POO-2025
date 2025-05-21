@@ -2,11 +2,14 @@ package App.Services;
 
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
+import App.Game.GameApp;
 import Domain.Entity.Types;
+import View.Maps.Maps;
 import View.UI.CombatModeUI;
 import View.UI.UI;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.physics.HitBox;
@@ -65,7 +68,28 @@ public class CollitionService
                 lastBarrier = barrier;
             }
         });
+    }
 
+
+    private void clearAllEntities() {
+        FXGL.getGameWorld()
+                // obtenemos una copia de la lista para evitar ConcurrentModificationException
+                .getEntitiesCopy()
+                // removemos cada entidad del mundo
+                .forEach(Entity::removeFromWorld);
+    }
+    public void starDoorCollition(Entity door){
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
+                                                                        Types.EntityType.DOOR)
+        {
+            @Override
+            protected void onCollisionBegin(Entity player, Entity item) {
+                clearAllEntities();
+                ((GameApp) FXGL.getApp()).switchLevel("level_02.tmx");
+                GameApp.spawnLevel2();
+
+            }
+        });
     }
 
     public void startCollitionItemSpecialPoint(CombatModeUI combatModeUI){
@@ -103,6 +127,19 @@ public class CollitionService
 
                 // 3. Actualizar la UI con el nuevo valor
                 combatModeUI.updateHealthBarPlayer(player);
+            }
+        });
+    }
+
+    public void startCollitionCoin(CombatModeUI combatModeUI){
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
+                                                                        Types.EntityType.COIN)
+        {
+            @Override
+            protected void onCollision(Entity player, Entity item){
+                item.removeFromWorld();
+                MusicService.playCoin();
+                UI.updateAmountCoins(1);
             }
         });
     }
@@ -161,7 +198,6 @@ public class CollitionService
             MusicService.stopLevel1();
             MusicService.battleMusic();
         }
-
     }
 
     public void endCollition(Entity player, Entity enemy){
@@ -169,6 +205,14 @@ public class CollitionService
         currentEnemy = null;
         inputController.setCanMove(true);
         MusicService.playLevel1Music();
+        // 1. Guardamos la posición del enemigo
+        Point2D pos = enemy.getPosition();
+
+
+        // 3. Hacemos spawn de la nueva entidad en esa misma posición
+        //    "NewEnemy" debe estar registrado en initSettings() con addEntityFactory()
+        FXGL.spawn("coin",pos.getX() + 10,pos.getY() + 10);
+        MusicService.playCoin();
     }
 
     //======================================================================
@@ -201,5 +245,11 @@ public class CollitionService
                 TILE_SIZE * 3 - 1)));
     }
 
+    public void updateCollisionBoxCoin(Entity entity) {
+        entity.getBoundingBoxComponent().clearHitBoxes();
+        entity.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.box(
+                30,
+                30)));
+    }
 }
 

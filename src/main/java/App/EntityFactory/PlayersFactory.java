@@ -32,7 +32,7 @@ public class PlayersFactory implements EntityFactory {
         physicsComponent.setBodyType(BodyType.DYNAMIC);
 
         return FXGL.entityBuilder(data)
-                .at(TILE_SIZE * 5, TILE_SIZE * 4)
+                .at(TILE_SIZE * 19, TILE_SIZE * 4)
                 .type(Types.EntityType.PLAYER)
                 .with(new CombatStatsComponent(cyborg.life,cyborg.atack,3,"cyborg"))
                 .with(new AnimationComponents(
@@ -57,7 +57,6 @@ public class PlayersFactory implements EntityFactory {
                         cyborg.hitBox
                 ))
                 .with(physicsComponent)
-                .onClick(e -> GameApp.setActionsOnClick(cyborg.name))
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }
@@ -96,7 +95,6 @@ public class PlayersFactory implements EntityFactory {
 
                 ))
                 .with(physicsComponent)
-                .onClick(e -> GameApp.setActionsOnClick(jaxKane.name))
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }

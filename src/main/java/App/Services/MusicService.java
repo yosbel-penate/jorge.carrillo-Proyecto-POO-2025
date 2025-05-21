@@ -31,10 +31,12 @@ public class MusicService {
 
     }
 
-
-
     public static void playKey(){
         FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("key.wav"));
+    }
+
+    public static void playCoin(){
+        FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("coin.wav"));
     }
 
     public static void playBattle(){
