@@ -1,9 +1,5 @@
 package View.Maps;
-import Domain.Utils.Texture;
-import View.Maps.EnvairomentHazards.envairomentHazard;
 import com.almasb.fxgl.entity.level.Level;
-
-import java.util.ArrayList;
 
 import static com.almasb.fxgl.dsl.FXGL.setLevelFromMap;
 
@@ -12,6 +8,14 @@ public class Maps {
     public static void setLevel1()
     {
         Level level = setLevelFromMap("level_01.tmx");
+    }
+
+
+    public static void setLevel2 (){Level level = setLevelFromMap("level_02.tmx");}
+
+    public static void setLevel3() 
+    {
+        Level level = setLevelFromMap("level_03.tmx");
     }
 
 }

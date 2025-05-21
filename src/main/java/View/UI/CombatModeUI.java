@@ -2,6 +2,7 @@ package View.UI;
 
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
+import App.Game.GameApp;
 import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
 import com.almasb.fxgl.dsl.FXGL;
@@ -60,7 +61,6 @@ public class CombatModeUI {
     //Contructores
     public CombatModeUI(UI ui){
         this.ui = ui;
-        //this.collitionService = collitionService;
     }
     public CombatModeUI(){}
 
@@ -98,8 +98,6 @@ public class CombatModeUI {
         buttonAtackSpecial.setPrefSize(100,100);
         atackSpeciaButtonView = new ImageView();
         atackSpeciaButtonView.setImage(atackSpecialButtonImage);
-        //atackSpeciaButtonView.setFitWidth(100);
-        //atackSpeciaButtonView.setFitHeight(100);
         buttonAtackSpecial.setGraphic(atackSpeciaButtonView);
         buttonAtackSpecial.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
 
@@ -138,7 +136,7 @@ public class CombatModeUI {
         //=========Barra de vida de Jugadores===============
         heartsBarPlayerHbox = new HBox(5); // Espaciado de 5 píxeles entre corazones.
 
-        for (int i = 0; i < Cyborg.life; i++) {
+        for (int i = 0; i < player.getComponent(CombatStatsComponent.class).getMaxHealth(); i++) {
             ImageView heartView = new ImageView(lifePointPlayer);
             // Opcional: ajustar tamaño de cada imagen
             heartView.setFitWidth(20);
@@ -160,6 +158,7 @@ public class CombatModeUI {
             HBox newBar= new HBox(5);
             for (int i = 0; i < enemy.getComponent(CombatStatsComponent.class).getMaxHealth(); i++) {
                 ImageView heartViewEnemi = new ImageView(lifePointEnemi);
+
                 // Opcional: ajustar tamaño de cada imagen
                 heartViewEnemi.setFitWidth(20);
                 heartViewEnemi.setFitHeight(32);
@@ -173,8 +172,8 @@ public class CombatModeUI {
             panelCombatView.setTranslateX(TILE_SIZE);
             panelCombatView.setTranslateY(TILE_SIZE * 10);
 
-           initButtonAtacckBasic(player,enemy);
-           initButtonAtacckSpecial(player, enemy);
+            initButtonAtacckBasic(player,enemy);
+            initButtonAtacckSpecial(player, enemy);
 
             getGameScene().addUINode(heartBarImageViewEnemi);
             getGameScene().addUINode(panelCombatView);
@@ -199,6 +198,7 @@ public class CombatModeUI {
                 if (statusbuttonAtacck){
                     tipoOfAnimationInButton = "basic";
                     startAtacckPLayer(player, enemy, tipoOfAnimationInButton);
+                    UI.animacionPresionarBoton(buttonAtackBasic);
                 }
             }
         });
@@ -216,6 +216,8 @@ public class CombatModeUI {
                         tipoOfAnimationInButton = "special";
                         reduceSpecialPoint(player);
                         startAtacckPLayer(player, enemy, tipoOfAnimationInButton);
+                        UI.animacionPresionarBoton(buttonAtackSpecial);
+
                     }
                 }
             });
@@ -230,12 +232,12 @@ public class CombatModeUI {
         switch (tipoOfAnimationInButton){
             case "basic" :
                 player.getComponent(AnimationComponents.class).playAttackAnimation();
-                reduceHealthEnemi(Cyborg.atack,enemy);
+                reduceHealthEnemi(player.getComponent(CombatStatsComponent.class).getAtacck(),enemy);
                 MusicService.playWeanpon();
                 break;
             case "special" :
                 player.getComponent(AnimationComponents.class).playSpecialAnimation();
-                reduceHealthEnemi(Cyborg.atack,enemy);
+                reduceHealthEnemi(player.getComponent(CombatStatsComponent.class).getAtacck(),enemy);
                 MusicService.playWeanpon();
                 break;
         }
@@ -268,10 +270,10 @@ public class CombatModeUI {
             statusbuttonAtacck = true;
             enemy.getComponent(AnimationComponents.class).playAttackAnimation();
             MusicService.playWeanponEnemy();
-            reduceHealthPlayer(enemy.getComponent(CombatStatsComponent.class).getAtacck(),player);
+            reduceHealthPlayer(enemy.getComponent(CombatStatsComponent.class).getAtacck(),GameApp.currentEntity);
 
             FXGL.runOnce(() -> {
-                if (player.getComponent(CombatStatsComponent.class).getCurrentHealth() <= 0) {
+                if (GameApp.currentEntity.getComponent(CombatStatsComponent.class).getCurrentHealth() <= 0) {
                     //Logica de muerte para el player
                     //collitionService.combatMode(false);
                 }
@@ -284,7 +286,7 @@ public class CombatModeUI {
     }
 
     public void updateHealthBarPlayer(Entity player) {
-        CombatStatsComponent stats = player.getComponent(CombatStatsComponent.class);
+        CombatStatsComponent stats = GameApp.currentEntity.getComponent(CombatStatsComponent.class);
 
         if (stats == null) {
             throw new IllegalStateException("El jugador no tiene CombatStatsComponent");
@@ -355,15 +357,16 @@ public class CombatModeUI {
     }
 
     public void setHealthPLayer(int health,Entity player) {
-        player.getComponent(CombatStatsComponent.class).currentHealth = Math.max(0, Math.min(health, player.getComponent(CombatStatsComponent.class).getMaxHealth()));
-        updateHealthBarPlayer(player);
+        System.out.println(player.getComponent(CombatStatsComponent.class).name + "============================");
+        GameApp.currentEntity.getComponent(CombatStatsComponent.class).currentHealth = Math.max(0, Math.min(health, GameApp.currentEntity.getComponent(CombatStatsComponent.class).getMaxHealth()));
+        updateHealthBarPlayer(GameApp.currentEntity);
     }
 
     public void reduceHealthPlayer(int amount,Entity player) {
-        player.getComponent(CombatStatsComponent.class).currentHealth -= amount;
-        if (player.getComponent(CombatStatsComponent.class).currentHealth< 0)
-            player.getComponent(CombatStatsComponent.class).currentHealth = 0;
-        updateHealthBarPlayer(player);
+        GameApp.currentEntity.getComponent(CombatStatsComponent.class).currentHealth -= amount;
+        if (GameApp.currentEntity.getComponent(CombatStatsComponent.class).currentHealth< 0)
+            GameApp.currentEntity.getComponent(CombatStatsComponent.class).currentHealth = 0;
+        updateHealthBarPlayer(GameApp.currentEntity);
     }
 
     public void reduceHealthEnemi(int amount,Entity enemy) {

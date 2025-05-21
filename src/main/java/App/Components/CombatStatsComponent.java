@@ -3,14 +3,16 @@ package App.Components;
 import com.almasb.fxgl.entity.component.Component;
 
 public class CombatStatsComponent extends Component {
+    public String name;
     private int maxHealth;
     public int currentHealth;
-    private int atacck;
+    public int atacck;
     private int specialPoints;
     public int currentSpecialPoints;
 
     //Contructor de Players
-    public CombatStatsComponent(int maxHealth, int atacck, int specialPoints) {
+    public CombatStatsComponent(int maxHealth, int atacck, int specialPoints,String name) {
+        this.name = name;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.atacck = atacck;

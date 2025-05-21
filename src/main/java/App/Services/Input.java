@@ -1,6 +1,8 @@
 package App.Services;
 
 import App.Components.AnimationComponents;
+import App.Components.CombatStatsComponent;
+import App.Game.GameApp;
 import View.UI.CombatModeUI;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.UserAction;
@@ -15,12 +17,15 @@ public class Input {
         this.canMove = canMove;
     }
 
-    public void movInput(Entity character , CombatModeUI combatModeUI) {
+    public void movInput() {
+
 
         getInput().addAction(new UserAction("Mover Arriba") {
             @Override
             protected void onActionBegin() {
                 if (canMove){
+                    Entity character = GameApp.currentEntity;
+
                     character.getComponent(AnimationComponents.class).moveUp();
                 }
             }
@@ -28,7 +33,9 @@ public class Input {
             @Override
             protected void onActionEnd() {
                 if (canMove){
-                    character.getComponent(AnimationComponents.class).stopMoving();
+                    Entity character = GameApp.currentEntity;
+
+                    //character.getComponent(AnimationComponents.class).stopMoving();
                 }
             }
         }, KeyCode.W);
@@ -37,12 +44,16 @@ public class Input {
             @Override
             protected void onActionBegin() {
                 if (canMove){
+                    Entity character = GameApp.currentEntity;
+
                     character.getComponent(AnimationComponents.class).moveDown();
                 }
             }
 
             @Override
             protected void onActionEnd() {
+                Entity character = GameApp.currentEntity;
+
                 character.getComponent(AnimationComponents.class).stopMoving();
             }
         }, KeyCode.S);
@@ -51,12 +62,16 @@ public class Input {
             @Override
             protected void onActionBegin() {
                 if (canMove){
+                    Entity character = GameApp.currentEntity;
+
                     character.getComponent(AnimationComponents.class).moveLeft();
                 }
             }
 
             @Override
             protected void onActionEnd() {
+                Entity character = GameApp.currentEntity;
+
                 character.getComponent(AnimationComponents.class).stopMoving();
             }
         }, KeyCode.A);
@@ -65,14 +80,17 @@ public class Input {
             @Override
             protected void onActionBegin() {
                 if (canMove){
+                    Entity character = GameApp.currentEntity;
+
                     character.getComponent(AnimationComponents.class).moveRight();
 
                 }
             }
             @Override
             protected void onActionEnd() {
+                Entity character = GameApp.currentEntity;
+
                 character.getComponent(AnimationComponents.class).stopMoving();
-                //combatModeUI.reduceStepPoint();
             }
         }, KeyCode.D);
     }

@@ -31,7 +31,7 @@ public class EnemyFactory implements EntityFactory {
 
         return FXGL.entityBuilder(data)
                 .type(Types.EntityType.ENEMY)
-                .with(new CombatStatsComponent(droneTipe1.life, droneTipe1.atack,3))
+                .with(new CombatStatsComponent(droneTipe1.life, droneTipe1.atack,3,"explore"))
                 .with(new AnimationComponents(
                         "explore",
                         8,
@@ -60,7 +60,7 @@ public class EnemyFactory implements EntityFactory {
 
         return FXGL.entityBuilder(data)
                 .type(Types.EntityType.ENEMY)
-                .with(new CombatStatsComponent(droneTipe1.life, droneTipe1.atack,3))
+                .with(new CombatStatsComponent(droneTipe1.life, droneTipe1.atack,3,"droid1"))
                 .with(new AnimationComponents(
                        "droid",
                         4,

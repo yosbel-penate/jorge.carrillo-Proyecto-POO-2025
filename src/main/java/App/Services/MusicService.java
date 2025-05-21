@@ -26,8 +26,17 @@ public class MusicService {
 
     }
 
+    public static void playChangeCharacter(){
+        FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("cambiarPersonaje.wav"));
+
+    }
+
     public static void playKey(){
         FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("key.wav"));
+    }
+
+    public static void playCoin(){
+        FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("coin.wav"));
     }
 
     public static void playBattle(){

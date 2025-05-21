@@ -25,7 +25,10 @@ public class AnimationComponents extends Component
                              animAtackBasic,
                              animAtackEspecial,
                              animMuerte,
-                             animDisableBarrier;
+                             animDisableBarrier,
+                             animChangesDoor;
+
+
 
     //Constructor para los Items y otros objetos de un solo canal de animacion
     public AnimationComponents(String nameItem,
@@ -51,6 +54,35 @@ public class AnimationComponents extends Component
                 Duration.seconds(1),
                 0,
                 cantidadFrames - 1);
+        texture = new AnimatedTexture(animIdle);
+    }
+
+    public AnimationComponents(String nameItem,
+                               int cantidadFramesIdleDoor,
+                               int anchoImagenIdleDoor,
+                               int altoImagenIdleDoor,
+                               int frameInicioIdle,
+                               int frameFinalIdle,
+                               int cantidadFramesAnim,
+                               int anchoFramesAnim,
+                               int altoFramesAnim,
+                               int hitBox) {
+        this.hitBox = hitBox;
+        animIdle = new AnimationChannel(FXGL.image(nameItem + "item.png"),
+                cantidadFramesIdleDoor,
+                anchoImagenIdleDoor / cantidadFramesIdleDoor,
+                altoImagenIdleDoor,
+                Duration.seconds(animVelocity),
+                0,
+                cantidadFramesIdleDoor - 1);
+
+        animChangesDoor = new AnimationChannel(FXGL.image(nameItem + "disabled.png"),
+                cantidadFramesAnim,
+                anchoFramesAnim/ cantidadFramesAnim,
+                altoFramesAnim,
+                Duration.seconds(1),
+                0,
+                cantidadFramesAnim - 1);
         texture = new AnimatedTexture(animIdle);
     }
 
@@ -120,6 +152,7 @@ public class AnimationComponents extends Component
 
     //Constructor para Players
     public AnimationComponents(String nameCharacter,
+                               int cantidadFramesCaminando,
                                int cantidadFrames,
                                int cantidadFramesAtack,
                                int anchoImagenAtack,
@@ -134,6 +167,8 @@ public class AnimationComponents extends Component
                                int cantidadFramesSpecialAtack,
                                int anchoAtackSpecialFrame,
                                int altoAtackSpecialFrame,
+                               int altoFramesCaminando,
+                               int anchoFramesCaminando,
                                int hitBox) {
         this.hitBox = hitBox;
         animAtackEspecial = new AnimationChannel(FXGL.image(nameCharacter + "atack_special.png"),
@@ -162,25 +197,25 @@ public class AnimationComponents extends Component
                 cantidadFrames - 1);
 
         animWalk = new AnimationChannel(FXGL.image(nameCharacter + "caminando.png"),
-                cantidadFrames,
-                anchoImagen / cantidadFrames,
-                altoImagen,
+                cantidadFramesCaminando,
+                anchoFramesCaminando / cantidadFramesCaminando,
+                altoFramesCaminando,
                 Duration.seconds(animVelocity),
                 frameInicio,
                 frameFinal);
 
         animAbajo = new AnimationChannel(FXGL.image(nameCharacter + "adelante.png"),
-                cantidadFrames,
-                anchoImagen / cantidadFrames,
-                altoImagen,
+                cantidadFramesCaminando,
+                anchoFramesCaminando / cantidadFramesCaminando,
+                altoFramesCaminando,
                 Duration.seconds(animVelocity),
                 frameInicio,
                 frameFinal);
 
         animArriba = new AnimationChannel(FXGL.image(nameCharacter + "atras.png"),
-                cantidadFrames,
-                anchoImagen / cantidadFrames,
-                altoImagen,
+                cantidadFramesCaminando,
+                anchoFramesCaminando / cantidadFramesCaminando,
+                altoFramesCaminando,
                 Duration.seconds(animVelocity),
                 frameInicio,
                 frameFinal);
@@ -214,6 +249,8 @@ public class AnimationComponents extends Component
             collitionService.updateCollisionBox2x2(this.entity);
         }else if(hitBox == 13){
             collitionService.updateCollisionBox1x3(this.entity);
+        }else if (hitBox == 00){
+            collitionService.updateCollisionBoxCoin(this.entity);
         }
     }
 
@@ -224,6 +261,8 @@ public class AnimationComponents extends Component
     public void playChangesPanel(){
         texture.loopAnimationChannel(animDisableBarrier);
     }
+
+    public void playChangesDoor(){texture.loopAnimationChannel(animChangesDoor);}
 
     private void move(Point2D dir, AnimationChannel channel, double scaleX) {
         if (isMoving) return;
@@ -241,7 +280,7 @@ public class AnimationComponents extends Component
 
         FXGL.runOnce(() -> {
             physics.setLinearVelocity(0, 0);
-            snapToGrid();
+            //snapToGrid();
             texture.loopAnimationChannel(animIdle);
             isMoving = false;
         }, Duration.seconds(seconds));
