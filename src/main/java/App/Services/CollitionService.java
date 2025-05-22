@@ -70,7 +70,6 @@ public class CollitionService
         });
     }
 
-
     private void clearAllEntities() {
         FXGL.getGameWorld()
                 // obtenemos una copia de la lista para evitar ConcurrentModificationException
@@ -78,12 +77,15 @@ public class CollitionService
                 // removemos cada entidad del mundo
                 .forEach(Entity::removeFromWorld);
     }
+
     public void starDoorCollition(Entity door){
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
                                                                         Types.EntityType.DOOR)
         {
             @Override
             protected void onCollisionBegin(Entity player, Entity item) {
+
+                GameApp.lastEntity = GameApp.currentEntity;
                 clearAllEntities();
                 ((GameApp) FXGL.getApp()).switchLevel("level_02.tmx");
                 GameApp.spawnLevel2();

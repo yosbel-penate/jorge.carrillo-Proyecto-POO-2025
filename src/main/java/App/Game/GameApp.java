@@ -72,10 +72,21 @@ public class GameApp extends GameApplication
         Maps.setLevel2();
     }
 
-    public static void spawnLevel2(){
-        JaxKane = FXGL.spawn("jaxKane",TILE_SIZE * 5, TILE_SIZE * 7);
-        cyborg = FXGL.spawn("cyborg");
+    static public Entity lastEntity;
 
+    public static void spawnLevel2(){
+
+       initPlayersForNewLevel();
+
+    }
+
+    private static void initPlayersForNewLevel() {
+        playersSelected.clear();
+        cyborg = FXGL.spawn("cyborg",TILE_SIZE * 10,TILE_SIZE * 10);
+        JaxKane = FXGL.spawn("jaxKane",TILE_SIZE * 10, TILE_SIZE * 11);
+        playersSelected.add(cyborg);
+        playersSelected.add(JaxKane);
+        currentEntity = cyborg;
     }
 
     @Override
@@ -122,7 +133,6 @@ public class GameApp extends GameApplication
 
         doorLevel1 = FXGL.spawn("door",TILE_SIZE * 18,0);
 
-
         tanke = FXGL.spawn("tanke", TILE_SIZE * 7, TILE_SIZE);
         tanke = FXGL.spawn("tanke", TILE_SIZE * 9, TILE_SIZE);
 
@@ -168,7 +178,7 @@ public class GameApp extends GameApplication
         playersSelected.add(cyborg);
         playersSelected.add(JaxKane);
 
-        currentEntity = cyborg;
+        currentEntity = JaxKane;
         input.movInput();
     }
 
@@ -206,20 +216,25 @@ public class GameApp extends GameApplication
                 viewNode.setEffect(dropShadow);
             }
         }
-
     }
 
     public static void setActionsOnClick(String nameEntitySelected){
-        for (Entity entity : playersSelected){
-            String name = entity.getComponent(CombatStatsComponent.class).name;
-            if (name == nameEntitySelected){
-                MusicService.playChangeCharacter();
-                currentEntity = entity;
-                ui.updateCurrentPlayerStats(currentEntity);
-                combatModeUI.setHealthPLayer(currentEntity.getComponent(CombatStatsComponent.class).getMaxHealth(),currentEntity);
-                combatModeUI.updateSpecialPointBarPLayer(currentEntity);
-                break;
+        try {
+            for (Entity entity : playersSelected){
+
+                String name = entity.getComponent(CombatStatsComponent.class).name;
+                if (name.equals(nameEntitySelected)){
+
+                    MusicService.playChangeCharacter();
+                    currentEntity = entity;
+                    ui.updateCurrentPlayerStats(currentEntity);
+                    combatModeUI.setHealthPLayer(currentEntity.getComponent(CombatStatsComponent.class).getMaxHealth(),currentEntity);
+                    combatModeUI.updateSpecialPointBarPLayer(currentEntity);
+                    break;
+                }
             }
+        } catch (Exception e) {
+            System.out.println("no se pudo cargar la entidad en los iconos de personaje " + e);
         }
     }
 
