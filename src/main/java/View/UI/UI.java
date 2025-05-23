@@ -30,7 +30,7 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class UI {
 
-   static int cantidadMoneda = 0;
+   public static int cantidadMoneda = 0;
     //Images
     Image wikiImage;
     Image buttonWikiImage;
@@ -112,13 +112,14 @@ public class UI {
         iconCoinView.setX(TILE_SIZE  * 27 + 20);
         iconCoinView.setY(TILE_SIZE * 17 + 20);
 
-
         contadorMonedas = new Text();
         contadorMonedas.setText("x " + 0);
         contadorMonedas.setFill(Color.YELLOW);
         contadorMonedas.setFont(Font.font("Negrita",20));
         contadorMonedas.setX(TILE_SIZE * 28);
         contadorMonedas.setY(TILE_SIZE * 18 - 10);
+
+        
 
         latienda = getAssetLoader().loadImage("latienda.png");
         viewLatienda = new ImageView();
@@ -280,6 +281,9 @@ public class UI {
 
     }
 
+        public static int getCantidadMoneda() {
+            return cantidadMoneda;
+}
 
     public void updateCurrentPlayerStats(Entity currentEntity){
         //Caja de informacion
