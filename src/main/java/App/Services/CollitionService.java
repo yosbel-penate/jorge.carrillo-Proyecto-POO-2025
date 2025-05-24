@@ -18,6 +18,8 @@ import javafx.util.Duration;
 
 import static Domain.Settings.SettingsGame.TILE_SIZE;
 
+import java.util.Map;
+
 public class CollitionService
 {
     //Instancias
@@ -54,18 +56,21 @@ public class CollitionService
         });
     }
 
-    public void startPanelCollision(Entity barrier) {
+   public void startPanelCollision(Map<Entity, Entity> panelBarrierMap) {
     FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
                                                                     Types.EntityType.PANEL) {
         @Override
         protected void onCollisionBegin(Entity player, Entity panel) {
-            if (!panelEnable || barrier != lastBarrier) {
+            if (!panelEnable || panel != lastBarrier) {
                 panelEnable = true;
                 lastBarrier = panel;
 
                 // Reproducir animación y sonido del panel
                 panel.getComponent(AnimationComponents.class).playChangesPanel();
                 MusicService.playPanel();
+
+                // Obtener la barrera asociada a este panel
+                Entity barrier = panelBarrierMap.get(panel);
 
                 // Mostrar acertijo y esperar respuesta o compra
                 acertijoService.mostrarSiguienteAcertijo(barrier, player, combatModeUI);

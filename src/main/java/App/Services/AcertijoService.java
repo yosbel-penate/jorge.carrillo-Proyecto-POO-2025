@@ -21,6 +21,7 @@ import View.UI.UI;
 public class AcertijoService {
 
  private CombatModeUI ui;
+ private boolean barrierOpen = false;
 
     // Constructor que recibe la UI y la almacena
     public AcertijoService(CombatModeUI ui) {
@@ -51,7 +52,11 @@ public class AcertijoService {
     private final int[] imagenesAltoOriginal = {2048, 1536, 2048, 1536, 1536, 2048};
 
     public void mostrarSiguienteAcertijo(Entity barrier, Entity player, CombatModeUI combatModeUI) {
-    if (acertijoActual >= acertijos.size()) {
+       if (barrierOpen) {
+            return;
+        }
+   
+        if (acertijoActual >= acertijos.size()) {
         return;
     }
 
@@ -106,9 +111,9 @@ public class AcertijoService {
 
         Text texto = new Text();
         texto.setFill(monedas >= 5 ? Color.GOLD : Color.RED);
-        texto.setStyle("-fx-font-size: " + (24 * scale) + "px;");
-        texto.setTranslateX(150 * scale);
-        texto.setTranslateY(50 * scale);
+        texto.setStyle("-fx-font-size: 36px; -fx-font-weight: bold;");
+        texto.setTranslateX(150);
+        texto.setTranslateY(50 );
 
         if (UI.cantidadMoneda >= 5) {
             UI.updateAmountCoins(-5); // Resta 5 monedas usando tu sistema
@@ -119,7 +124,7 @@ public class AcertijoService {
         }
 
         layout.getChildren().add(texto);
-        FXGL.getGameTimer().runOnceAfter(() -> layout.getChildren().remove(texto), Duration.seconds(3));
+        FXGL.getGameTimer().runOnceAfter(() -> layout.getChildren().remove(texto), Duration.seconds(1.5));
     });
 
     layout.getChildren().add(comprar);
@@ -148,7 +153,7 @@ public class AcertijoService {
         texto.setTranslateY(50);
 
         FXGL.getGameScene().addUINode(texto);
-        FXGL.getGameTimer().runOnceAfter(() -> FXGL.getGameScene().removeUINode(texto), Duration.seconds(1.5));
+        FXGL.getGameTimer().runOnceAfter(() -> FXGL.getGameScene().removeUINode(texto), Duration.seconds(1));
     }
 
     acertijoActual++;

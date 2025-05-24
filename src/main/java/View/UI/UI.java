@@ -31,6 +31,11 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class UI {
 
    public static int cantidadMoneda = 0;
+
+    public static int getCantidadMoneda() {
+        return cantidadMoneda;
+}
+
     //Images
     Image wikiImage;
     Image buttonWikiImage;
@@ -281,9 +286,6 @@ public class UI {
 
     }
 
-        public static int getCantidadMoneda() {
-            return cantidadMoneda;
-}
 
     public void updateCurrentPlayerStats(Entity currentEntity){
         //Caja de informacion
