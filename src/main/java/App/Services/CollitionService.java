@@ -18,6 +18,8 @@ import javafx.util.Duration;
 
 import static Domain.Settings.SettingsGame.TILE_SIZE;
 
+import java.util.Map;
+
 public class CollitionService
 {
     //Instancias
@@ -36,6 +38,15 @@ public class CollitionService
     private boolean panelEnable = false;
     private Entity lastBarrier = null;
 
+    private AcertijoService acertijoService; 
+
+     // Constructor que recibe Input y CombatModeUI
+    public CollitionService(Input inputController, CombatModeUI combatModeUI) {
+        this.inputController = inputController;
+        this.combatModeUI = combatModeUI;
+        this.acertijoService = new AcertijoService(combatModeUI);
+    }
+
     //Manejo de colisiones con elementos estaticos del entorno
     public void startCollitionBarrier(CombatModeUI combatModeUI){
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
@@ -45,30 +56,29 @@ public class CollitionService
         });
     }
 
-    public void starPanelCollition(Entity barrier){
-        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                                                                        Types.EntityType.PANEL)
-        {
-            @Override
-            protected void onCollisionBegin(Entity player, Entity item){
+   public void startPanelCollision(Map<Entity, Entity> panelBarrierMap) {
+    FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
+                                                                    Types.EntityType.PANEL) {
+        @Override
+        protected void onCollisionBegin(Entity player, Entity panel) {
+            if (!panelEnable || panel != lastBarrier) {
+                panelEnable = true;
+                lastBarrier = panel;
 
-                if (!panelEnable || barrier != lastBarrier){
-                    panelEnable = true;
-                    item.getComponent(AnimationComponents.class).playChangesPanel();
-                    MusicService.playPanel();
-                    Point2D itemPosition = barrier.getPosition();
-                    barrier.getComponent(AnimationComponents.class).playDisabledBarrier();
-                    FXGL.getGameTimer().runOnceAfter(
-                            () -> barrier.removeFromWorld(),
-                            Duration.seconds(1)
+                // Reproducir animación y sonido del panel
+                panel.getComponent(AnimationComponents.class).playChangesPanel();
+                MusicService.playPanel();
 
-                    );
-                    FXGL.spawn("barrierDisabled",itemPosition);
-                }
-                lastBarrier = barrier;
+                // Obtener la barrera asociada a este panel
+                Entity barrier = panelBarrierMap.get(panel);
+
+                // Mostrar acertijo y esperar respuesta o compra
+                acertijoService.mostrarSiguienteAcertijo(barrier, player, combatModeUI);
             }
-        });
-    }
+        }
+    });
+}
+
 
 
     private void clearAllEntities() {

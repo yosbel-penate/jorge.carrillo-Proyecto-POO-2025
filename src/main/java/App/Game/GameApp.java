@@ -23,11 +23,15 @@ import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.components.ViewComponent;
+import com.almasb.fxgl.physics.CollisionHandler;
+
 import javafx.scene.Node;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static Domain.Settings.SettingsGame.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
@@ -66,7 +70,8 @@ public class GameApp extends GameApplication
     static UI ui = new UI();
     Board board = new Board();
     static CombatModeUI combatModeUI = new CombatModeUI(ui);
-    CollitionService collitionService = new CollitionService(input);
+
+    CollitionService collitionService = new CollitionService(input,combatModeUI);
 
     public static void switchLevel(String map){
         Maps.setLevel2();
@@ -80,6 +85,7 @@ public class GameApp extends GameApplication
 
     @Override
     protected void initSettings(GameSettings settings) {
+        
 
         settings.setDefaultCursor(new CursorInfo("cursor.png", 0, 0));
         settings.setMainMenuEnabled(true);
@@ -102,8 +108,12 @@ public class GameApp extends GameApplication
     }
 
     @Override
-    protected void initGame() {
+    protected void initGameVars(Map<String, Object> vars) {
+    vars.put("coins", 0); // otra variable
+}
 
+    @Override
+    protected void initGame() {
 
         //Tablero de juego
         Board.boardTable(NUM_TILES_Y, NUM_TILES_X, TILE_SIZE);
@@ -118,7 +128,10 @@ public class GameApp extends GameApplication
         MusicService.playLevel1Music();
 
         //Level Loader
-        levelManager.loadLevel(1);
+        levelManager.loadLevel(1);   
+
+
+
 
         doorLevel1 = FXGL.spawn("door",TILE_SIZE * 18,0);
 
@@ -233,8 +246,6 @@ public class GameApp extends GameApplication
     {
         FXGL.getPhysicsWorld().setGravity(0,0);
         collitionService.startCollitionCoin(combatModeUI);
-        collitionService.starPanelCollition(barrier1);
-        collitionService.starPanelCollition(barrier);
         collitionService.startCollitionBarrier(combatModeUI);
         collitionService.startCollitionEnemy(combatModeUI);
         collitionService.startCollitionItemAtack(ui);
@@ -242,12 +253,19 @@ public class GameApp extends GameApplication
         collitionService.startCollitionItemLife(combatModeUI);
         collitionService.starDoorCollition(doorLevel1);
 
-        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.PLAYER, Types.DOOR) {
-         @Override
-         protected void onCollisionBegin(Entity player, Entity door) {
-           levelManager.nextLevel(); // Cambio automático de nivel
-         }
-       });
+    FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler("PLAYER","DOOR") {
+    @Override
+    protected void onCollisionBegin(Entity player, Entity door) {
+        levelManager.nextLevel();
+    }
+});
+
+        Map<Entity, Entity> panelBarrierMap = new HashMap<>();
+        panelBarrierMap.put(panel2, barrier1); 
+        panelBarrierMap.put(panel, barrier);  
+
+        collitionService.startPanelCollision(panelBarrierMap);
+
 
     }
 
@@ -267,5 +285,8 @@ public class GameApp extends GameApplication
     public static void main(String[] args) {
         launch(args);
     }
+
+
+
 
 }
