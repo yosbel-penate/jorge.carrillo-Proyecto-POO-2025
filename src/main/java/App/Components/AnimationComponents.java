@@ -1,6 +1,6 @@
 package App.Components;
 
-import App.Services.CollitionService;
+import App.Services.CollitionServices.UpdateHitBoxes;
 import App.Services.MusicService;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
@@ -16,7 +16,6 @@ public class AnimationComponents extends Component
     int hitBox;
     boolean isMoving;
     double animVelocity = 0.7;
-    CollitionService collitionService = new CollitionService();
     private AnimatedTexture  texture;
     private AnimationChannel animIdle,
                              animWalk,
@@ -80,7 +79,7 @@ public class AnimationComponents extends Component
                 cantidadFramesAnim,
                 anchoFramesAnim/ cantidadFramesAnim,
                 altoFramesAnim,
-                Duration.seconds(1),
+                Duration.seconds(1.5),
                 0,
                 cantidadFramesAnim - 1);
         texture = new AnimatedTexture(animIdle);
@@ -242,15 +241,15 @@ public class AnimationComponents extends Component
     //Animacion de Movimiento
     public void selectTypeOfHitBox(int hitBox){
         if (hitBox == 11){
-            collitionService.updateCollisionBox1x1(this.entity);
+            UpdateHitBoxes.updateCollisionBox1x1(this.entity);
         } else if (hitBox == 12) {
-            collitionService.updateCollisionBox1x2(this.entity);
+            UpdateHitBoxes.updateCollisionBox1x2(this.entity);
         }else if (hitBox == 22){
-            collitionService.updateCollisionBox2x2(this.entity);
+            UpdateHitBoxes.updateCollisionBox2x2(this.entity);
         }else if(hitBox == 13){
-            collitionService.updateCollisionBox1x3(this.entity);
+            UpdateHitBoxes.updateCollisionBox1x3(this.entity);
         }else if (hitBox == 00){
-            collitionService.updateCollisionBoxCoin(this.entity);
+            UpdateHitBoxes.updateCollisionBoxCoin(this.entity);
         }
     }
 

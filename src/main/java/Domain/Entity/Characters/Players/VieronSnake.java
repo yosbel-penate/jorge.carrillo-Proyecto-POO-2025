@@ -1,6 +1,6 @@
 package Domain.Entity.Characters.Players;
 
-public class VeironSnake extends Players {
+class VeironSnake extends Players {
     public VeironSnake() {
         this.name = "veiron";
         this.atack = 2;

@@ -2,7 +2,7 @@ package Domain.Entity.Characters.Players;
 
 public class ZaraQuinn extends Players {
         public ZaraQuinn() {
-            this.name = "zara";
+            this.name = "zaraQuinn";
             this.atack = 6;
             this.life = 12;
             this.cantidadFramesIdle = 5;

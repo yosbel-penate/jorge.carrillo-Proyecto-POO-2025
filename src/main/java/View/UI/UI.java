@@ -6,8 +6,11 @@ import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.components.ViewComponent;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
+import javafx.geometry.NodeOrientation;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.BlurType;
@@ -31,12 +34,11 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class UI {
 
    public static int cantidadMoneda = 0;
-
-    public static int getCantidadMoneda() {
-        return cantidadMoneda;
-}
-
     //Images
+    Button jaxKaneBtn;
+    Button marcusBtn;
+    Button cyborgBtn;
+    Button zaraBtn;
     Image wikiImage;
     Image buttonWikiImage;
     Image buttonGameMenuImage;
@@ -63,18 +65,21 @@ public class UI {
     ImageView statBarView;
     ImageView viewLatienda;
 
+    static HBox barraIdentificadores;
+
     //Buttons
     Button buttonWiki;
     Button buttonTienda;
     Button gameMenuButton;
     Button mainMenuButton;
+    static ArrayList<Button> listaBotones;
 
 
     static Text contadorMonedas;
 
 
     // Campo de clase:
-    private Map<String, Button> mapNombreAButton = new HashMap<>();
+    static Map<String, Button> mapNombreAButton = new HashMap<>();
 
     public void splashAnimacion (ImageView splash){
 
@@ -93,6 +98,43 @@ public class UI {
             ft.play();
         }, Duration.seconds(2.0));  // ← aquí defines cuántos segundos permanece visible
     }
+
+    public void borderEntityIdentifier() {
+
+        for (Entity entity : GameApp.playersSelected){
+            if (entity != GameApp.currentEntity){
+                ViewComponent viewComponent = entity.getViewComponent();
+
+                Node viewNode = viewComponent.getChildren().get(0);
+
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
+                dropShadow.setColor(Color.RED);                // Color del borde
+                dropShadow.setRadius(5);                     // Radio mínimo para nitidez
+                dropShadow.setSpread(1.0);                     // Extensión completa para solidez
+                dropShadow.setOffsetX(0);
+                dropShadow.setOffsetY(0);
+
+                viewNode.setEffect(dropShadow);
+            }
+            else {
+                ViewComponent viewComponent = entity.getViewComponent();
+
+                Node viewNode = viewComponent.getChildren().get(0);
+
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
+                dropShadow.setColor(Color.BLUE);                // Color del borde
+                dropShadow.setRadius(5);                     // Radio mínimo para nitidez
+                dropShadow.setSpread(1.0);                     // Extensión completa para solidez
+                dropShadow.setOffsetX(0);
+                dropShadow.setOffsetY(0);
+
+                viewNode.setEffect(dropShadow);
+            }
+        }
+    }
+
 
     public void showUI()
     {
@@ -117,14 +159,13 @@ public class UI {
         iconCoinView.setX(TILE_SIZE  * 27 + 20);
         iconCoinView.setY(TILE_SIZE * 17 + 20);
 
+
         contadorMonedas = new Text();
         contadorMonedas.setText("x " + 0);
         contadorMonedas.setFill(Color.YELLOW);
         contadorMonedas.setFont(Font.font("Negrita",20));
         contadorMonedas.setX(TILE_SIZE * 28);
         contadorMonedas.setY(TILE_SIZE * 18 - 10);
-
-        
 
         latienda = getAssetLoader().loadImage("latienda.png");
         viewLatienda = new ImageView();
@@ -156,7 +197,7 @@ public class UI {
         nameCharaterText.setFont(Font.font("Negrita", 25));
 
 
-       updateCurrentPlayerStats(GameApp.currentEntity);
+        updateCurrentPlayerStats(GameApp.currentEntity);
 
         //=============ImagesLoader=============
         buttonGameMenuImage = getAssetLoader().loadImage("botonGameMenu.png");
@@ -240,35 +281,69 @@ public class UI {
 
         //Hbox de identificadores de players
 
-        HBox barraIdentificadores = new HBox(10);
+        barraIdentificadores = new HBox(10);
 
         ArrayList<Button> listaBotones = new ArrayList<>();
 
-        Image iconCyborg = getAssetLoader().loadTexture("iconCyborg.png").getImage();
-        Image iconJaxKane = getAssetLoader().loadTexture("iconJaxKane.png").getImage();
+        if (EscenaSeleccion.cyborgBool){
+            Image iconCyborg = getAssetLoader().loadTexture("iconCyborg.png").getImage();
+            cyborgBtn = new Button();
+            cyborgBtn.setGraphic(new ImageView(iconCyborg));
+            cyborgBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+            //pintarBordeIcono("cyborg",cyborgBtn);
+            cyborgBtn.setOnAction(e -> pintarBordeIcono("cyborg",cyborgBtn));
 
-        Button cyborgBtn = new Button();
-        cyborgBtn.setGraphic(new ImageView(iconCyborg));
-        cyborgBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
-        //pintarBordeIcono("cyborg",cyborgBtn);
-        cyborgBtn.setOnAction(e -> pintarBordeIcono("cyborg",cyborgBtn));
+            listaBotones.add(cyborgBtn);
+            barraIdentificadores.getChildren().add(cyborgBtn);
+            mapNombreAButton.put("cyborg",  cyborgBtn);
 
-        Button jaxKaneBtn = new Button();
-        jaxKaneBtn.setGraphic(new ImageView(iconJaxKane));
-        jaxKaneBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
-        //pintarBordeIcono("jaxKane",jaxKaneBtn);
-        jaxKaneBtn.setOnAction(e -> pintarBordeIcono("jaxKane",jaxKaneBtn));
+        }
 
-        listaBotones.add(jaxKaneBtn);
-        listaBotones.add(cyborgBtn);
+        if (EscenaSeleccion.jaxKaneBool){
+            Image iconJaxKane = getAssetLoader().loadTexture("iconJaxKane.png").getImage();
 
+            jaxKaneBtn = new Button();
+            jaxKaneBtn.setGraphic(new ImageView(iconJaxKane));
+            jaxKaneBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+            //pintarBordeIcono("jaxKane",jaxKaneBtn);
+            jaxKaneBtn.setOnAction(e -> pintarBordeIcono("jaxKane",jaxKaneBtn));
 
-        mapNombreAButton.put("cyborg",  cyborgBtn);
-        mapNombreAButton.put("jaxKane",  jaxKaneBtn);
+            listaBotones.add(jaxKaneBtn);
+            barraIdentificadores.getChildren().add(jaxKaneBtn);
+            mapNombreAButton.put("jaxKane",  jaxKaneBtn);
 
-        barraIdentificadores.getChildren().addAll(cyborgBtn,jaxKaneBtn);
+        }
 
-        barraIdentificadores.setTranslateX(TILE_SIZE * 26);
+        if (EscenaSeleccion.zaraQuinnBool){
+            Image iconZaraQuinn = getAssetLoader().loadTexture("iconZaraQuinn.png").getImage();
+
+            zaraBtn = new Button();
+            zaraBtn.setGraphic(new ImageView(iconZaraQuinn));
+            zaraBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+            zaraBtn.setOnAction(e -> pintarBordeIcono("zaraQuinn",zaraBtn));
+
+            listaBotones.add(zaraBtn);
+            barraIdentificadores.getChildren().add(zaraBtn);
+            mapNombreAButton.put("zaraQuinn",  zaraBtn);
+
+        }
+
+        if (EscenaSeleccion.marcusBool){
+            Image iconMarcus = getAssetLoader().loadTexture("iconEngineerMarcus.png").getImage();
+
+            marcusBtn = new Button();
+            marcusBtn.setGraphic(new ImageView(iconMarcus));
+            marcusBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+            marcusBtn.setOnAction(e -> pintarBordeIcono("EngineerMarcus",marcusBtn));
+
+            listaBotones.add(marcusBtn);
+            barraIdentificadores.getChildren().add(marcusBtn);
+            mapNombreAButton.put("EngineerMarcus",  marcusBtn);
+
+        }
+
+        barraIdentificadores.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        barraIdentificadores.setTranslateX(TILE_SIZE * 22);
         barraIdentificadores.setTranslateY(TILE_SIZE );
 
         getGameScene().addUINode(barraIdentificadores);
@@ -283,13 +358,10 @@ public class UI {
         getGameScene().addUINode(buttonTienda);
         getGameScene().addUINode(iconCoinView);
         getGameScene().addUINode(contadorMonedas);
-
     }
-
 
     public void updateCurrentPlayerStats(Entity currentEntity){
         //Caja de informacion
-        System.out.println("se llama al metodo");
         System.out.println(currentEntity.getComponent(CombatStatsComponent.class).name);
         CombatStatsComponent stats =
                 currentEntity.getComponent(CombatStatsComponent.class);
@@ -375,7 +447,6 @@ public class UI {
             releaseAnim.playFromStart();
         });
     }
-
 
     public static void updateAmountCoins (int cantidad){
         if (cantidadMoneda >= 0){

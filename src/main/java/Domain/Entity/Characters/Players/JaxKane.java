@@ -3,8 +3,8 @@ package Domain.Entity.Characters.Players;
 public class JaxKane extends Players {
     public JaxKane (){
         this.name = "jaxKane";
-        this.atack = 4;
-        this.life = 17;
+        this.atack = 1;
+        this.life = 1;
         this.cantidadFramesIdle = 5;
         this.cantidadFramesAtack = 4;
         this.cantidadFramesCaminando = 4;

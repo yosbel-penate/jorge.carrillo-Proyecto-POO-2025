@@ -2,6 +2,7 @@ package App.EntityFactory;
 
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
+import App.Game.GameApp;
 import Domain.Entity.Characters.Enemies.Drone;
 import Domain.Entity.Characters.Enemies.Drone3;
 import Domain.Entity.Characters.Enemies.DroneTipe_1;
@@ -15,6 +16,10 @@ import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static Domain.Settings.SettingsGame.TILE_SIZE;
 
 public class EnemyFactory implements EntityFactory {
@@ -110,34 +115,6 @@ public class EnemyFactory implements EntityFactory {
                 .buildAndAttach();
     }
 
-    @Spawns("golem")
-    public Entity newGolem(SpawnData data){
-
-        PhysicsComponent physics = new PhysicsComponent();
-        physics.setBodyType(BodyType.KINEMATIC);
-
-        return FXGL.entityBuilder(data)
-                .type(Types.EntityType.ENEMY)
-                .with(new CombatStatsComponent(Golem.life, Golem.atack))
-                .with(new AnimationComponents(
-                        "golem", Golem.cantidadFrames,
-                Golem.cantidadFramesAtackBasic,
-                Golem.anchoSpriteSheetAtackBasic,
-                Golem.altoSpriteSheetAtackBasic,
-                Golem.anchoSpriteSheet,
-                Golem.altoSpriteSheet,
-                0,
-                Golem.cantidadFrames - 1,
-                Golem.cantidadFramesMuerte,
-                Golem.anchoFrameMuerte,
-                Golem.altoFrameMuerte,
-                22
-                ))
-                .with(physics)
-                .with(new CollidableComponent(true))
-                .buildAndAttach();
-    }
-
     @Spawns("droid3")
     public Entity newDroid3(SpawnData data){
 
@@ -165,5 +142,91 @@ public class EnemyFactory implements EntityFactory {
                 .with(physics)
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
+    }
+
+    @Spawns("boss")
+    public Entity newBoss(SpawnData data){
+
+        PhysicsComponent physics = new PhysicsComponent();
+        physics.setBodyType(BodyType.KINEMATIC);
+
+        return FXGL.entityBuilder(data)
+                .type(Types.EntityType.ENEMY)
+                .with(new CombatStatsComponent(17, 5))
+                .with(new AnimationComponents(
+                        "boss",
+                        4,
+                        8,
+                        1557,
+                        160,
+                        543,
+                        100,
+                        0,
+                        3,
+                        Drone3.cantidadFramesMuerte,
+                        Drone3.anchoFrameMuerte,
+                        Drone3.altoFrameMuerte,
+                        22
+                ))
+                .with(physics)
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+
+
+    public static List<Entity> getEnemiesForLevel(String levelName) {
+        List<Entity> entities = new ArrayList<>();
+
+        int TILE_SIZE = 50; // o el valor que uses
+
+        switch (levelName) {
+            case "level_01":
+
+                //boss
+                entities.add(FXGL.spawn("boss", TILE_SIZE * 18, TILE_SIZE  * 7 ));
+
+                // Tanques
+                entities.add(FXGL.spawn("tanke", TILE_SIZE * 7, TILE_SIZE));
+                entities.add(FXGL.spawn("tanke", TILE_SIZE * 9, TILE_SIZE));
+
+                // Exploradores
+                entities.add(FXGL.spawn("explore", TILE_SIZE * 20, TILE_SIZE * 10));
+                entities.add(FXGL.spawn("explore", TILE_SIZE * 8, TILE_SIZE * 13));
+
+                // Enemigos Droides
+                entities.add(FXGL.spawn("droid1", TILE_SIZE * 10, TILE_SIZE * 10));
+                entities.add(FXGL.spawn("droid1", TILE_SIZE * 28, TILE_SIZE * 15));
+
+                entities.add(FXGL.spawn("droid2", TILE_SIZE * 17, TILE_SIZE * 15));
+                entities.add(FXGL.spawn("droid2", TILE_SIZE * 12, TILE_SIZE * 4));
+                entities.add(FXGL.spawn("droid2", TILE_SIZE * 28, TILE_SIZE * 5));
+
+                entities.add(FXGL.spawn("droid3", TILE_SIZE * 18, TILE_SIZE * 5));
+                entities.add(FXGL.spawn("droid3", TILE_SIZE * 18, TILE_SIZE * 20));
+                break;
+
+            case "level_02":
+                entities.add(FXGL.spawn("tanke", TILE_SIZE * 7, TILE_SIZE));
+                entities.add(FXGL.spawn("tanke", TILE_SIZE * 9, TILE_SIZE));
+
+                // Exploradores
+                entities.add(FXGL.spawn("explore", TILE_SIZE * 20, TILE_SIZE * 10));
+                entities.add(FXGL.spawn("explore", TILE_SIZE * 8, TILE_SIZE * 13));
+
+                // Enemigos Droides
+                entities.add(FXGL.spawn("droid1", TILE_SIZE * 10, TILE_SIZE * 10));
+                entities.add(FXGL.spawn("droid1", TILE_SIZE * 28, TILE_SIZE * 15));
+
+                entities.add(FXGL.spawn("droid2", TILE_SIZE * 17, TILE_SIZE * 15));
+                entities.add(FXGL.spawn("droid2", TILE_SIZE * 12, TILE_SIZE * 4));
+                entities.add(FXGL.spawn("droid2", TILE_SIZE * 28, TILE_SIZE * 5));
+
+                entities.add(FXGL.spawn("droid3", TILE_SIZE * 18, TILE_SIZE * 5));
+                entities.add(FXGL.spawn("droid3", TILE_SIZE * 18, TILE_SIZE * 20));
+
+                break;
+        }
+
+        return entities;
     }
 }
