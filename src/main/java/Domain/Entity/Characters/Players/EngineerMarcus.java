@@ -2,7 +2,7 @@ package Domain.Entity.Characters.Players;
 
 public class EngineerMarcus extends Players {
     public EngineerMarcus() {
-        this.name = "marcus";
+        this.name = "engineerMarcus";
         this.atack = 3;
         this.life = 9;
         this.cantidadFramesIdle = 6;

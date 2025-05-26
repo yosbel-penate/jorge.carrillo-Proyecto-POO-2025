@@ -13,6 +13,11 @@ import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static Domain.Settings.SettingsGame.TILE_SIZE;
+
 public class ObjectFactory implements EntityFactory {
 
     @Spawns("p")
@@ -40,7 +45,7 @@ public class ObjectFactory implements EntityFactory {
                 //.at(TILE_SIZE * 10, TILE_SIZE * 11)
                 .type(Types.EntityType.ITEM_ATACCK)
                 .with(new AnimationComponents(
-                       "atack",
+                        "atack",
                         15,
                         750,
                         50,
@@ -216,4 +221,68 @@ public class ObjectFactory implements EntityFactory {
                 .buildAndAttach();
     }
 
+    public static List<Entity> getObjectsForLevel(String levelName) {
+        List<Entity> entities = new ArrayList<>();
+
+        int TILE_SIZE = 50; // o el valor que uses
+
+        switch (levelName) {
+            case "level_01":
+
+                // Monedas
+                entities.add(FXGL.spawn("coin", TILE_SIZE * 6 + 10, TILE_SIZE * 2 + 10));
+                entities.add(FXGL.spawn("coin", TILE_SIZE * 20 + 10, TILE_SIZE * 12 + 10));
+                entities.add(FXGL.spawn("coin", TILE_SIZE * 11 + 10, TILE_SIZE * 12 + 10));
+
+                // Barreras
+                entities.add(FXGL.spawn("barrierDisabled", TILE_SIZE * 16, TILE_SIZE * 13));
+                entities.add(FXGL.spawn("barrierDisabled", TILE_SIZE * 22, TILE_SIZE * 13));
+                entities.add(FXGL.spawn("barrierDisabled", TILE_SIZE * 22, TILE_SIZE * 23));
+                entities.add(FXGL.spawn("barrierDisabled", TILE_SIZE * 16, TILE_SIZE * 23));
+
+                // Paneles de control
+                entities.add(FXGL.spawn("controlPanel", TILE_SIZE * 15, TILE_SIZE * 2));
+                entities.add(FXGL.spawn("controlPanel", TILE_SIZE * 23, TILE_SIZE * 2));
+
+                // Ítems
+                entities.add(FXGL.spawn("itemSpecialPoint", TILE_SIZE * 5, TILE_SIZE * 7));
+                entities.add(FXGL.spawn("itemSpecialPoint", TILE_SIZE * 25, TILE_SIZE * 5));
+
+                entities.add(FXGL.spawn("itemLife", TILE_SIZE * 19, TILE_SIZE * 10));
+                entities.add(FXGL.spawn("itemLife", TILE_SIZE * 3, TILE_SIZE * 13));
+
+                entities.add(FXGL.spawn("itemAtack", TILE_SIZE * 9, TILE_SIZE * 4));
+                entities.add(FXGL.spawn("itemAtack", TILE_SIZE * 19, TILE_SIZE * 15));
+
+                break;
+
+            case "level_02":
+
+                entities.add(FXGL.spawn("itemSpecialPoint", TILE_SIZE * 23, TILE_SIZE * 18));
+                entities.add(FXGL.spawn("itemSpecialPoint", TILE_SIZE * 28, TILE_SIZE * 7));
+
+                entities.add(FXGL.spawn("itemLife", TILE_SIZE * 20, TILE_SIZE * 23));
+                entities.add(FXGL.spawn("itemLife", TILE_SIZE * 13, TILE_SIZE * 13));
+
+                entities.add(FXGL.spawn("itemAtack", TILE_SIZE * 11, TILE_SIZE * 27));
+                entities.add(FXGL.spawn("itemAtack", TILE_SIZE * 17, TILE_SIZE * 3));
+
+                // Monedas
+                entities.add(FXGL.spawn("coin", TILE_SIZE * 6 + 10, TILE_SIZE * 2 + 10));
+                entities.add(FXGL.spawn("coin", TILE_SIZE * 20 + 10, TILE_SIZE * 8 + 10));
+                entities.add(FXGL.spawn("coin", TILE_SIZE * 11 + 10, TILE_SIZE * 12 + 10));
+                entities.add(FXGL.spawn("coin", TILE_SIZE * 8 + 10, TILE_SIZE * 28 + 10));
+                entities.add(FXGL.spawn("coin", TILE_SIZE * 18 + 10, TILE_SIZE * 28 + 10));
+
+                break;
+
+            case "level_03":
+
+
+                break;
+        }
+
+        return entities;
+
+    }
 }
