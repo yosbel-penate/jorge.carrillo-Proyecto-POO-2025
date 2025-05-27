@@ -20,6 +20,8 @@ import com.almasb.fxgl.entity.Entity;
 import java.util.ArrayList;
 
 import static Domain.Settings.SettingsGame.*;
+import static View.UI.UI.borderEntityIdentifier;
+import static View.UI.UI.botonStatus;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class GameApp extends GameApplication
@@ -28,6 +30,7 @@ public class GameApp extends GameApplication
     //Entidades
     public static Entity zara;
     public static Entity JaxKane;
+    public static Entity toxic;
     private static Entity doorLevel1;
     public static Entity currentEntity;
     private Entity coin;
@@ -47,6 +50,7 @@ public class GameApp extends GameApplication
     private Entity barrierDisabled;
     private Entity panel;
     private Entity panel2;
+
 
     LevelManager levelManager = new LevelManager();
     public static ArrayList<Entity> playersSelected = new ArrayList<>();
@@ -156,9 +160,13 @@ public class GameApp extends GameApplication
     protected void onUpdate(double tpf) {
 
         board.centrarPersonajes(currentEntity);
-        //borderEntityIdentifier();
         if (playersSelected.isEmpty()){
             System.out.println("se acabo");
+        }
+        Entity lastEntityWithBorde = null;
+        if (botonStatus && GameApp.currentEntity != null && GameApp.currentEntity != lastEntityWithBorde) {
+            borderEntityIdentifier();
+            lastEntityWithBorde = GameApp.currentEntity;
         }
     }
 

@@ -82,5 +82,11 @@ public class LevelManager
             playersSelected.add(marcus);
             currentEntity = marcus;
         }
+
+        if (EscenaSeleccion.toxicBool){
+            toxic = FXGL.spawn("toxic",setPosition(level));
+            playersSelected.add(toxic);
+            currentEntity = toxic;
+        }
     }
 }
