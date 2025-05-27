@@ -4,6 +4,7 @@ import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
 import App.Game.GameApp;
 import App.Game.LevelManager;
+import App.Services.AcertijoService;
 import App.Services.Input;
 import App.Services.MusicService;
 import Domain.Entity.Types;
@@ -21,6 +22,8 @@ import javafx.util.Duration;
 
 import static Domain.Settings.SettingsGame.TILE_SIZE;
 
+import java.util.Map;
+
 public class CollitionService
 {
     //Instancias
@@ -30,14 +33,16 @@ public class CollitionService
 
     //Contructores
     public CollitionService(){}
-    public CollitionService(Input inputController) {
+    public CollitionService(Input inputController, CombatModeUI combatModeUI) {
         this.inputController = inputController;
+        this.acertijoService = new AcertijoService(combatModeUI);
     }
 
     //Vars
     private Entity currentEnemy = null;
     private boolean panelEnable = false;
     private Entity lastBarrier = null;
+    private AcertijoService acertijoService; 
 
     //Manejo de colisiones con elementos estaticos del entorno
     public void startCollitionBarrier(CombatModeUI combatModeUI){
@@ -48,30 +53,28 @@ public class CollitionService
         });
     }
 
-    public void starPanelCollition(Entity barrier){
-        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                Types.EntityType.PANEL)
-        {
-            @Override
-            protected void onCollisionBegin(Entity player, Entity item){
+    public void startPanelCollision(Map<Entity, Entity> panelBarrierMap, CombatModeUI combatModeUI) {
+    FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
+                                                                    Types.EntityType.PANEL) {
+        @Override
+        protected void onCollisionBegin(Entity player, Entity panel) {
+            if (!panelEnable || panel != lastBarrier) {
+                panelEnable = true;
+                lastBarrier = panel;
 
-                if (!panelEnable || barrier != lastBarrier){
-                    panelEnable = true;
-                    item.getComponent(AnimationComponents.class).playChangesPanel();
-                    MusicService.playPanel();
-                    Point2D itemPosition = barrier.getPosition();
-                    barrier.getComponent(AnimationComponents.class).playDisabledBarrier();
-                    FXGL.getGameTimer().runOnceAfter(
-                            () -> barrier.removeFromWorld(),
-                            Duration.seconds(1)
+                // Reproducir animación y sonido del panel
+                panel.getComponent(AnimationComponents.class).playChangesPanel();
+                MusicService.playPanel();
+                
+                // Obtener la barrera asociada a este panel
+                Entity barrier = panelBarrierMap.get(panel);
 
-                    );
-                    FXGL.spawn("barrierDisabled",itemPosition);
-                }
-                lastBarrier = barrier;
+                // Mostrar acertijo y esperar respuesta o compra
+                acertijoService.mostrarSiguienteAcertijo(barrier, player, combatModeUI);
             }
-        });
-    }
+        }
+    });
+}
 
     LevelManager levelManager = new LevelManager();
 

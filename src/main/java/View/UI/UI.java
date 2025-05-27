@@ -34,6 +34,11 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 public class UI {
 
     public static int cantidadMoneda = 0;
+
+          public static int getCantidadMoneda() {
+            return cantidadMoneda;
+}
+
     //Images
     Button jaxKaneBtn = null;
     Button marcusBtn = null;
