@@ -1,0 +1,25 @@
+/* Estilo para la barra de desplazamiento horizontal */
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #A9A9A9; /* Gris oscuro */
+}
+
+/* Estilo para la barra de desplazamiento vertical */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #A9A9A9; /* Gris oscuro */
+}

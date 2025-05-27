@@ -33,12 +33,13 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class UI {
 
-   public static int cantidadMoneda = 0;
+    public static int cantidadMoneda = 0;
     //Images
-    Button jaxKaneBtn;
-    Button marcusBtn;
-    Button cyborgBtn;
-    Button zaraBtn;
+    Button jaxKaneBtn = null;
+    Button marcusBtn = null;
+    Button cyborgBtn = null;
+    Button zaraBtn = null;
+    Button toxicBtn = null;
     Image wikiImage;
     Image buttonWikiImage;
     Image buttonGameMenuImage;
@@ -53,6 +54,10 @@ public class UI {
     //Text
     Text nameCharaterText;
     Text porcentAtackText;
+
+    public static boolean botonStatus;
+    public static boolean bordeAplicado = false;
+
 
     //ImagesView
     ImageView iconCoinView;
@@ -99,7 +104,14 @@ public class UI {
         }, Duration.seconds(2.0));  // ← aquí defines cuántos segundos permanece visible
     }
 
-    public void borderEntityIdentifier() {
+    public static void quitarBordes() {
+        for (Entity entity : GameApp.playersSelected) {
+            Node viewNode = entity.getViewComponent().getChildren().get(0);
+            viewNode.setEffect(null); // Elimina cualquier efecto
+        }
+    }
+
+    public static void borderEntityIdentifier() {
 
         for (Entity entity : GameApp.playersSelected){
             if (entity != GameApp.currentEntity){
@@ -110,7 +122,7 @@ public class UI {
                 DropShadow dropShadow = new DropShadow();
                 dropShadow.setBlurType(BlurType.ONE_PASS_BOX); // Tipo de desenfoque
                 dropShadow.setColor(Color.RED);                // Color del borde
-                dropShadow.setRadius(5);                     // Radio mínimo para nitidez
+                dropShadow.setRadius(9);                     // Radio mínimo para nitidez
                 dropShadow.setSpread(1.0);                     // Extensión completa para solidez
                 dropShadow.setOffsetX(0);
                 dropShadow.setOffsetY(0);
@@ -144,6 +156,30 @@ public class UI {
         slpashLevel1.setX(TILE_SIZE * 10);
         splashAnimacion(slpashLevel1);
         getGameScene().addUINode(slpashLevel1);
+
+        ImageView resaltarBototn = new ImageView(getAssetLoader().loadImage("imageBotonResaltar.png"));
+        Button botonResaltar = new Button();
+        botonResaltar.setGraphic(resaltarBototn);
+        botonResaltar.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+        botonResaltar.setTranslateX(TILE_SIZE);
+        botonResaltar.setTranslateY(TILE_SIZE * 6 + 30);
+        botonResaltar.setOnAction(e -> {
+            MusicService.playKey();
+            botonStatus = !botonStatus;
+
+            if (botonStatus && !bordeAplicado) {
+                borderEntityIdentifier(); // Llama el método una sola vez
+                bordeAplicado = true;     // Marca como que ya se aplicó
+            }
+            else if (!botonStatus && bordeAplicado) {
+                quitarBordes();           // Método opcional para remover efectos si es necesario
+                bordeAplicado = false;
+            }
+        });
+
+        animacionPresionarBoton(botonResaltar);
+
+
 
 
         Image coinConteiner = getAssetLoader().loadImage("coinConteiner.png");
@@ -288,6 +324,8 @@ public class UI {
         if (EscenaSeleccion.cyborgBool){
             Image iconCyborg = getAssetLoader().loadTexture("iconCyborg.png").getImage();
             cyborgBtn = new Button();
+            UI.animacionPresionarBoton(cyborgBtn);
+
             cyborgBtn.setGraphic(new ImageView(iconCyborg));
             cyborgBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
             //pintarBordeIcono("cyborg",cyborgBtn);
@@ -303,6 +341,7 @@ public class UI {
             Image iconJaxKane = getAssetLoader().loadTexture("iconJaxKane.png").getImage();
 
             jaxKaneBtn = new Button();
+            UI.animacionPresionarBoton(jaxKaneBtn);
             jaxKaneBtn.setGraphic(new ImageView(iconJaxKane));
             jaxKaneBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
             //pintarBordeIcono("jaxKane",jaxKaneBtn);
@@ -318,6 +357,8 @@ public class UI {
             Image iconZaraQuinn = getAssetLoader().loadTexture("iconZaraQuinn.png").getImage();
 
             zaraBtn = new Button();
+            UI.animacionPresionarBoton(zaraBtn);
+
             zaraBtn.setGraphic(new ImageView(iconZaraQuinn));
             zaraBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
             zaraBtn.setOnAction(e -> pintarBordeIcono("zaraQuinn",zaraBtn));
@@ -328,10 +369,27 @@ public class UI {
 
         }
 
+        if (EscenaSeleccion.toxicBool){
+            Image iconToxic = getAssetLoader().loadTexture("iconToxic.png").getImage();
+
+            toxicBtn = new Button();
+            UI.animacionPresionarBoton(toxicBtn);
+
+            toxicBtn.setGraphic(new ImageView(iconToxic));
+            toxicBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+            toxicBtn.setOnAction(e -> pintarBordeIcono("toxico",toxicBtn));
+
+            listaBotones.add(toxicBtn);
+            barraIdentificadores.getChildren().add(toxicBtn);
+            mapNombreAButton.put("toxico",  toxicBtn);
+
+        }
+
         if (EscenaSeleccion.marcusBool){
             Image iconMarcus = getAssetLoader().loadTexture("iconEngineerMarcus.png").getImage();
 
             marcusBtn = new Button();
+            UI.animacionPresionarBoton(marcusBtn);
             marcusBtn.setGraphic(new ImageView(iconMarcus));
             marcusBtn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
             marcusBtn.setOnAction(e -> pintarBordeIcono("EngineerMarcus",marcusBtn));
@@ -356,8 +414,21 @@ public class UI {
         getGameScene().addUINode(nameCharaterText);
         getGameScene().addUINode(porcentAtackText);
         getGameScene().addUINode(buttonTienda);
+        getGameScene().addUINode(botonResaltar);
         getGameScene().addUINode(iconCoinView);
         getGameScene().addUINode(contadorMonedas);
+
+
+
+
+
+    }
+
+
+    public static void seleccionarResaltar(){
+        if (botonStatus){
+            borderEntityIdentifier();
+        }
     }
 
     public void updateCurrentPlayerStats(Entity currentEntity){

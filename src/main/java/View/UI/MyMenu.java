@@ -56,6 +56,8 @@ public class MyMenu extends FXGLMenu {
 
         });
 
+        UI.animacionPresionarBoton(btnStart);
+
         getContentRoot().getChildren().add(btnStart);
     }
 }
