@@ -1,8 +1,11 @@
-package App.Services;
+package App.Services.CollitionServices;
 
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
 import App.Game.GameApp;
+import App.Game.LevelManager;
+import App.Services.Input;
+import App.Services.MusicService;
 import Domain.Entity.Types;
 import View.Maps.Maps;
 import View.UI.CombatModeUI;
@@ -39,7 +42,7 @@ public class CollitionService
     //Manejo de colisiones con elementos estaticos del entorno
     public void startCollitionBarrier(CombatModeUI combatModeUI){
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                                                                        Types.EntityType.BARRIER)
+                Types.EntityType.BARRIER)
         {
 
         });
@@ -47,7 +50,7 @@ public class CollitionService
 
     public void starPanelCollition(Entity barrier){
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                                                                        Types.EntityType.PANEL)
+                Types.EntityType.PANEL)
         {
             @Override
             protected void onCollisionBegin(Entity player, Entity item){
@@ -70,6 +73,7 @@ public class CollitionService
         });
     }
 
+    LevelManager levelManager = new LevelManager();
 
     private void clearAllEntities() {
         FXGL.getGameWorld()
@@ -78,23 +82,28 @@ public class CollitionService
                 // removemos cada entidad del mundo
                 .forEach(Entity::removeFromWorld);
     }
-    public void starDoorCollition(Entity door){
-        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                                                                        Types.EntityType.DOOR)
-        {
-            @Override
-            protected void onCollisionBegin(Entity player, Entity item) {
-                clearAllEntities();
-                ((GameApp) FXGL.getApp()).switchLevel("level_02.tmx");
-                GameApp.spawnLevel2();
 
+    public void starDoorCollition(Entity door) {
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
+                Types.EntityType.DOOR) {
+            @Override
+            protected void onCollisionBegin(Entity player, Entity door) {
+                // Reproducir la animación
+                door.getComponent(AnimationComponents.class).playChangesDoor();
+
+                // Esperar 1 segundo (1000 ms) antes de cargar el nivel
+                FXGL.getGameTimer().runOnceAfter(() -> {
+                    clearAllEntities();
+                    GameApp.playersSelected.clear();
+                    levelManager.loadLevel("level_02");
+                }, Duration.seconds(1.5));
             }
         });
     }
 
     public void startCollitionItemSpecialPoint(CombatModeUI combatModeUI){
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                                                                        Types.EntityType.ITEM_SPECIAL_POINT)
+                Types.EntityType.ITEM_SPECIAL_POINT)
         {
             @Override
             protected void onCollision(Entity player, Entity item){
@@ -112,7 +121,7 @@ public class CollitionService
 
     public void startCollitionItemLife(CombatModeUI combatModeUI){
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                                                                        Types.EntityType.ITEM_LIFE)
+                Types.EntityType.ITEM_LIFE)
         {
             @Override
             protected void onCollision(Entity player, Entity item){
@@ -133,7 +142,7 @@ public class CollitionService
 
     public void startCollitionCoin(CombatModeUI combatModeUI){
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                                                                        Types.EntityType.COIN)
+                Types.EntityType.COIN)
         {
             @Override
             protected void onCollision(Entity player, Entity item){
@@ -146,14 +155,14 @@ public class CollitionService
 
     public void startCollitionItemAtack(UI ui){
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                                                                        Types.EntityType.ITEM_ATACCK)
+                Types.EntityType.ITEM_ATACCK)
         {
-           @Override
-           protected void onCollision(Entity player, Entity item){
-               item.removeFromWorld();
-               MusicService.playItem();
-               ui.atackBar(1,player);
-           }
+            @Override
+            protected void onCollision(Entity player, Entity item){
+                item.removeFromWorld();
+                MusicService.playItem();
+                ui.atackBar(1,player);
+            }
         });
     }
 
@@ -170,7 +179,7 @@ public class CollitionService
 
     public void startCollitionEnemy(CombatModeUI combatModeUI) {
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(Types.EntityType.PLAYER,
-                                                                        Types.EntityType.ENEMY)
+                Types.EntityType.ENEMY)
         {
             @Override
             protected void onCollisionBegin(Entity player, Entity enemy) {
@@ -215,41 +224,4 @@ public class CollitionService
         MusicService.playCoin();
     }
 
-    //======================================================================
-    //Metodos para manejo de HitBoxes en dependencia de las entidades
-    public void updateCollisionBox1x1(Entity entity) {
-        entity.getBoundingBoxComponent().clearHitBoxes();
-        entity.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.box(
-                TILE_SIZE - 1,
-                TILE_SIZE - 1)));
-    }
-
-    public void updateCollisionBox1x2(Entity entity) {
-        entity.getBoundingBoxComponent().clearHitBoxes();
-        entity.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.box(
-                TILE_SIZE  * 2 - 1,
-                TILE_SIZE - 1)));
-    }
-
-    public void updateCollisionBox2x2(Entity entity) {
-        entity.getBoundingBoxComponent().clearHitBoxes();
-        entity.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.box(
-                TILE_SIZE  * 2 - 1,
-                TILE_SIZE * 2 - 1)));
-    }
-
-    public void updateCollisionBox1x3(Entity entity) {
-        entity.getBoundingBoxComponent().clearHitBoxes();
-        entity.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.box(
-                TILE_SIZE - 1,
-                TILE_SIZE * 3 - 1)));
-    }
-
-    public void updateCollisionBoxCoin(Entity entity) {
-        entity.getBoundingBoxComponent().clearHitBoxes();
-        entity.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.box(
-                30,
-                30)));
-    }
 }
-

@@ -19,16 +19,19 @@ public class CombatStatsComponent extends Component {
         this.specialPoints = specialPoints;
         this.currentSpecialPoints = specialPoints;
     }
+
     //Constructor de enemigos
     public CombatStatsComponent(int maxHealth, int atacck) {
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.atacck = atacck;
     }
+
     // Getters
     public int getSpecialPoints(){return specialPoints; }
     public int getCurrentSpecialPoints(){return currentSpecialPoints; }
     public int getCurrentHealth() { return currentHealth; }
     public int getMaxHealth() { return maxHealth; }
     public int getAtacck(){return atacck; }
+
 }

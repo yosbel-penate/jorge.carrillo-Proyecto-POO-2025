@@ -7,10 +7,13 @@ import App.Services.MusicService;
 import Domain.Entity.Characters.Players.Cyborg;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.texture.Texture;
+import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.NodeOrientation;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -191,6 +194,37 @@ public class CombatModeUI {
         }
     }
 
+    public void showPlayerDeadBanner() {
+        Image playerDeadImage = getAssetLoader().loadImage("playerDead.png");
+        ImageView playerDeadView = new ImageView(playerDeadImage);
+
+        playerDeadView.setTranslateX(TILE_SIZE * 13);
+        playerDeadView.setTranslateY(TILE_SIZE * 7);
+        playerDeadView.setOpacity(0); // Empezar invisible
+
+        getGameScene().addUINode(playerDeadView);
+
+        // Crear fade-in
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.7), playerDeadView);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.setOnFinished(event -> {
+
+            // Esperar unos segundos y luego fade-out
+            FXGL.runOnce(() -> {
+                FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), playerDeadView);
+                fadeOut.setFromValue(1);
+                fadeOut.setToValue(0);
+                fadeOut.setOnFinished(e -> getGameScene().removeUINode(playerDeadView));
+                fadeOut.play();
+            }, Duration.seconds(2.5)); // Espera después del fade-in
+        });
+
+        fadeIn.play();
+    }
+
+
+
     public void initButtonAtacckBasic(Entity player, Entity enemy){
         buttonAtackBasic.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -232,6 +266,7 @@ public class CombatModeUI {
         switch (tipoOfAnimationInButton){
             case "basic" :
                 player.getComponent(AnimationComponents.class).playAttackAnimation();
+
                 reduceHealthEnemi(player.getComponent(CombatStatsComponent.class).getAtacck(),enemy);
                 MusicService.playWeanpon();
                 break;
@@ -257,6 +292,13 @@ public class CombatModeUI {
                 getGameScene().removeUINode(buttonAtackSpecial);
                 MusicService.stopBattleMusic();
                 MusicService.playLevel1Music();
+                Point2D pos = enemy.getPosition();
+                if (enemy.getComponent(CombatStatsComponent.class).currentHealth <= 0){
+                    System.out.println("vida del enemigo :" +
+                                enemy.getComponent(CombatStatsComponent.class).getCurrentHealth());
+                    FXGL.spawn("coin",pos.getX() + 10,pos.getY() + 10);
+                }
+                MusicService.playCoin();
             }, Duration.seconds(1));
         }else {
             // Turno enemigo después de 1 segundo
@@ -266,23 +308,46 @@ public class CombatModeUI {
     }
 
     public void startAtacckEnemy(Entity player, Entity enemy){
+        Entity entity = GameApp.currentEntity;
         if (!statusbuttonAtacck){
             statusbuttonAtacck = true;
             enemy.getComponent(AnimationComponents.class).playAttackAnimation();
             MusicService.playWeanponEnemy();
             reduceHealthPlayer(enemy.getComponent(CombatStatsComponent.class).getAtacck(),GameApp.currentEntity);
 
-            FXGL.runOnce(() -> {
-                if (GameApp.currentEntity.getComponent(CombatStatsComponent.class).getCurrentHealth() <= 0) {
-                    //Logica de muerte para el player
-                    //collitionService.combatMode(false);
-                }
-            }, Duration.seconds(0.5));
+            if (entity.getComponent(CombatStatsComponent.class).getCurrentHealth() <= 0) {
+                entity.getComponent(AnimationComponents.class).playDeatAnimation();
+
+                FXGL.runOnce(() -> {
+                    entity.removeFromWorld();
+
+                    getGameScene().removeUINode(panelCombatView);
+                    getGameScene().removeUINode(buttonAtackBasic);
+                    getGameScene().removeUINode(heartsBarEnemiHbox);
+                    getGameScene().removeUINode(heartBarImageViewEnemi);
+                    getGameScene().removeUINode(buttonAtackSpecial);
+                    MusicService.stopBattleMusic();
+                    MusicService.playLevel1Music();
+                    GameApp.playersSelected.removeIf(entity1 -> player.getComponent(CombatStatsComponent.class).name.equals(entity1.getComponent(CombatStatsComponent.class).name));
+                    statusbuttonAtacck = true;
+                    Button botonEliminar = null;
+
+                    for (int n = 0; n < UI.mapNombreAButton.size(); n ++){
+                        if (UI.mapNombreAButton.containsKey(entity.getComponent(CombatStatsComponent.class).name)){
+                            botonEliminar = UI.mapNombreAButton.get(entity.getComponent(CombatStatsComponent.class).name);
+                            UI.mapNombreAButton.remove(entity.getComponent(CombatStatsComponent.class).name);
+                        }
+                    }
+                    UI.barraIdentificadores.getChildren().remove(botonEliminar);
+                    showPlayerDeadBanner();
+                }, Duration.seconds(1));
+            }
         }
     }
 
     public void enemyDead(Entity enemy){
         enemy.getComponent(AnimationComponents.class).playDeatAnimation();
+
     }
 
     public void updateHealthBarPlayer(Entity player) {

@@ -4,15 +4,11 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.scene.SubScene;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.Objects;
-
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getAssetLoader;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
 
 
 public class MyMenu extends FXGLMenu {
@@ -43,7 +39,6 @@ public class MyMenu extends FXGLMenu {
                 "/assets/textures/ui/playButtonMainMenu.png"
         )).toExternalForm());
 
-
         ImageView icon = new ImageView();
         icon.setImage(boton);
         Button btnStart = new Button();
@@ -53,15 +48,14 @@ public class MyMenu extends FXGLMenu {
         btnStart.setTranslateY(400);
         btnStart.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
 
-        // 3. Acción
         charactersSeleccion = new EscenaSeleccion();
 
-        // 4. Acción del botón: en vez de fireNewGame(), mostramos la SubScene
         btnStart.setOnAction(e -> {
-            FXGL.getGameController().startNewGame();
+
+            FXGL.getSceneService().pushSubScene(charactersSeleccion);
+
         });
 
-        // 4. Añadir al root
         getContentRoot().getChildren().add(btnStart);
     }
 }

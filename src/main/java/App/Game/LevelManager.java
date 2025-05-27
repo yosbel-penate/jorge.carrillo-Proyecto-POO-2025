@@ -1,72 +1,86 @@
 package App.Game;
 
+import App.EntityFactory.EnemyFactory;
+import App.EntityFactory.ObjectFactory;
+import View.UI.EscenaSeleccion;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.level.Level;
-import java.io.InputStream;
+import javafx.geometry.Point2D;
+
 import java.util.List;
 
-public class LevelManager {
+import static App.Game.GameApp.*;
+import static Domain.Settings.SettingsGame.TILE_SIZE;
+import static com.almasb.fxgl.dsl.FXGL.setLevelFromMap;
 
-    private int currentLevel = 1;
-    private final int maxLevel = 3;
+public class LevelManager
+{
+    int TILE = 50;
 
-    private PlayerState playerState = PlayerState.getInstance();
+    public void loadLevel(String levelName) {
+        Level level = setLevelFromMap(levelName + ".tmx");
 
-    public void loadLevel(int levelNumber) {
-        if (levelNumber < 1 || levelNumber > maxLevel) {
-            System.out.println("Nivel fuera de rango");
-            return;
-        }
-
-        currentLevel = levelNumber;
-        playerState.saveState();
-
-        FXGL.getGameScene().getViewport().fadeOut(() -> {
-            try {
-                FXGL.getGameWorld().clear();
-                FXGL.getGameScene().clearUINodes();
-
-                String levelFile = String.format("assets/levels/level_%02d.tmx", levelNumber);
-                InputStream mapStream = getClass().getClassLoader().getResourceAsStream(levelFile);
-                if (mapStream == null) {
-                    System.out.println("No se encontró el mapa: " + levelFile + ". Cargando nivel fallback...");
-                    FXGL.setLevelFromMap("assets/levels/level_01.tmx");
-                } else {
-                    FXGL.setLevelFromMap(levelFile);
-                }
-
-                spawnPlayers();
-                System.out.println("Nivel " + levelNumber + " cargado");
-
-            } catch (Exception e) {
-                System.out.println("Error al cargar nivel: " + e.getMessage());
-            }
-
-            FXGL.getGameScene().getViewport().fadeIn(null);
-        });
+        spawnEntites(levelName); //carga los enemigos dependiendo del nivel
+        spawnPlayer(levelName);
     }
 
-    public void nextLevel() {
-        if (currentLevel < maxLevel) {
-            loadLevel(currentLevel + 1);
-        } else {
-            System.out.println("¡Has completado todos los niveles!");
-        }
+    private void spawnEntites(String levelName) {
+        List<Entity> enemies = EnemyFactory.getEnemiesForLevel(levelName);
+        List<Entity> objects = ObjectFactory.getObjectsForLevel(levelName);
     }
 
-    private void spawnPlayers() {
-        List<String> players = playerState.getSelectedPlayers();
-        int baseX = 5 * 64;
-        int baseY = 7 * 64;
-
-        for (int i = 0; i < players.size(); i++) {
-            String playerID = players.get(i);
-            FXGL.spawn(playerID, baseX + i * 64, baseY);
+    int contador = -1;
+    private Point2D setPosition(String level){
+        if (contador == 4) contador = 0;
+        if (level.equals("level_01")){
+            contador ++;
+            return posiciones.get(contador);
+        }else {
+            contador ++;
+            return posicionesParaNiveles.get(contador);
         }
-    }
 
-    public int getCurrentLevel() {
-        return currentLevel;
+    }
+    private final List<Point2D> posiciones = List.of(
+            new Point2D(TILE_SIZE * 4, TILE_SIZE * 6),
+            new Point2D(TILE_SIZE * 6, TILE_SIZE * 6),
+            new Point2D(TILE_SIZE * 4, TILE_SIZE * 4),
+            new Point2D(TILE_SIZE * 6, TILE_SIZE * 4),
+            new Point2D(TILE_SIZE * 7, TILE_SIZE * 5)
+    );
+
+    private final List<Point2D> posicionesParaNiveles = List.of(
+            new Point2D(TILE_SIZE * 18, TILE_SIZE * 27),
+            new Point2D(TILE_SIZE * 20, TILE_SIZE * 27),
+            new Point2D(TILE_SIZE * 18, TILE_SIZE * 24),
+            new Point2D(TILE_SIZE * 20, TILE_SIZE * 24),
+            new Point2D(TILE_SIZE * 19, TILE_SIZE * 18)
+    );
+
+    public void spawnPlayer(String level) {
+        if (EscenaSeleccion.jaxKaneBool) {
+            JaxKane = FXGL.spawn("jaxKane",setPosition(level));
+            playersSelected.add(JaxKane);
+            currentEntity = JaxKane;
+        }
+
+        if (EscenaSeleccion.cyborgBool){
+            cyborg = FXGL.spawn("cyborg",setPosition(level));
+            playersSelected.add(cyborg);
+            currentEntity = cyborg;
+        }
+
+        if (EscenaSeleccion.zaraQuinnBool) {
+            zara = FXGL.spawn("zara",setPosition(level));
+            playersSelected.add(zara);
+            currentEntity =zara;
+        }
+
+        if (EscenaSeleccion.marcusBool) {
+            marcus = FXGL.spawn("marcus",setPosition(level));
+            playersSelected.add(marcus);
+            currentEntity = marcus;
+        }
     }
 }
