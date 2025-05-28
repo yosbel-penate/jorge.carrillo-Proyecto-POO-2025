@@ -465,15 +465,28 @@ public class UI {
     }
 
     private void setImageTienda(){
-        getGameScene().addUINode(viewLatienda);
+        if (getGameScene().getUINodes().contains(viewLatienda)) getGameScene().removeUINode(viewLatienda);
+        else getGameScene().addUINode(viewLatienda);
 
         wikiView.addEventFilter(MouseEvent.MOUSE_PRESSED, MouseEvent::consume);
 
         Scene scene = getGameScene().getRoot().getScene();
         scene.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
-            // Si la wikiView sigue en la UI, la quitamos
-            if (getGameScene().getUINodes().contains(viewLatienda)) {
-                getGameScene().removeUINode(viewLatienda);
+            if (!getGameScene().getUINodes().contains(viewLatienda)) return;
+            
+            double x = e.getX();
+            double y = e.getY();
+            
+            if (x > 915 && x < 980 && y > 260 && y < 310) getGameScene().removeUINode(viewLatienda);
+
+            if (!(x > 850 && x < 975)) return;
+
+            if (y > 405 && y < 460) {
+                System.out.println("Ha comprado el item 1");
+            } else if (y > 505 && y < 560) {
+                System.out.println("Ha comprado el item 2");
+            } else if (y > 605 && y < 660) {
+                System.out.println("Ha comprado el item 3");
             }
         });
     }
