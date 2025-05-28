@@ -290,6 +290,15 @@ public class EnemyFactory implements EntityFactory {
 
                 entities.add(FXGL.spawn("droid3", TILE_SIZE * 18, TILE_SIZE * 5));
                 entities.add(FXGL.spawn("droid3", TILE_SIZE * 18, TILE_SIZE * 20));
+                entities.add(FXGL.spawn("paton", TILE_SIZE * 10, TILE_SIZE * 7));
+                entities.add(FXGL.spawn("paton", TILE_SIZE * 24, TILE_SIZE * 13));
+
+                entities.add(FXGL.spawn("patrulla", TILE_SIZE * 13, TILE_SIZE * 18));
+                entities.add(FXGL.spawn("patrulla", TILE_SIZE * 20, TILE_SIZE));
+                entities.add(FXGL.spawn("patrulla", TILE_SIZE * 30, TILE_SIZE * 3));
+
+                entities.add(FXGL.spawn("boss", TILE_SIZE * 18, TILE_SIZE  * 7 ));
+
 
                 break;
         }

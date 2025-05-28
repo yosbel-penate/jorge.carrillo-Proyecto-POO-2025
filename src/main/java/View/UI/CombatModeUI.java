@@ -223,8 +223,6 @@ public class CombatModeUI {
         fadeIn.play();
     }
 
-
-
     public void initButtonAtacckBasic(Entity player, Entity enemy){
         buttonAtackBasic.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -296,7 +294,7 @@ public class CombatModeUI {
                 if (enemy.getComponent(CombatStatsComponent.class).currentHealth <= 0){
                     System.out.println("vida del enemigo :" +
                                 enemy.getComponent(CombatStatsComponent.class).getCurrentHealth());
-                    FXGL.spawn("coin",pos.getX() + 10,pos.getY() + 10);
+                   FXGL.spawn("coin",pos.getX() + 10,pos.getY() + 10);
                 }
                 MusicService.playCoin();
             }, Duration.seconds(1));
@@ -347,7 +345,6 @@ public class CombatModeUI {
 
     public void enemyDead(Entity enemy){
         enemy.getComponent(AnimationComponents.class).playDeatAnimation();
-
     }
 
     public void updateHealthBarPlayer(Entity player) {
@@ -440,5 +437,4 @@ public class CombatModeUI {
             enemy.getComponent(CombatStatsComponent.class).currentHealth = 0;
         updateHealthBarEnemi(enemy);
     }
-
 }

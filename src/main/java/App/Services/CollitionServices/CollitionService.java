@@ -220,11 +220,6 @@ public class CollitionService
         // 1. Guardamos la posición del enemigo
         Point2D pos = enemy.getPosition();
 
-
-        // 3. Hacemos spawn de la nueva entidad en esa misma posición
-        //    "NewEnemy" debe estar registrado en initSettings() con addEntityFactory()
-        FXGL.spawn("coin",pos.getX() + 10,pos.getY() + 10);
-        MusicService.playCoin();
     }
 
 }
