@@ -61,7 +61,6 @@ public class ObjectFactory implements EntityFactory {
     public Entity newCoin(SpawnData data) {
 
         return FXGL.entityBuilder(data)
-                //.at(TILE_SIZE * 10, TILE_SIZE * 11)
                 .type(Types.EntityType.COIN)
                 .with(new AnimationComponents(
                         "coin",

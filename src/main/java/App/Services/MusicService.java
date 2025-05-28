@@ -28,7 +28,6 @@ public class MusicService {
 
     public static void playChangeCharacter(){
         FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("cambiarPersonaje.wav"));
-
     }
 
     public static void playKey(){

@@ -18,6 +18,8 @@ import java.util.List;
 import View.UI.CombatModeUI;
 import View.UI.UI;
 
+import static Domain.Settings.SettingsGame.TILE_SIZE;
+
 
 public class AcertijoService {
 
@@ -71,6 +73,9 @@ public class AcertijoService {
     double fitWidth = 600;
     img.setFitWidth(fitWidth);
 
+    img.setTranslateX(TILE_SIZE * 10);
+    img.setTranslateY(TILE_SIZE * 5);
+
     double scaleX = fitWidth / imagenesAnchoOriginal[acertijoActual];
     double scale = scaleX;
 
@@ -88,6 +93,8 @@ public class AcertijoService {
         btn.setLayoutX(coordsOriginal[i][0] * scale);
         btn.setLayoutY(coordsOriginal[i][1] * scale);
         btn.setStyle("-fx-background-color: transparent;");
+        btn.setTranslateX(TILE_SIZE * 10);
+        btn.setTranslateY(TILE_SIZE * 5);
 
         btn.setOnAction(e -> {
     verificarRespuesta(opcionTexto, actual.getRespuestaCorrecta(), barrier, layout, player);

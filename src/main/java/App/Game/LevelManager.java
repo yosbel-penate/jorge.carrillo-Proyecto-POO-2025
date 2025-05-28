@@ -3,20 +3,23 @@ package App.Game;
 import App.EntityFactory.EnemyFactory;
 import App.EntityFactory.ObjectFactory;
 import View.UI.EscenaSeleccion;
+import View.UI.UI;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.level.Level;
 import javafx.geometry.Point2D;
+import javafx.scene.image.ImageView;
 
 import java.util.List;
 
 import static App.Game.GameApp.*;
 import static Domain.Settings.SettingsGame.TILE_SIZE;
+import static com.almasb.fxgl.dsl.FXGL.getAssetLoader;
 import static com.almasb.fxgl.dsl.FXGL.setLevelFromMap;
 
 public class LevelManager
 {
-    int TILE = 50;
+
 
     public void loadLevel(String levelName) {
         Level level = setLevelFromMap(levelName + ".tmx");
@@ -24,6 +27,7 @@ public class LevelManager
         spawnEntites(levelName); //carga los enemigos dependiendo del nivel
         spawnPlayer(levelName);
     }
+
 
     private void spawnEntites(String levelName) {
         List<Entity> enemies = EnemyFactory.getEnemiesForLevel(levelName);
