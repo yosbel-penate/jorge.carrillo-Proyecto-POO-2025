@@ -3,9 +3,7 @@ package App.EntityFactory;
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
 import App.Game.GameApp;
-import Domain.Entity.Characters.Players.EngineerMarcus;
-import Domain.Entity.Characters.Players.JaxKane;
-import Domain.Entity.Characters.Players.ZaraQuinn;
+import Domain.Entity.Characters.Players.*;
 import Domain.Entity.Types;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -18,7 +16,6 @@ import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
-import Domain.Entity.Characters.Players.Cyborg;
 import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
@@ -32,6 +29,7 @@ public class PlayersFactory implements EntityFactory {
     JaxKane jaxKane = new JaxKane();
     ZaraQuinn zaraQuinn = new ZaraQuinn();
     EngineerMarcus marcus = new EngineerMarcus();
+    ToxicMan toxic = new ToxicMan();
 
 
     @Spawns("cyborg")
@@ -175,6 +173,44 @@ public class PlayersFactory implements EntityFactory {
                         marcus.altoFramesCaminando,
                         marcus.anchoFramesCaminando,
                         marcus.hitBox
+
+                ))
+                .with(physicsComponent)
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+
+    @Spawns("toxic")
+    public Entity newToxic(SpawnData data) {
+        PhysicsComponent physicsComponent = new PhysicsComponent();
+        physicsComponent.setBodyType(BodyType.DYNAMIC);
+
+        return FXGL.entityBuilder(data)
+                .type(Types.EntityType.PLAYER)
+                .with(new CombatStatsComponent(toxic.life,
+                        toxic.atack,
+                        3,
+                        "toxico"))
+                .with(new AnimationComponents(
+                        toxic.name,
+                        toxic.cantidadFramesCaminando,
+                        toxic.cantidadFramesIdle,
+                        toxic.cantidadFramesAtack,
+                        toxic.anchoFrameAtack,
+                        toxic.altoFrameAtack,
+                        toxic.anchoFramesIdle,
+                        toxic.altoFramesIdle,
+                        0,
+                        toxic.cantidadFramesIdle - 1,
+                        toxic.cantidaFramesMuerte,
+                        toxic.anchoFramesMuerte,
+                        toxic.altoFramesMuerte,
+                        toxic.cantidadFramesAtackSpecial,
+                        toxic.anchoFramesAtackSpecial,
+                        toxic.altoFramesAtackSpecial,
+                        toxic.altoFramesCaminando,
+                        toxic.anchoFramesCaminando,
+                        toxic.hitBox
 
                 ))
                 .with(physicsComponent)

@@ -3,6 +3,7 @@ package App.Services;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 
+import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -135,15 +136,27 @@ public class AcertijoService {
    private void verificarRespuesta(String seleccion, String correcta, Entity barrier, Pane layout, Entity player)
  {
     if (seleccion.equals(correcta)) {
-        Point2D itemPosition = barrier.getPosition();
+    Point2D itemPosition = barrier.getPosition();
+    MusicService.playPanel();
+    barrier.getComponent(AnimationComponents.class).playDisabledBarrier();
+    FXGL.getGameTimer().runOnceAfter(() -> {
         barrier.removeFromWorld();
         FXGL.spawn("barrierDisabled", itemPosition);
-        FXGL.getGameScene().removeUINode(layout);
-    } else {
+    }, Duration.seconds(1));
+
+    FXGL.getGameScene().removeUINode(layout);
+}
+ else {
         CombatStatsComponent stats = player.getComponent(CombatStatsComponent.class);
         stats.currentHealth = Math.max(0, stats.currentHealth - 5); // evita negativos
         ui.updateHealthBarPlayer(player);
 
+    if (stats.currentHealth <= 0) {
+    player.getComponent(AnimationComponents.class).playDeatAnimation();
+    ui.showPlayerDeadBanner();
+    FXGL.getGameWorld().removeEntity(player);
+
+}
 
         Text texto = new Text("- 5");
         texto.setFill(Color.RED);

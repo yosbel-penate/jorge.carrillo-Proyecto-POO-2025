@@ -7,7 +7,9 @@ import View.UI.*;
 import App.EntityFactory.EnemyFactory;
 import App.EntityFactory.ObjectFactory;
 import App.EntityFactory.PlayersFactory;
+import App.Services.AcertijoService;
 import App.Services.Input;
+import Domain.Entity.Types;
 import Domain.Settings.SettingsGame;
 import com.almasb.fxgl.app.CursorInfo;
 import com.almasb.fxgl.app.GameApplication;
@@ -18,8 +20,13 @@ import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static Domain.Settings.SettingsGame.*;
+import static View.UI.UI.borderEntityIdentifier;
+import static View.UI.UI.botonStatus;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
 public class GameApp extends GameApplication
@@ -28,6 +35,7 @@ public class GameApp extends GameApplication
     //Entidades
     public static Entity zara;
     public static Entity JaxKane;
+    public static Entity toxic;
     private static Entity doorLevel1;
     public static Entity currentEntity;
     private Entity coin;
@@ -48,13 +56,14 @@ public class GameApp extends GameApplication
     private Entity panel;
     private Entity panel2;
 
+
     LevelManager levelManager = new LevelManager();
     public static ArrayList<Entity> playersSelected = new ArrayList<>();
     static Input input = new Input();
     static UI ui = new UI();
     private Board board = new Board();
     static CombatModeUI combatModeUI = new CombatModeUI(ui);
-    private final CollitionService collitionService = new CollitionService(input);
+    private final CollitionService collitionService = new CollitionService(input, combatModeUI);
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -79,6 +88,11 @@ public class GameApp extends GameApplication
         settings.setTitle(SettingsGame.gameTitle);
     }
 
+        @Override
+    protected void initGameVars(Map<String, Object> vars) {
+    vars.put("coins", 0); // otra variable
+}
+
     @Override
     protected void initGame() {
 
@@ -92,8 +106,26 @@ public class GameApp extends GameApplication
         levelManager.loadLevel("level_01");
         spawnLevel_01Entities();
 
+        findPanels();
+
+        initCollitionSeervices();
+
+
         input.movInput();
     }
+
+private void findPanels() {
+    // Busca en el mundo de juego todas las entidades tipo PANEL
+    List<Entity> paneles = getGameWorld().getEntitiesByType(Types.EntityType.PANEL);
+
+    if (paneles.size() >= 2) {
+        panel = paneles.get(0);
+        panel2 = paneles.get(1);
+        System.out.println("Paneles encontrados y asignados.");
+    } else {
+        System.err.println("No se encontraron suficientes paneles, se encontraron " + paneles.size());
+    }
+}
 
     private void addEntitiesFactories(){
         getGameWorld().addEntityFactory(new PlayersFactory());
@@ -112,12 +144,18 @@ public class GameApp extends GameApplication
     private void initCollitionSeervices(){
         collitionService.starDoorCollition(doorLevel1);
         collitionService.startCollitionCoin(combatModeUI);
-        collitionService.starPanelCollition(barrier);
         collitionService.startCollitionEnemy(combatModeUI);
         collitionService.startCollitionItemAtack(ui);
         collitionService.startCollitionItemLife(combatModeUI);
         collitionService.startCollitionItemSpecialPoint(combatModeUI);
         collitionService.startCollitionBarrier(combatModeUI);
+  
+        Map<Entity, Entity> panelBarrierMap = new HashMap<>();
+        panelBarrierMap.put(panel, barrier);
+        panelBarrierMap.put(panel2, barrier1);
+
+        collitionService.startPanelCollision(panelBarrierMap, combatModeUI);
+
     }
 
     public static void setActionsOnClick(String nameEntitySelected){
@@ -156,9 +194,13 @@ public class GameApp extends GameApplication
     protected void onUpdate(double tpf) {
 
         board.centrarPersonajes(currentEntity);
-        //borderEntityIdentifier();
         if (playersSelected.isEmpty()){
             System.out.println("se acabo");
+        }
+        Entity lastEntityWithBorde = null;
+        if (botonStatus && GameApp.currentEntity != null && GameApp.currentEntity != lastEntityWithBorde) {
+            borderEntityIdentifier();
+            lastEntityWithBorde = GameApp.currentEntity;
         }
     }
 

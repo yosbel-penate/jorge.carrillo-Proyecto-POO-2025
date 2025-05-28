@@ -1,10 +1,12 @@
 package View.UI;
 
 import App.EntityFactory.PlayersFactory;
+import App.Services.MusicService;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +26,7 @@ public class EscenaSeleccion extends SubScene {
     public static Boolean cyborgBool = false;
     public static Boolean zaraQuinnBool = false;
     public static Boolean marcusBool = false;
+    public static Boolean toxicBool = false;
 
     public EscenaSeleccion() {
         super();
@@ -55,8 +58,12 @@ public class EscenaSeleccion extends SubScene {
 
         //Imagenes representativas de los personajes
         //======================Iconos===============================
-        //marcus
 
+        Image iconToxic = new Image(Objects.requireNonNull(getClass().getResource(
+                "/assets/textures/iconToxic.png"
+        )).toExternalForm());
+        ImageView iconToxicView = new ImageView(iconToxic);
+        //marcus
         Image iconMarcus = new Image(Objects.requireNonNull(getClass().getResource(
                 "/assets/textures/iconEngineerMarcus.png"
         )).toExternalForm());
@@ -77,6 +84,10 @@ public class EscenaSeleccion extends SubScene {
         )).toExternalForm());
         ImageView iconCyborgView = new ImageView(iconCyborg);
         //====================Target==================================
+        //Toxic
+        Image toxic = new Image(Objects.requireNonNull(getClass().getResource(
+                "/assets/textures/targetaToxic.png"
+        )).toExternalForm());
         //Marcus
         Image marcus = new Image(Objects.requireNonNull(getClass().getResource(
                 "/assets/textures/targetaEngineerMarcus.png"
@@ -99,8 +110,14 @@ public class EscenaSeleccion extends SubScene {
         ImageView zaraQuinnView = new ImageView(zaraQuinn);
         ImageView imageView = new ImageView(cyborg);
         ImageView imageView1 = new ImageView(jaxKane);
+        ImageView toxicView = new ImageView(toxic);
 
         //================Botones===============
+
+        Button toxicButton = new Button();
+        toxicButton.setGraphic(toxicView);
+        toxicButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+
         Button marcusButton = new Button();
         marcusButton.setGraphic(marcusView);
         marcusButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
@@ -123,8 +140,11 @@ public class EscenaSeleccion extends SubScene {
         UI.animacionPresionarBoton(CyborgButton);
         UI.animacionPresionarBoton(zaraQuinnButton);
         UI.animacionPresionarBoton(marcusButton);
+        UI.animacionPresionarBoton(toxicButton);
 
         jaxKaneButton.setOnAction(e -> {
+            MusicService.playKey();
+
             if (!jaxKaneBool) {
                 personajesSeleccionados.getChildren().add(jaxKaneView);
             } else {
@@ -135,6 +155,8 @@ public class EscenaSeleccion extends SubScene {
         });
 
         CyborgButton.setOnAction(e -> {
+            MusicService.playKey();
+
             if (!cyborgBool){
                 personajesSeleccionados.getChildren().add(iconCyborgView);
 
@@ -144,7 +166,20 @@ public class EscenaSeleccion extends SubScene {
             cyborgBool = !cyborgBool;
         });
 
+        toxicButton.setOnAction(e -> {
+            MusicService.playKey();
+
+            if (!toxicBool){
+                personajesSeleccionados.getChildren().add(iconToxicView);
+
+            }else {
+                personajesSeleccionados.getChildren().remove(iconToxicView);
+            }
+            toxicBool = !toxicBool;
+        });
+
         zaraQuinnButton.setOnAction(e -> {
+            MusicService.playKey();
             if(!zaraQuinnBool){
                 personajesSeleccionados.getChildren().add(iconViewZaraQuinn);
 
@@ -155,6 +190,8 @@ public class EscenaSeleccion extends SubScene {
         });
 
         marcusButton.setOnAction(e -> {
+            MusicService.playKey();
+
             if (!marcusBool){
                 personajesSeleccionados.getChildren().add(iconViewMarcus);
 
@@ -170,17 +207,7 @@ public class EscenaSeleccion extends SubScene {
         hbox.getChildren().add(CyborgButton);
         hbox.getChildren().add(jaxKaneButton);
         hbox.getChildren().add(zaraQuinnButton);
-
-        hbox.setTranslateY(TILE_SIZE * 6);
-
-        // Crear el Slider para desplazarse horizontalmente
-        Slider slider = new Slider();
-        slider.setMin(0);
-        slider.setMax(1);
-        slider.setValue(0);
-        slider.setPrefWidth(400);
-
-        slider.setTranslateY(TILE_SIZE * 6);
+        hbox.getChildren().add(toxicButton);
 
 
         //Boton para iniciar el juego
@@ -205,28 +232,24 @@ public class EscenaSeleccion extends SubScene {
         });
 
 
+        ScrollPane scrollPane = new ScrollPane(hbox);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setPannable(true); // Permite arrastrar con el mouse
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPrefViewportHeight(TILE_SIZE * 8); // Ajusta según sea necesario
+        scrollPane.setPrefViewportWidth(TILE_SIZE * 30);  // Ajusta según sea necesario
 
-        // Esperar a que se haya calculado el ancho del HBox para habilitar el listener
-        hbox.layoutBoundsProperty().addListener((obs, oldBounds, newBounds) -> {
-            // Ahora que tenemos el ancho correcto, actualizamos el slider listener
-            slider.valueProperty().addListener((o, oldVal, newVal) -> {
-                double maxTranslateX = newBounds.getWidth() - slider.getWidth();
-                if (maxTranslateX < 0) maxTranslateX = 0; // evitar desplazamiento negativo
-                double targetX = -newVal.doubleValue() * maxTranslateX;
-                hbox.setTranslateX(targetX);
-            });
-        });
+        scrollPane.setStyle("-fx-background-color: transparent; -fx-background: transparent;");
 
-        // Crear un VBox para contener el HBox y el Slider
-        VBox vbox = new VBox(10);
-        vbox.getChildren().add(hbox);
-        vbox.getChildren().add(slider);
-        vbox.setPadding(new Insets(10));
+        scrollPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/assets/styles.css")).toExternalForm());
 
-        // Añadir el VBox al contenedor de la SubScene
-        StackPane root = new StackPane(vbox);
-        getContentRoot().getChildren().add(root);;
+        scrollPane.setTranslateY(TILE_SIZE * 6);
+        scrollPane.setTranslateX(15);
+
+        getContentRoot().getChildren().add(scrollPane);
         getContentRoot().getChildren().add(personajesSeleccionados);
         getContentRoot().getChildren().add(botonIniciar);
+
     }
 }

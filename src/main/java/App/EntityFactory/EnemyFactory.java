@@ -3,10 +3,7 @@ package App.EntityFactory;
 import App.Components.AnimationComponents;
 import App.Components.CombatStatsComponent;
 import App.Game.GameApp;
-import Domain.Entity.Characters.Enemies.Drone;
-import Domain.Entity.Characters.Enemies.Drone3;
-import Domain.Entity.Characters.Enemies.DroneTipe_1;
-import Domain.Entity.Characters.Enemies.Golem;
+import Domain.Entity.Characters.Enemies.*;
 import Domain.Entity.Types;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -26,6 +23,7 @@ public class EnemyFactory implements EntityFactory {
 
     Drone drone = new Drone();
     DroneTipe_1 droneTipe1 = new DroneTipe_1();
+    Paton paton = new Paton();
 
     //Entidades
     @Spawns("explore")
@@ -50,6 +48,64 @@ public class EnemyFactory implements EntityFactory {
                         12,
                         600,
                         50,
+                        11
+                ))
+                .with(physics)
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+
+    @Spawns("paton")
+    public Entity newPaton(SpawnData data){
+
+        PhysicsComponent physics = new PhysicsComponent();
+        physics.setBodyType(BodyType.KINEMATIC);
+
+        return FXGL.entityBuilder(data)
+                .type(Types.EntityType.ENEMY)
+                .with(new CombatStatsComponent(Paton.life, Paton.atack,3,"paton"))
+                .with(new AnimationComponents(
+                        "paton",
+                        paton.cantidadFrames,
+                        paton.cantidadFramesAtackBasic,
+                        Paton.anchoSpriteSheetAtackBasic,
+                        Paton.altoSpriteSheetAtackBasic,
+                        Paton.anchoSpriteSheet,
+                        Paton.altoSpriteSheet,
+                        0,
+                        3,
+                        Paton.cantidadFramesMuerte,
+                        Paton.anchoFrameMuerte,
+                        Paton.altoFrameMuerte,
+                        11
+                ))
+                .with(physics)
+                .with(new CollidableComponent(true))
+                .buildAndAttach();
+    }
+
+    @Spawns("patrulla")
+    public Entity newPatrulla(SpawnData data){
+
+        PhysicsComponent physics = new PhysicsComponent();
+        physics.setBodyType(BodyType.KINEMATIC);
+
+        return FXGL.entityBuilder(data)
+                .type(Types.EntityType.ENEMY)
+                .with(new CombatStatsComponent(Patrulla.life, Patrulla.atack,3,"patrulla"))
+                .with(new AnimationComponents(
+                        "patrulla",
+                        Patrulla.cantidadFrames,
+                        Patrulla.cantidadFramesAtackBasic,
+                        Patrulla.anchoSpriteSheetAtackBasic,
+                        Patrulla.altoSpriteSheetAtackBasic,
+                        Patrulla.anchoSpriteSheet,
+                        Patrulla.altoSpriteSheet,
+                        0,
+                        3,
+                        Patrulla.cantidadFramesMuerte,
+                        Patrulla.anchoFrameMuerte,
+                        Patrulla.altoFrameMuerte,
                         11
                 ))
                 .with(physics)
@@ -203,6 +259,17 @@ public class EnemyFactory implements EntityFactory {
 
                 entities.add(FXGL.spawn("droid3", TILE_SIZE * 18, TILE_SIZE * 5));
                 entities.add(FXGL.spawn("droid3", TILE_SIZE * 18, TILE_SIZE * 20));
+
+                entities.add(FXGL.spawn("paton", TILE_SIZE * 10, TILE_SIZE * 7));
+                entities.add(FXGL.spawn("paton", TILE_SIZE * 24, TILE_SIZE * 13));
+
+
+                entities.add(FXGL.spawn("patrulla", TILE_SIZE * 13, TILE_SIZE * 18));
+                entities.add(FXGL.spawn("patrulla", TILE_SIZE * 20, TILE_SIZE));
+                entities.add(FXGL.spawn("patrulla", TILE_SIZE * 30, TILE_SIZE * 3));
+
+
+
                 break;
 
             case "level_02":
