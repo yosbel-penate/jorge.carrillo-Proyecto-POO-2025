@@ -422,11 +422,6 @@ public class UI {
         getGameScene().addUINode(botonResaltar);
         getGameScene().addUINode(iconCoinView);
         getGameScene().addUINode(contadorMonedas);
-
-
-
-
-
     }
 
 

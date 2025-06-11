@@ -1,6 +1,7 @@
 package Domain.Entity.Characters.Enemies;
 
 public class Drone extends Enemies {
+
     public Drone() {
         super(
                 5,           // life

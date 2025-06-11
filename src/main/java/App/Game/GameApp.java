@@ -7,7 +7,6 @@ import View.UI.*;
 import App.EntityFactory.EnemyFactory;
 import App.EntityFactory.ObjectFactory;
 import App.EntityFactory.PlayersFactory;
-import App.Services.AcertijoService;
 import App.Services.Input;
 import Domain.Entity.Types;
 import Domain.Settings.SettingsGame;
@@ -29,6 +28,7 @@ import static View.UI.UI.borderEntityIdentifier;
 import static View.UI.UI.botonStatus;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 
+//AL EXTENDER DE GAMEAPPLICATION LE INDICAMOS AL FRAMEWORK QUE ESTA ES LA CLASE PRINCIPAL DEL JUEGO
 public class GameApp extends GameApplication
 {
 
@@ -56,9 +56,10 @@ public class GameApp extends GameApplication
     private Entity panel;
     private Entity panel2;
 
+    //ARRAY LIST CON LOS PERSONAJES ACTUALMENTE JUGABLES
+    public static ArrayList<Entity> playersSelected = new ArrayList<>();
 
     LevelManager levelManager = new LevelManager();
-    public static ArrayList<Entity> playersSelected = new ArrayList<>();
     static Input input = new Input();
     static UI ui = new UI();
     private Board board = new Board();
@@ -70,6 +71,7 @@ public class GameApp extends GameApplication
 
         settings.setDefaultCursor(new CursorInfo("cursor.png", 0, 0));
         settings.setMainMenuEnabled(true);
+        //CARGO LOS MENUS DE PAUSA Y DE INICIO
         settings.setSceneFactory(new SceneFactory(){
 
             @Override
@@ -82,13 +84,15 @@ public class GameApp extends GameApplication
                 return new GameMenu();
             }
         });
+
         settings.setDeveloperMenuEnabled(true);
+        //DEFINE LA RESOLUCION DE LA PANTALLA DE JUEGO
         settings.setWidth(1536);
         settings.setHeight(1024);
         settings.setTitle(SettingsGame.gameTitle);
     }
 
-        @Override
+    @Override
     protected void initGameVars(Map<String, Object> vars) {
     vars.put("coins", 0); // otra variable
 }
@@ -96,8 +100,11 @@ public class GameApp extends GameApplication
     @Override
     protected void initGame() {
 
+        //CARGA EL TABLERO DE JUEGO
         Board.boardTable(NUM_TILES_Y, NUM_TILES_X, TILE_SIZE);
+
         addEntitiesFactories();
+
         //Music
         MusicService.stopMainMenu();
         MusicService.playLevel1Music();
@@ -110,11 +117,10 @@ public class GameApp extends GameApplication
 
         initCollitionSeervices();
 
-
         input.movInput();
     }
 
-private void findPanels() {
+    private void findPanels() {
     // Busca en el mundo de juego todas las entidades tipo PANEL
     List<Entity> paneles = getGameWorld().getEntitiesByType(Types.EntityType.PANEL);
 
@@ -136,12 +142,13 @@ private void findPanels() {
     public void spawnLevel_01Entities (){
 
         doorLevel1 =  FXGL.spawn("door", TILE_SIZE * 18, 0);
-
         barrier = FXGL.spawn("barrier", TILE_SIZE * 16, TILE_SIZE * 3);
         barrier1 = FXGL.spawn("barrier", TILE_SIZE * 22, TILE_SIZE * 3);
     }
 
     private void initCollitionSeervices(){
+
+        //Inicializamos las colisiones con las diferentes entidades del juego
         collitionService.starDoorCollition(doorLevel1);
         collitionService.startCollitionCoin(combatModeUI);
         collitionService.startCollitionEnemy(combatModeUI);
@@ -155,7 +162,6 @@ private void findPanels() {
         panelBarrierMap.put(panel2, barrier1);
 
         collitionService.startPanelCollision(panelBarrierMap, combatModeUI);
-
     }
 
     public static void setActionsOnClick(String nameEntitySelected){
@@ -207,5 +213,4 @@ private void findPanels() {
     public static void main(String[] args) {
         launch(args);
     }
-
 }

@@ -34,6 +34,7 @@ public class PlayersFactory implements EntityFactory {
 
     @Spawns("cyborg")
     public Entity newCyborg(SpawnData data) {
+        //CARGAS EL COMPONENTE DE FISICAS DEL FRAMEWORK
         PhysicsComponent physicsComponent = new PhysicsComponent();
         physicsComponent.setBodyType(BodyType.DYNAMIC);
 
