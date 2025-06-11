@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 
 import static Domain.Settings.SettingsGame.*;
 
+//METODO PARA CREAR EL MAPA DE CUADRICULAS
 public class Board {
     static Entity tile;
     public static Entity boardTable(int NUM_TILES_Y,int NUM_TILES_X,int TILE_SIZE){

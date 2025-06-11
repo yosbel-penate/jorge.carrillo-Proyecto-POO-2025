@@ -2,7 +2,6 @@ package Domain.Entity;
 
 public class Types {
 
-
     public enum EntityType {
         ENEMY,
         ITEM_ATACCK,
@@ -11,7 +10,6 @@ public class Types {
         BARRIER,
         PANEL,
         PLAYER,
-        PlAYER_CYBORG,
         COIN,
         DOOR
     }

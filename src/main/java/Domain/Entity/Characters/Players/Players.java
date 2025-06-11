@@ -2,6 +2,7 @@ package Domain.Entity.Characters.Players;
 
 import Domain.Entity.Characters.Characters;
 
+//Clase hija de Characters para los jugadores
 public class Players extends Characters {
 
     //Atributos genericos de los personajes tipo jugador
@@ -20,10 +21,5 @@ public class Players extends Characters {
     public int cantidadFramesAtackSpecial;
     public int anchoFramesAtackSpecial;
     public int altoFramesAtackSpecial;
-
-
-    public void realizeSpecialSkill(){
-
-    }
 
 }

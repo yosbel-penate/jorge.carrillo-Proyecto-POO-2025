@@ -5,6 +5,7 @@ import Domain.Entity.Characters.Characters;
 
 public class Enemies extends Characters {
     // Atributos comunes, no estáticos
+
     protected int life;
     protected int attack;
     protected String nameCharacter;
