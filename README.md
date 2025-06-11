@@ -25,3 +25,7 @@
 - ademas de eso son las encargadas de crear las GUIs que se usaran en el juego
 - Vannesa su labor es la de crear los mundos donde se desarrollara la accion asi como los puntos de interes en los mismos
 - Yailen es la encargada de crear los items dentro del juego de cualquier tipo, ademas de sus caracteristicas y como estas afectan al resto del juego
+
+- # Guia de Instalacion
+- Para instalar el juego debe clonar nuestro reposicotio de GitHub y dirigirse a la carpeta /out/ donde encontrara el .jar ejecutable
+- 
