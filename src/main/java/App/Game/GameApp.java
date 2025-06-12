@@ -69,6 +69,7 @@ public class GameApp extends GameApplication
     @Override
     protected void initSettings(GameSettings settings) {
 
+        settings.setAppIcon("iconInit.png");
         settings.setDefaultCursor(new CursorInfo("cursor.png", 0, 0));
         settings.setMainMenuEnabled(true);
         //CARGO LOS MENUS DE PAUSA Y DE INICIO

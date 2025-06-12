@@ -27,5 +27,15 @@
 - Yailen es la encargada de crear los items dentro del juego de cualquier tipo, ademas de sus caracteristicas y como estas afectan al resto del juego
 
 - # Guia de Instalacion
-- Para instalar el juego debe clonar nuestro reposicotio de GitHub y dirigirse a la carpeta /out/ donde encontrara el .jar ejecutable
+- Que necesito?
+- version de JVK 17.0.0 O superior.
+- ## Specs :
+- Minimos :
+- Procesador : Pentium core duo
+- RAM : 2 GB
+- Storange : 5 GB Free
+- Graphic : Intel integrated GPU
+- 
+- Para instalar el juego debe clonar nuestro reposicotio de GitHub y dirigirse a la carpeta /out/artifacts/ donde encontrara el .jar ejecutable.
+- De dar errores trate de compilar manualmente el proyecto asegurese de tener una version de la JVM compatible.
 - 
