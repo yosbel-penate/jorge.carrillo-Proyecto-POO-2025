@@ -54,7 +54,8 @@ public class UI {
     private ImageView iconCoinView, buttonWikiView, wikiView, buttonGameMenuView, buttonMainMenuView;
     private ImageView specialPointBarView, statAtackBarView, statBarView, viewLatienda;
 
-    private static HBox barraIdentificadores;
+    public static Map<String, Button> mapNombreAButton = new HashMap<>(); // antes: private static
+    public static HBox barraIdentificadores = new HBox();            // antes: private static
 
     // Buttons
     private Button buttonWiki, buttonTienda, gameMenuButton, mainMenuButton;
@@ -63,8 +64,6 @@ public class UI {
     private static Text contadorMonedas;
 
     // Campo de clase:
-    private static final Map<String, Button> mapNombreAButton = new HashMap<>();
-
     // Utilidad para crear botones de imagen
     private Button createImageButton(Image image, double x, double y, double width, double height, Runnable onClick) {
         ImageView view = new ImageView(image);
