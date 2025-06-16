@@ -18,7 +18,6 @@
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Enemies/Drone3.java
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Enemies/DroneTipe_1.java
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Enemies/Enemies.java
-/workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Enemies/Golem.java
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Enemies/Paton.java
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Enemies/Patrulla.java
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Players/Cyborg.java
@@ -29,7 +28,6 @@
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Players/KaelRiddle.java
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Players/Players.java
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Players/ToxicMan.java
-/workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Players/VieronSnake.java
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Characters/Players/ZaraQuinn.java
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Elements/Elements.java
 /workspaces/jorge.carrillo-Proyecto-POO-2025/src/main/java/Domain/Entity/Elements/Items/Adrenalin.java
