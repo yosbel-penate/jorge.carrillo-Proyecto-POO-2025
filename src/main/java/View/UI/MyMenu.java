@@ -21,6 +21,9 @@ public class MyMenu extends FXGLMenu {
         ImageView bg = createImageView("/assets/textures/fondo.png", getAppWidth(), getAppHeight());
         getContentRoot().getChildren().add(bg);
 
+        // Escena de selección de personajes
+        charactersSeleccion = new EscenaSeleccion();
+
         // Botón de inicio
         Button btnStart = createImageButton(
                 "/assets/textures/ui/playButtonMainMenu.png",
@@ -29,9 +32,6 @@ public class MyMenu extends FXGLMenu {
         );
         UI.animacionPresionarBoton(btnStart);
         getContentRoot().getChildren().add(btnStart);
-
-        // Escena de selección de personajes
-        charactersSeleccion = new EscenaSeleccion();
     }
 
     private ImageView createImageView(String resourcePath, double width, double height) {
