@@ -9,6 +9,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
+// Se necesita recargar maven para que pille las imports
+
 public class GameMenu extends FXGLDefaultMenu {
 
     public GameMenu() {
