@@ -142,64 +142,40 @@ public class EscenaSeleccion extends SubScene {
         UI.animacionPresionarBoton(marcusButton);
         UI.animacionPresionarBoton(toxicButton);
 
-        jaxKaneButton.setOnAction(e -> {
-            MusicService.playKey();
+        // Refactor: método auxiliar para alternar selección de personaje
+        private void toggleCharacterSelection(
+                Button button, 
+                ImageView iconView, 
+                HBox selectedBox, 
+                java.util.function.Supplier<Boolean> getBool, 
+                java.util.function.Consumer<Boolean> setBool
+        ) {
+            button.setOnAction(e -> {
+                MusicService.playKey();
+                if (!getBool.get()) {
+                    selectedBox.getChildren().add(iconView);
+                } else {
+                    selectedBox.getChildren().remove(iconView);
+                }
+                setBool.accept(!getBool.get());
+            });
+        }
 
-            if (!jaxKaneBool) {
-                personajesSeleccionados.getChildren().add(jaxKaneView);
-            } else {
-                personajesSeleccionados.getChildren().remove(jaxKaneView);
-            }
+        // Asignar acciones usando el método refactorizado
+        toggleCharacterSelection(jaxKaneButton, jaxKaneView, personajesSeleccionados, 
+            () -> jaxKaneBool, val -> jaxKaneBool = val);
 
-            jaxKaneBool = !jaxKaneBool; // alterna el valor booleano
-        });
+        toggleCharacterSelection(CyborgButton, iconCyborgView, personajesSeleccionados, 
+            () -> cyborgBool, val -> cyborgBool = val);
 
-        CyborgButton.setOnAction(e -> {
-            MusicService.playKey();
+        toggleCharacterSelection(toxicButton, iconToxicView, personajesSeleccionados, 
+            () -> toxicBool, val -> toxicBool = val);
 
-            if (!cyborgBool){
-                personajesSeleccionados.getChildren().add(iconCyborgView);
+        toggleCharacterSelection(zaraQuinnButton, iconViewZaraQuinn, personajesSeleccionados, 
+            () -> zaraQuinnBool, val -> zaraQuinnBool = val);
 
-            }else {
-                personajesSeleccionados.getChildren().remove(iconCyborgView);
-            }
-            cyborgBool = !cyborgBool;
-        });
-
-        toxicButton.setOnAction(e -> {
-            MusicService.playKey();
-
-            if (!toxicBool){
-                personajesSeleccionados.getChildren().add(iconToxicView);
-
-            }else {
-                personajesSeleccionados.getChildren().remove(iconToxicView);
-            }
-            toxicBool = !toxicBool;
-        });
-
-        zaraQuinnButton.setOnAction(e -> {
-            MusicService.playKey();
-            if(!zaraQuinnBool){
-                personajesSeleccionados.getChildren().add(iconViewZaraQuinn);
-
-            }else {
-                personajesSeleccionados.getChildren().remove(iconViewZaraQuinn);
-            }
-            zaraQuinnBool = !zaraQuinnBool;
-        });
-
-        marcusButton.setOnAction(e -> {
-            MusicService.playKey();
-
-            if (!marcusBool){
-                personajesSeleccionados.getChildren().add(iconViewMarcus);
-
-            }else {
-                personajesSeleccionados.getChildren().remove(iconViewMarcus);
-            }
-            marcusBool = !marcusBool;
-        });
+        toggleCharacterSelection(marcusButton, iconViewMarcus, personajesSeleccionados, 
+            () -> marcusBool, val -> marcusBool = val);
 
 
         //Agregar botones en el Hbox
