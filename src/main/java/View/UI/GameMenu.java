@@ -8,9 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 public class GameMenu extends FXGLDefaultMenu {
+
     public GameMenu() {
         super(MenuType.GAME_MENU);
 
@@ -18,24 +18,19 @@ public class GameMenu extends FXGLDefaultMenu {
 
         MusicService.playMainMenu();
 
-        //Elimina el nodo del fondo por defecto
+        // Elimina nodos innecesarios del menú por defecto
         root.getChildren().removeIf(node -> node instanceof Rectangle);
 
-        MusicService.playMainMenu();
-
-        //Elimina el nodo del StackPane
         if (!root.getChildren().isEmpty() && root.getChildren().get(0) instanceof StackPane) {
             root.getChildren().remove(0);
         }
 
-        //Elimina el nodo de efecto grafico
         if (root.getChildren().size() > 1 && root.getChildren().get(1) instanceof Pane) {
             root.getChildren().remove(1);
         }
 
-        //Agregar Fondo
+        // Agrega fondo personalizado
         ImageView fondoView = FXGL.texture("fondoGameMenu.png", getAppWidth(), getAppHeight());
-
         fondoView.setFitWidth(getAppWidth());
         fondoView.setFitHeight(getAppHeight());
         fondoView.setPreserveRatio(false);
@@ -43,6 +38,5 @@ public class GameMenu extends FXGLDefaultMenu {
         fondoView.setY(0);
 
         root.getChildren().add(0, fondoView);
-
     }
 }
