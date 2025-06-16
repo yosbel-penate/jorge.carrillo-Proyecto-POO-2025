@@ -143,25 +143,6 @@ public class EscenaSeleccion extends SubScene {
         UI.animacionPresionarBoton(toxicButton);
 
         // Refactor: método auxiliar para alternar selección de personaje
-        private void toggleCharacterSelection(
-                Button button, 
-                ImageView iconView, 
-                HBox selectedBox, 
-                java.util.function.Supplier<Boolean> getBool, 
-                java.util.function.Consumer<Boolean> setBool
-        ) {
-            button.setOnAction(e -> {
-                MusicService.playKey();
-                if (!getBool.get()) {
-                    selectedBox.getChildren().add(iconView);
-                } else {
-                    selectedBox.getChildren().remove(iconView);
-                }
-                setBool.accept(!getBool.get());
-            });
-        }
-
-        // Asignar acciones usando el método refactorizado
         toggleCharacterSelection(jaxKaneButton, jaxKaneView, personajesSeleccionados, 
             () -> jaxKaneBool, val -> jaxKaneBool = val);
 
@@ -227,5 +208,24 @@ public class EscenaSeleccion extends SubScene {
         getContentRoot().getChildren().add(personajesSeleccionados);
         getContentRoot().getChildren().add(botonIniciar);
 
+    }
+
+    // Mueve el método aquí, fuera del constructor:
+    private void toggleCharacterSelection(
+            Button button,
+            ImageView iconView,
+            HBox selectedBox,
+            java.util.function.Supplier<Boolean> getBool,
+            java.util.function.Consumer<Boolean> setBool
+    ) {
+        button.setOnAction(e -> {
+            MusicService.playKey();
+            if (!getBool.get()) {
+                selectedBox.getChildren().add(iconView);
+            } else {
+                selectedBox.getChildren().remove(iconView);
+            }
+            setBool.accept(!getBool.get());
+        });
     }
 }
