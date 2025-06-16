@@ -418,23 +418,21 @@ public class CombatModeUI {
         }
     }
 
-    public void setHealthPLayer(int health,Entity player) {
-        System.out.println(player.getComponent(CombatStatsComponent.class).name + "============================");
-        GameApp.currentEntity.getComponent(CombatStatsComponent.class).currentHealth = Math.max(0, Math.min(health, GameApp.currentEntity.getComponent(CombatStatsComponent.class).getMaxHealth()));
-        updateHealthBarPlayer(GameApp.currentEntity);
+    public void setHealthPLayer(int health, Entity player) {
+        CombatStatsComponent stats = player.getComponent(CombatStatsComponent.class);
+        stats.currentHealth = Math.max(0, Math.min(health, stats.getMaxHealth()));
+        updateHealthBarPlayer(player);
     }
 
-    public void reduceHealthPlayer(int amount,Entity player) {
-        GameApp.currentEntity.getComponent(CombatStatsComponent.class).currentHealth -= amount;
-        if (GameApp.currentEntity.getComponent(CombatStatsComponent.class).currentHealth< 0)
-            GameApp.currentEntity.getComponent(CombatStatsComponent.class).currentHealth = 0;
-        updateHealthBarPlayer(GameApp.currentEntity);
+    public void reduceHealthPlayer(int amount, Entity player) {
+        CombatStatsComponent stats = player.getComponent(CombatStatsComponent.class);
+        stats.currentHealth = Math.max(0, stats.currentHealth - amount);
+        updateHealthBarPlayer(player);
     }
 
-    public void reduceHealthEnemi(int amount,Entity enemy) {
-        enemy.getComponent(CombatStatsComponent.class).currentHealth -= amount;
-        if (enemy.getComponent(CombatStatsComponent.class).currentHealth < 0)
-            enemy.getComponent(CombatStatsComponent.class).currentHealth = 0;
+    public void reduceHealthEnemi(int amount, Entity enemy) {
+        CombatStatsComponent stats = enemy.getComponent(CombatStatsComponent.class);
+        stats.currentHealth = Math.max(0, stats.currentHealth - amount);
         updateHealthBarEnemi(enemy);
     }
 }
