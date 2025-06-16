@@ -10,54 +10,48 @@ import javafx.scene.image.ImageView;
 
 import java.util.Objects;
 
-
 public class MyMenu extends FXGLMenu {
 
-    private SubScene charactersSeleccion;
+    private final SubScene charactersSeleccion;
 
     public MyMenu(MenuType type) {
         super(type);
 
-
-        // 1. Carga la textura desde assets/textures
-        Image tex = new Image(Objects.requireNonNull(getClass().getResource(
-                "/assets/textures/fondo.png"
-        )).toExternalForm());
-
-        // 2. Obtén el ImageView y ajústalo
-        ImageView bg = new ImageView();
-        bg.setImage(tex);
-        bg.setFitWidth(getAppWidth());
-        bg.setFitHeight(getAppHeight());
-        bg.setPreserveRatio(false);
-
-        // 3. Añádelo al content root (al fondo)
+        // Fondo
+        ImageView bg = createImageView("/assets/textures/fondo.png", getAppWidth(), getAppHeight());
         getContentRoot().getChildren().add(bg);
 
-        // 2. Vista del botón
-        Image boton = new Image(Objects.requireNonNull(getClass().getResource(
-                "/assets/textures/ui/playButtonMainMenu.png"
-        )).toExternalForm());
-
-        ImageView icon = new ImageView();
-        icon.setImage(boton);
-        Button btnStart = new Button();
-
-        btnStart.setGraphic(icon);
-        btnStart.setTranslateX(50);
-        btnStart.setTranslateY(400);
-        btnStart.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
-
-        charactersSeleccion = new EscenaSeleccion();
-
-        btnStart.setOnAction(e -> {
-
-            FXGL.getSceneService().pushSubScene(charactersSeleccion);
-
-        });
-
+        // Botón de inicio
+        Button btnStart = createImageButton(
+                "/assets/textures/ui/playButtonMainMenu.png",
+                50, 400,
+                () -> FXGL.getSceneService().pushSubScene(charactersSeleccion)
+        );
         UI.animacionPresionarBoton(btnStart);
-
         getContentRoot().getChildren().add(btnStart);
+
+        // Escena de selección de personajes
+        charactersSeleccion = new EscenaSeleccion();
+    }
+
+    private ImageView createImageView(String resourcePath, double width, double height) {
+        Image img = new Image(Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm());
+        ImageView view = new ImageView(img);
+        view.setFitWidth(width);
+        view.setFitHeight(height);
+        view.setPreserveRatio(false);
+        return view;
+    }
+
+    private Button createImageButton(String resourcePath, double x, double y, Runnable onClick) {
+        Image img = new Image(Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm());
+        ImageView icon = new ImageView(img);
+        Button btn = new Button();
+        btn.setGraphic(icon);
+        btn.setTranslateX(x);
+        btn.setTranslateY(y);
+        btn.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0;");
+        btn.setOnAction(e -> onClick.run());
+        return btn;
     }
 }
